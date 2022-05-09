@@ -1,7 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;900&family=Signika+Negative:wght@300;400;500&display=swap");
 * {
   padding: 0px;
   margin: 0px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Signika Negative', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: black;
+}
+
+.nav-container nav {
+  width: 1200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav-container nav .logo {
+  text-decoration: none;
+  width: 50%;
+  color: white;
+  padding: 10px;
+}
+
+.nav-container nav .menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  width: 50%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+}
+
+.nav-container nav .menu li {
+  margin: 10px;
+}
+
+.nav-container nav .menu li a {
+  font-size: 3vmin;
+  font-weight: 900;
+  color: white;
+}
+
+.nav-container nav .menu li a img {
+  width: 40px;
+  border-radius: 50%;
+  border: 1.5px solid white;
+}
+
+.nav-container nav .menu .member-list {
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+
+main {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .hp-1 {
+  width: 1200px;
+  background-color: antiquewhite;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main .hp-1 .hp-1-left {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .hp-1 .hp-1-left .slogan {
+  font-size: 10vmin;
+  font-weight: 900;
+  margin-left: 50px;
+}
+
+main .hp-1 .hp-1-left .hp-1-button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 50px;
+}
+
+main .hp-1 .hp-1-left .hp-1-button-container a {
+  font-size: 3vmin;
+  padding: 5px 10px;
+  border: 2px solid black;
+  border-radius: 30px;
+  font-weight: 700;
+  margin: 10px;
+}
+
+main .hp-1 .hp-1-right {
+  width: 50%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .hp-1 .hp-1-right .circle-container {
+  position: relative;
+  right: 10px;
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 100px 0;
+}
+
+main .hp-1 .hp-1-right .circle-container .circle {
+  margin: 5px;
+  width: 30%;
+  aspect-ratio: 1/1;
+  background: black;
+  border-radius: 50%;
 }
 /*# sourceMappingURL=index.css.map */

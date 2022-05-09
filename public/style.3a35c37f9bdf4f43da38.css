@@ -1,0 +1,15 @@
+/*!************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./static/css/index.css ***!
+  \************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;900&family=Signika+Negative:wght@300;400;500&display=swap);
+/*!****************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./static/css/index.css (1) ***!
+  \****************************************************************************/
+* {
+  padding: 0px;
+  margin: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Signika Negative', sans-serif;
+}

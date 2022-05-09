@@ -7,7 +7,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-      <div>hello</div>
+      <div>
+        {/* 主要開發位置 */}
+      </div>
       <App />
   </React.StrictMode>
 );

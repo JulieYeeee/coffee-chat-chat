@@ -1,0 +1,45 @@
+.nav-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: black;
+    nav{
+        width: 1200px;
+        display: flex;
+        align-items: center;
+        .logo{
+            text-decoration: none;
+            width: 50%;
+            color: white;
+            padding:10px;
+        }
+        .menu{
+            display: flex;
+            list-style: none;
+            width:50%;
+            justify-content: flex-end;
+            align-items: center;
+            padding:10px;
+            li{
+                margin:10px;
+                a{
+                    font-size: 3vmin;
+                    font-weight: 900;
+                    color: white;
+                    img{
+                        width: 40px;
+                        border-radius: 50%;
+                        border: 1.5px solid white;
+                    }
+                }
+               
+            }
+            .member-list{
+                border: 1px solid white;
+                border-radius: 15px;
+                padding: 5px 10px;
+            }
+        }
+        
+    }
+}
