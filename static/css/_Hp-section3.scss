@@ -1,0 +1,38 @@
+.hp-3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    // background: rgb(253, 255, 234);
+    width: 100%;
+    .hp-3-title{
+        font-size: 5vmin;
+        padding: 50px 0 ;
+    }
+    .hp-3-CTA{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: black;
+        width: 100%;
+        padding:20px;
+        margin-top: 50px;
+
+        .hp-3-CTA-text{
+            font-size: 3vmin;
+            color: white;
+            padding: 0 10px;
+        }
+        .hp-3-CTA-btn{
+            font-size: 3vmin;
+            border-radius: 20px;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            // background: black;
+
+        }
+
+    }
+
+}

@@ -1,30 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Section1 from "../component/homepage/Section1";
+import Section2 from "../component/homepage/Section2";
+import Section3 from "../component/homepage/Section3";
+import downarrow from "../static/picture/downarrow.png";
 
 const Homepage = () =>{
     return(
         <main>
-            <section className="hp-1">
-                <div className="hp-1-left">
-                    <p className="slogan">一杯咖啡<br/>聊出新思維</p>
-                    <div className="hp-1-button-container">
-                        <Link to="/memberlist" className="hp-1-btn-list">立即尋找咖啡聊對象</Link>
-                        <Link to="/account" className="hp-1-btn-regist">馬上成為分享者</Link>
-                    </div>
-                </div>
-                <div className="hp-1-right">
-                    <div className="circle-container">
-                        <div className="circle"><img></img>c哈</div>
-                        <div className="circle"><img></img>c哈</div>
-                        <div className="circle"><img></img>c哈</div>
-                        <div className="circle"><img></img>c哈</div>
-                        <div className="circle"><img></img>c哈</div>
-                        <div className="circle"><img></img>c哈</div>
-                    </div>
-                </div>
-
-
-            </section>
+            <Section1/>
+            <div className="bar-section1">
+                <p>成為諮詢者、分享者你可以...</p>
+                <img src={downarrow}></img>
+            </div>
+            <Section2/>
+            <Section3/>
 
         </main>
     )

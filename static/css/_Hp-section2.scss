@@ -1,0 +1,49 @@
+.hp-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
+    // height: 100vh;
+    // background: rgb(255, 234, 238);
+    .hp-2-title{
+        text-align: center;
+        padding:50px 0 ;
+        p{
+            font-size: 5vmin;
+
+        }
+    }
+    .hp-2-users{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .user{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+            background: black;
+            margin:0 10px;
+            padding: 10px 0px;
+            p{
+                color: white;
+                font-size: 3vmin;
+                text-align: center;
+
+            }
+            img{
+                color: white;
+                height: 50vh;
+
+            }
+            
+        }
+    }
+    .hp-2-last-title{
+        font-size: 5vmin;
+        padding:50px 0 ;
+    }
+}

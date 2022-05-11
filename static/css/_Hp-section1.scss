@@ -1,0 +1,55 @@
+.hp-1{
+    width: 1200px;
+    // background-color: antiquewhite;
+    display: flex;
+    // padding:100px 0;
+    height: auto;
+    min-height: 100vh;
+    .hp-1-left{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .slogan{
+            font-size: 10vmin;
+            font-weight: 900;
+            margin-left: 50px;
+        }
+        .hp-1-button-container{
+            display: flex;
+            margin-left: 50px;
+            a{
+                font-size: 3vmin;
+                padding:5px 10px;
+                border: 2px solid black;
+                border-radius: 30px;
+                font-weight: 700;
+                margin: 10px;
+
+            }
+        }
+    }
+    .hp-1-right{
+        width:50%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        .circle-container{
+            position: relative;
+            right: 10px;
+            width: 100%;
+            aspect-ratio: 1/1;
+            display: flex;
+            flex-wrap: wrap;
+            
+            .circle{
+                margin: 5px;
+                width: 30%;
+                height: 30%;
+                background: black;
+                border-radius: 50%;
+            
+            }
+        }
+    }
+}

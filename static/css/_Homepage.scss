@@ -1,57 +1,23 @@
 main{
     width: 100%;
     display: flex;
-    justify-content: center;
-    .hp-1{
-        width: 1200px;
-        background-color: antiquewhite;
+    flex-direction: column;
+    align-items: center;
+    
+    .bar-section1{
         display: flex;
-        .hp-1-left{
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            
-            .slogan{
-                font-size: 10vmin;
-                font-weight: 900;
-                margin-left: 50px;
-            }
-            .hp-1-button-container{
-                display: flex;
-                margin-left: 50px;
-                a{
-                    font-size: 3vmin;
-                    padding:5px 10px;
-                    border: 2px solid black;
-                    border-radius: 30px;
-                    font-weight: 700;
-                    margin: 10px;
-
-                }
-            }
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0 ;
+        p{
+            font-size: 3vmin;
         }
-        .hp-1-right{
-            width:50%;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            .circle-container{
-                position: relative;
-                right: 10px;
-                width: 80%;
-                display: flex;
-                flex-wrap: wrap;
-                padding:100px 0;
-                .circle{
-                    margin: 5px;
-                    width: 30%;
-                    aspect-ratio: 1/1;
-                    background: black;
-                    border-radius: 50%;
-                
-                }
-            }
+        img{
+            width: 40px;
         }
     }
 }
+
+@import "Hp-section1";
+@import "Hp-section2";
+@import "Hp-section3";
