@@ -11,6 +11,17 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const Account = ( {account,setAccount} ) =>{ 
+    let navigate=useNavigate();
+    useEffect(()=>{
+        if(account){
+            console.log("account page:",account);
+        }else{
+            navigate("/signin");
+        }
+
+    },[]);
+
+
     let [ tags ,setTags ]=useState([]);
     const addTags = (e) =>{
         if(e.key === "Enter"){
@@ -54,7 +65,7 @@ const Account = ( {account,setAccount} ) =>{
     }
     
 
-    // let navigate=useNavigate();
+    
 
     // if(account){
     //     console.log(account);
@@ -62,14 +73,7 @@ const Account = ( {account,setAccount} ) =>{
     //     navigate("/signin");
     // }
 
-    // useEffect(()=>{
-    //     if(account){
-    //         console.log(account);
-    //     }else{
-    //         navigate("/signin");
-    //     }
-
-    // },[account]);
+   
 
 
     return(

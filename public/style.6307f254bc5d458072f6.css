@@ -447,3 +447,310 @@ main .bar-section1 img {
 .signin-main .signin-hide {
   display: none;
 }
+
+.personal-info-main form {
+  width: 1200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #d5d5d5;
+}
+
+.personal-info-main form .personal-photo-name {
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid black;
+}
+
+.personal-info-main form .personal-photo-name .personal-img-upload {
+  width: 30%;
+  position: relative;
+}
+
+.personal-info-main form .personal-photo-name .personal-img-upload img {
+  background: grey;
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.personal-info-main form .personal-photo-name .personal-img-upload label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
+  padding: 5px;
+  background: white;
+  border: 1px solid black;
+}
+
+.personal-info-main form .personal-photo-name .personal-img-upload label input {
+  display: none;
+}
+
+.personal-info-main form .personal-photo-name .personal-name-info {
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 70%;
+}
+
+.personal-info-main form .personal-photo-name .personal-name-info label {
+  padding: 5px;
+}
+
+.personal-info-main form .personal-photo-name .personal-name-info label input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.personal-info-main form .personal-outlink {
+  border: 1px solid black;
+  width: 80%;
+}
+
+.personal-info-main form .personal-outlink div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-outlink div img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.personal-info-main form .personal-outlink div input {
+  width: 100%;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-intro {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.personal-info-main form .personal-intro textarea {
+  width: 100%;
+  aspect-ratio: 4/1;
+  resize: none;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-keyword {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.personal-info-main form .personal-keyword .tags-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background: white;
+  padding: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.personal-info-main form .personal-keyword .tags-box .tag {
+  background: gray;
+  color: white;
+  border-radius: 10px;
+  margin-right: 5px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.personal-info-main form .personal-keyword .tags-box .tag .tag-delete {
+  background: #dedede;
+  color: black;
+  font-size: small;
+  width: 20px;
+  aspect-ratio: 1/1;
+  padding: 2px;
+  margin: 2px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.personal-info-main form .personal-keyword .tags-box input {
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0);
+  border-style: none;
+}
+
+.personal-info-main form .personal-share-theme {
+  width: 80%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .share-theme {
+  width: 33%;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .share-theme .share-title-box {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .share-theme .share-title-box p {
+  background: grey;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .share-theme .share-title-box input {
+  width: 100%;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .share-theme textarea {
+  width: 100%;
+  aspect-ratio: 2/1;
+  padding: 10px;
+  resize: none;
+  margin: 10px 0;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .personal-share2 {
+  margin: 0 20px;
+}
+
+.personal-info-main form .personal-project {
+  border: 1px solid black;
+  width: 80%;
+  padding: 10px;
+}
+
+.personal-info-main form .personal-project .project {
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 0;
+}
+
+.personal-info-main form .personal-project .project .image-type-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .pj-image-upload {
+  width: 30%;
+  aspect-ratio: 3/2;
+  position: relative;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .pj-image-upload img {
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .pj-image-upload label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  cursor: point;
+  border: 1px solid black;
+  background: #dddddd;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .pj-image-upload label input {
+  display: none;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .type-discript-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 70%;
+  padding: 0 0 0 10px;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .type-discript-box select {
+  padding: 10px;
+  width: 100%;
+}
+
+.personal-info-main form .personal-project .project .image-type-box .type-discript-box textarea {
+  padding: 10px;
+  margin: 10px 0;
+  resize: none;
+  height: 100%;
+}
+
+.personal-info-main form .personal-project .project .project-link {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
