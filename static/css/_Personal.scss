@@ -1,0 +1,228 @@
+.personal-info-main{
+    // background: yellow;
+    form{
+        width: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgb(213, 213, 213);
+        .personal-photo-name{
+            width: 80%;
+            display: flex;
+            align-items: center;
+            border:1px solid black;
+            .personal-img-upload{
+                width: 30%;
+                position: relative;
+                img{
+                    background: grey;
+                    width: 100%;
+                    aspect-ratio: 1/1;
+                    // padding: 5px;
+                }
+                label{
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translateY(-50%) translateX(-50%);
+                    padding:5px;
+                    background: white;
+                    border: 1px solid black;
+                    input{
+                        display: none;
+                    }
+                }
+            }
+            .personal-name-info{
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                width:70%;
+                label{
+                    padding:5px;
+                    input{
+                        width: 100%;
+                        padding: 10px;
+                        margin:5px 0;
+                    }
+                }
+            }
+        }
+
+        .personal-outlink{
+            border: 1px solid black;
+            width: 80%;
+            div{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+                img{
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 10px;
+                }
+                input{
+                    width: 100%;
+                    padding: 10px;
+                }                
+            }
+        }
+        .personal-intro{
+            width: 80%;
+            padding: 10px;
+            border: 1px solid black;
+           textarea{
+               width: 100%;
+               aspect-ratio: 4/1;
+               resize:none;
+               padding:10px;
+           }
+        }
+        .personal-keyword{
+            width: 80%;
+            padding: 10px;
+            border:1px solid black;
+            .tags-box{
+                display: flex;
+                flex-wrap: wrap;
+                background: white;
+                padding: 10px;
+                align-items: center;
+                .tag{
+                    background: gray;
+                    color: white;
+                    border-radius: 10px;
+                    margin-right: 5px;
+                    padding: 5px;
+                    display: flex;
+                    align-items: center;
+                    width: fit-content;
+                    white-space:nowrap;
+                    .tag-delete{
+                        background: rgb(222, 222, 222);
+                        color:black;
+                        font-size: small;
+                        width: 20px;
+                        aspect-ratio: 1/1;
+                        padding:2px;
+                        margin:2px;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        cursor: pointer;
+                    }
+                }
+                input{
+                    width:100%;
+                    padding: 10px;
+                    background:rgba(255, 255, 255, 0);
+                    border-style: none;
+                }
+
+            }
+            
+        }
+        .personal-share-theme{
+            width: 80%;
+            border:1px solid black;
+            padding:10px;
+            .share-theme-box{
+                display: flex;
+                justify-content: space-between;
+                .share-theme{
+                    width: 33%;
+                    
+                    .share-title-box{
+                        width: 100%;
+                        display: flex;
+                        p{
+                            background: grey;
+                            padding:10px;
+                        }
+                        input{
+                            width: 100%;
+                            padding:10px;
+                        }
+
+                    }
+                    textarea{
+                        width: 100%;
+                        aspect-ratio: 2/1;
+                        padding:10px;
+                        resize: none;
+                        margin: 10px 0;
+                    }
+                }
+                .personal-share2{
+                    margin: 0 20px;
+                }
+            }
+            
+        }
+        .personal-project{
+            border:1px solid black;
+            width:80%;
+            padding: 10px;
+
+            .project{
+                width: 100%;
+                align-items: center;
+                padding:10px 0;
+                .image-type-box{
+                    display: flex;
+                    width: 100%;
+                    .pj-image-upload{
+                        width: 30%;
+                        aspect-ratio: 3/2;
+                        position: relative;
+                        img{
+                            height: 100%;
+                            width: 100%;
+                            background: white;
+                            
+                        }
+                        label{
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translateX(-50%) translateY(-50%);
+                            cursor: point;
+                            border: 1px solid black;
+                            background: rgb(221, 221, 221);
+                            input{
+                                display: none;
+
+                            }
+                        }
+                    }
+
+                    .type-discript-box{
+                        display: flex;
+                        flex-direction: column;
+                        width: 70%;
+                        padding:0 0 0 10px;
+                        select{
+                            padding: 10px;
+                            width: 100%;
+                        }
+                        textarea{
+                            padding:10px;
+                            margin: 10px 0;
+                            resize: none;
+                            height: 100%;
+                        }
+                    }
+
+                }
+                .project-link{
+                    width: 100%;
+                    padding: 10px;
+                    margin: 10px 0;
+                }
+                
+            }
+        }
+    }
+}

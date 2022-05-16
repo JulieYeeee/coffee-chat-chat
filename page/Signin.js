@@ -1,4 +1,4 @@
-import React, { useEffect,useState} from "react";
+import React, {useState} from "react";
 import logo from "../static/picture/logo.png";
 import getSignin from "../src/GetSignin";
 import createAccount from "../src/CreateAccount";
@@ -6,55 +6,59 @@ import createAccount from "../src/CreateAccount";
 
 
 const Signin = ({account,setAccount}) =>{
-    let [ signupCSS ,setSignupCSS]= useState("signup");
-    let [ signinCSS ,setSigninCSS]= useState("signin signin-hide");
-    let [ username ,setUsername]=useState("");
-    let [ email ,setEmail]= useState("");
-    let [ password , setPassword]= useState("");
+    let [ signupCSS ,setSignupCSS ]= useState("signup");
+    let [ signinCSS ,setSigninCSS ]= useState("signin signin-hide");
+    let [ username ,setUsername ]= useState("");
+    let [ email ,setEmail ]= useState("");
+    let [ password , setPassword ]= useState("");
 
+
+    let registerAuth;
     const fillupForm = (e) =>{
-        if (e.target.id==="signup-username"){
+        if (e.target.id === "signup-username"){
             setUsername(e.target.value);
             console.log(e.target.value);
-        }else if(e.target.id==="signup-email"){
+        }else if(e.target.id === "signup-email"){
             setEmail(e.target.value);
-        }else if(e.target.id==="signin-password"){
+        }else if(e.target.id === "signup-password"){
             setPassword(e.target.value);
         }else{
-            if(e.target.value===password){
+            if(e.target.value === password){
+                registerAuth=true;
                 console.log("註冊成功");
             }else{
+                registerAuth=false;
                 console.log("註冊失敗");
             }
         }
 
     }
     const signin = (e) =>{
-        if(e.target.id==="signin-email"){
+        if(e.target.id ==="signin-email"){
             setEmail(e.target.value);
         }else{
             setPassword(e.target.value);
         }
-
     }
 
     const submit = (e) =>{
         e.preventDefault();
-        if(e.target.innerText==="註冊會員"){
-            console.log(e.target.innerText);
-            console.log(email,password)
+        if(e.target.innerText === "註冊會員"){
+            if(registerAuth===false){
+                return;
+            }
+            console.log(email,password);
             createAccount(email,password);
         }else{
-            getSignin(email,password)
+            getSignin(email,password);
             console.log("登入會員");
-            console.log(e.target.innerText);
         }
 
     }
 
 
     const changeForm = (e) =>{
-        if (e.target.innerText==="已經是會員? 點我登入"){
+        if (e.target.innerText === "已經是會員? 點我登入"){
             setSignupCSS("signup signup-hide");
             setSigninCSS("signin");
         }else{
