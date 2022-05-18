@@ -6,7 +6,14 @@ const Inbox = ( {account,setAccount}) =>{
 
 
     return(
-        <div>hi</div>
+        <div>hi
+            <div>hi</div>
+            <div>hi</div>
+            <div>hi</div>
+            <div>hi</div>
+            <div>hi</div>
+            <div>hi</div>
+        </div>
     )
 
 }

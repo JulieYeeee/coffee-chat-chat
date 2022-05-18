@@ -6,7 +6,7 @@ const Section3 = () =>{
     return(
         <section className="hp-3">
             <p className="hp-3-title">開始Coffee Chat<br/>資訊交流更簡單</p>
-            <video className="hp-3-video" controls autoPlay="" muted loop={true} width="680px">
+            <video className="hp-3-video" autoplay="" muted loop={true} width="680px">
                 <source src={demovdo} type="video/mp4"/>
             </video>
             <div className="hp-3-CTA">

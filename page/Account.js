@@ -1,27 +1,100 @@
-import React,{useEffect,useState,useCallback} from "react";
+import React,{useEffect,useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+//png images
 import fb from "../static/picture/fb.png";
 import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
+//components
 import Tags from "../component/Personal/PersonalTags";
 import PersonalShare from "../component/Personal/PersonalShare";
 import PersonalProject from "../component/Personal/PersonalProject";
-import { v4 as uuidv4 } from 'uuid';
+//firebase tools
+import firebase from "../src/Firebase"; //initializtion
+import { getAuth ,onAuthStateChanged} from "firebase/auth"; //check login status
+import { getStorage , ref,uploadBytes,getDownloadURL} from "firebase/storage";//upload or dowload images 
+import { getFirestore,doc, setDoc,getDoc,updateDoc  } from "firebase/firestore";
 
 
-
-const Account = ( {account,setAccount} ) =>{ 
-    let navigate=useNavigate();
+const Account = ( {account,setAccount,username,setUsername} ) =>{ 
+    //check user has login or not, if the user hasn't login, redirect to sigin page
+    let navigate=useNavigate();    
     useEffect(()=>{
-        if(account){
-            console.log("account page:",account);
-        }else{
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setAccount(user.uid);
+            getInitialData();
+            console.log(user.uid);
+        } else {
+            console.log("nobody");
             navigate("/signin");
         }
-
+        });
     },[]);
+     // let navigate=useNavigate();
+    // useEffect(()=>{
+    //     if(account){
+    //         console.log("account page:",account);
+    //     }else{
+    //         navigate("/signin");
+    //     }
+    // },[account]);
 
 
+
+
+    //取得會員資料
+    useEffect(()=>{getInitialData();},[account]);
+    const db = getFirestore(firebase);
+    const getInitialData = async() =>{
+        console.log("fetch data");
+        const docRef = doc(db, `user`, account);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            let userData=docSnap.data();
+            setUsername(userData["basic"]["username"]);
+            console.log("Document data:", docSnap.data());
+        } else {
+        // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+
+
+    }
+    
+
+    //store the user data into firestore
+    const addUserData = async(e) =>{
+        e.preventDefault();
+        await updateDoc(doc(db, "user", account), {
+            basic:{
+                username:username,
+                title:title,
+                welcome:welcome,
+                headshot:headshot
+            },
+            link:{
+                fb:fbLink,
+                linkedin:linkedinLink,
+                blog:blogLink
+            },
+            detail:{
+                intro:intro,
+                keyword:tags,
+                share:shareList,
+                project:projects
+            },
+          });
+          console.log("store complete");
+
+    }
+
+   
+
+
+
+    //the function below will be invoked to build personal keyword
     let [ tags ,setTags ]=useState([]);
     const addTags = (e) =>{
         if(e.key === "Enter"){
@@ -34,15 +107,114 @@ const Account = ( {account,setAccount} ) =>{
         }
     }
 
+    //states for drag and drop function
     let [shareList,setShareList] = useState([{num:1,title:"",content:""},{num:2,title:"",content:""},{num:3,title:"",content:""}]);
     let [dragIndex,setDragIndex]=useState(null);
     let [exchange,setExchange]=useState({drag:{num:"",title:"",content:""},drop:{num:"",title:"",content:""}});
+    //state for image urls which are fetched from firebase storage
+    let [imageURLs,setImageURLs]=useState([{headshot:""},{cover:""},{cover:""},{cover:""}])
+    //states for preview image which is uploaded by user
+    let [headshot,setHeadshot]=useState(null);
+    let [projects,setProjects]=useState([{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null}]);
+    // let [projects,setProjects]=useState([1,2,3]);
+    //states for form data
+    let [ title,setTitle]=useState(null);
+    let [ welcome,setWelcome]=useState(null);
+    let [ fbLink,setFbLink]=useState(null);
+    let [ linkedinLink,setLinkedinLink]=useState(null);
+    let [ blogLink,setBlogLink]=useState(null);
+    let [ intro,setIntro]=useState(null);
+    let [ share,setShare]=useState([]);
+   
 
 
-    let [headshotURL,setImage]=useState(null);
-    let [pjCoverURL,setPjCoverURL]=useState([{coverURL:null},{coverURL:null},{coverURL:null}])
-    const getFile=(index)=>(e)=>{
-        console.log(e.target);
+
+    //get image URL from firebase storage, this function will be called after the user uploads the image
+    // useEffect(()=>{
+    //     const storage = getStorage();
+
+    //     imageURLs.forEach((image,index)=>{
+    //        let key=Object.keys(image)[0];
+    //        let imageName=image[key];
+    //        if(imageName){
+    //             getDownloadURL(ref(storage, imageName))
+    //             .then((url) => {
+    //                 imageURLs[index][key]=url;
+    //                 setImageURLs(imageURLs);                    
+    //             })
+    //             .catch((error) => {
+    //                 console.log(error);
+    //                 alert("oops!something went wrong");
+    //             });
+    //        }
+    //      })
+        
+    // },[imageURLs])
+////////////////////////////////////////////////////////////////////////////////////////
+    useEffect(()=>{
+        console.log("headshot effect");
+        const storage = getStorage();
+        let imageName=headshot;
+        if(imageName){
+            getDownloadURL(ref(storage, imageName))
+            .then((url) => {
+                setHeadshot(url);                    
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("oops!something went wrong");
+            });
+       }
+        
+    },[headshot]);
+
+    const getImageURL =(imgElement)=>{
+        const storage = getStorage();
+        projects.map((project,index)=>{
+            let imageName=project["cover"];
+            if(imageName){
+                console.log("YES");
+                getDownloadURL(ref(storage, imageName))
+                .then((url) => {
+                    if(url){
+                        imgElement.src=url;
+                        setProjects(prev=>{
+                            prev[index]["cover"]=url;
+                            return [...prev];
+                        })
+                        // projects[index]["cover"]=url;
+                        // // let newprojects=JSON.parse(JSON.stringify(projects));
+                        // let newProjects=[...projects];
+                        // setProjects(newProjects);
+
+                    }else{
+                        return;
+                    }
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert("oops!something went wrong");
+                });
+        
+            }else{
+                console.log("NO");
+                return;
+            }
+
+         })
+
+    }
+        
+         
+        
+
+
+
+
+
+    const getFile=(index)=>async(e)=>{
+        let imgElement=e.target.parentElement.parentElement.children[0];
         let inputSource=e.target.className;
         let file=e.target.files[0];
         let imageType = /image.*/;
@@ -50,29 +222,40 @@ const Account = ( {account,setAccount} ) =>{
             alert("請上傳圖像");
             return;
           }
-          let reader = new FileReader();
-          reader.onload = () =>{
-                if(inputSource==="headshot"){
-                setImage(reader.result);
-            }else{
-                pjCoverURL[index]["coverURL"]=reader.result;
-                let newpjCoverURL =JSON.parse(JSON.stringify(pjCoverURL))
-                setPjCoverURL(newpjCoverURL);
-            }
-          }
+        //上傳至 firebase storage 並取得圖片名稱
+        const storage = getStorage(firebase);
+        // const storageRef = ref(storage);
+        const fileRef = ref(storage,file.name+uuidv4())
+        let result= await uploadBytes(fileRef, file)
+        //將圖片名稱存入 state 以便後續取得圖片網址
+        if(inputSource==="headshot"){
+            let newHeadshot=result["metadata"]["name"]
+            setHeadshot(newHeadshot);
+            // imageURLs[0]["headshot"]=result["metadata"]["name"];
+            // let newImageURLs=JSON.parse(JSON.stringify(imageURLs));
+            // setImageURLs(newImageURLs);
+
+            // setImageURLs(prev=>{
+            //     prev[0]["headshot"]=result["metadata"]["name"];
+            //     return prev;
+            // });
+            // getImageURL();
+        }
+        if(inputSource==="project-image"){
             
-          reader.readAsDataURL(file);
+            // projects[index]["cover"]=result["metadata"]["name"];
+            // let newprojects=JSON.parse(JSON.stringify(projects));
+            projects[index]["cover"]=result["metadata"]["name"];
+            let newProjects=[...projects];
+            setProjects(newProjects);
+            getImageURL(imgElement);
+            // setImageURLs(prev=>{
+            //     prev[index+1]["cover"]=result["metadata"]["name"];
+            //     return prev;
+            // });
+        }
+        
     }
-    
-
-    
-
-    // if(account){
-    //     console.log(account);
-    // }else{
-    //     navigate("/signin");
-    // }
-
    
 
 
@@ -81,40 +264,40 @@ const Account = ( {account,setAccount} ) =>{
         <form >
             <div className="personal-photo-name">
                 <div className="personal-img-upload">
-                    <img src={headshotURL}></img>
+                    <img src={headshot}></img>
                     <label>選擇頭像
                     <input type="file" className="headshot" onChange={getFile(null)}></input>
                     </label>
                 </div>
                 <div className="personal-name-info">
                     <label htmlFor="name">名稱
-                    <input type="text" id="name" placeholder="名稱"></input>
+                    <input type="text" id="name" placeholder="名稱" value={username} onChange={(e)=>{setUsername(e.target.value)}}></input>
                     </label>
                     <label htmlFor ="title">個人抬頭
-                    <input type="text" placeholder="為自己起一個響亮的Title"></input>
+                    <input type="text" placeholder="為自己起一個響亮的Title" maxlength="15" onChange={(e)=>{setTitle(e.target.value)}}></input>
                     </label>
                     <label htmlFor ="short-intro">短介紹
-                    <input type="text" placeholder="用20字招呼語讓人認識你"></input>
+                    <input type="text" placeholder="用20字招呼語讓人認識你" maxlength="25" onChange={(e)=>{setWelcome(e.target.value)}}></input>
                     </label>
                 </div>
             </div>
                 <div className="personal-outlink">
                     <div className="personal-outlink-fb">
                         <img src={fb}></img>
-                        <input className="fb-link"></input>
+                        <input className="fb-link" onChange={(e)=>{setFbLink(e.target.value)}}></input>
                     </div>
                     <div className="personal-outlink-linkedin">
                         <img src={linkedin}></img>
-                        <input className="linkedin-link"></input>
+                        <input className="linkedin-link" onChange={(e)=>{setLinkedinLink(e.target.value)}}></input>
                     </div>
                     <div className="personal-outlink-blog">
                         <img src={blog}></img>
-                        <input className="blog-link"></input>
+                        <input className="blog-link" onChange={(e)=>{setBlogLink(e.target.value)}}></input>
                     </div>
                 </div>
                 <div className="personal-intro">
                     <p>輸入自我介紹</p>
-                    <textarea></textarea>
+                    <textarea onChange={(e)=>{setIntro(e.target.value)}}></textarea>
                 </div>
                 <div className="personal-keyword">
                     <p>建立個人關鍵字</p>
@@ -137,72 +320,12 @@ const Account = ( {account,setAccount} ) =>{
                 </div>
                 <div className="personal-project">
                     <p>建立作品/文章連結</p>
-                    {pjCoverURL.map((pjCover,index)=>
-                        <PersonalProject getFile={getFile} pjCoverURL={pjCoverURL} setPjCoverURL={setPjCoverURL} pjCover={pjCover} index={index} />
+                    {projects.map((project,index)=>
+                        <PersonalProject getFile={getFile} index={index} project={project} setProjects={setProjects} />
                         )
                     }
-                    {/* <div className="project project1">
-                        <div className="image-type-box">
-                            <div className="pj-image-upload">
-                            <img></img>
-                            <label>上傳封面
-                                <input type="file" className="project-image" onClick={getFile}></input>
-                            </label>
-                            </div>
-                        <div className="type-discript-box">
-                            <select name="project-type">
-                                <option>請選擇</option>
-                                <option>文章</option>
-                                <option>作品</option>
-                            </select>
-                            <textarea placeholder="連結說明"></textarea>
-                        </div>
-                        </div>
-                        <input className="project-link" type="text" placeholder="在此貼上作品/文章連結"></input>
-                    </div>
-                    <div className="project project2">
-                        <div className="image-type-box">
-                            <div className="pj-image-upload">
-                            <img></img>
-                            <label>上傳封面
-                                <input type="file" className="project-image" onClick={getFile}></input>
-                            </label>
-                            </div>
-                        
-                        <div className="type-discript-box">
-                            <select name="project-type">
-                                <option>請選擇</option>
-                                <option>文章</option>
-                                <option>作品</option>
-                            </select>
-                            <textarea placeholder="連結說明"></textarea>
-                        </div>
-                        </div>
-                        <input className="project-link" type="text" placeholder="在此貼上作品/文章連結"></input>
-                    </div>
-                    <div className="project project3">
-                        <div className="image-type-box">
-                            <div className="pj-image-upload">
-                                <img></img>
-                                <label>上傳封面
-                                    <input type="file" className="project-image" onClick={getFile}></input>
-                                </label>
-                            </div>
-                            <div className="type-discript-box">
-                                <select name="project-type">
-                                    <option>請選擇</option>
-                                    <option>文章</option>
-                                    <option>作品</option>
-                                </select>
-                                <textarea placeholder="連結說明"></textarea>
-                            </div>
-                        </div>
-                        
-                        <input className="project-link" type="text" placeholder="在此貼上作品/文章連結"></input>
-                    </div> */}
                 </div>
-            
-            <button type="submit">填寫完成，建立個人頁面</button>
+            <button type="submit" onClick={addUserData} >填寫完成，建立個人頁面</button>
         </form>
         </main>
     )
