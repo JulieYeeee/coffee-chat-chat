@@ -58,7 +58,6 @@ const Membership = () =>{
         setTags(userData["detail"]["keyword"]);
         setShareList(userData["detail"]["share"]);
         setProjects(userData["detail"]["project"])
-        console.log("set:",userData);
     }
     
 

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../static/picture/logo.png";
-import getSignin from "../src/GetSignin";
+// import getSignin from "../src/GetSignin";
 import firebase from "../src/Firebase";
 import { getFirestore } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
 
 
 
@@ -41,7 +41,6 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
                 console.log("註冊失敗");
             }
         }
-        console.log("1",account,username,email,password);
 
     }
 
@@ -58,7 +57,6 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
     //原本是useEffect直接放async function 但觸發不成功，後來查詢youtube說async其實不建議放在useEffect內因此提取出來成為函式，即可正常觸發
     let [trigger,setTrigger]=useState(false);
     useEffect(()=>{
-        console.log("trigger:",trigger)
         if(trigger==="true"){
             initialData()
         }else{
@@ -68,7 +66,6 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
     let navigate=useNavigate();
     const initialData = async() =>{
         const db = getFirestore(firebase);
-        console.log("5",account,username,email,password);
         await setDoc(doc(db, "user", account), {
             basic:{
                 username:username,
@@ -104,7 +101,7 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
                 alert("密碼二次確認錯誤");
                 return;
             }else{
-                if(!username||!email||!password){
+                if(!username || !email || !password){
                     alert("註冊資料缺漏，請確認");
                     return;
                 }
@@ -116,9 +113,9 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
                     }
                 }
             }
-            console.log("2",account,username,email,password);
+
             createAccount();
-            
+
         }else{
             getSignin(email,password);
             console.log("登入會員");
@@ -126,16 +123,12 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
 
     }
     const createAccount = () =>{
-        console.log("3",account,username,email,password);
           const auth = getAuth(firebase);
           createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log("warn:",userCredential,email,password);
               const user = userCredential.user;
-              console.log("warn user:",user,user.uid);
               setTrigger("true");
               setAccount(user.uid);
-              console.log("4",account,username,email,password);
             })
             .catch((error) => {
               const errorCode = error.code;
@@ -144,6 +137,22 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
             });
       
       }
+
+    const getSignin = (email,password) =>{
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            user? navigate("/account"): null;
+            // if(user){
+            //     navigate("/account");
+            // }
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+    }
 
 
     const changeForm = (e) =>{

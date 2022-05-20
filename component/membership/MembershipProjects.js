@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import png from "../../static/picture/fb.png";
 
 const MembershipProjects = ({project}) =>{

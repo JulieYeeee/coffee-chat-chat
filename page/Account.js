@@ -98,6 +98,7 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
                 project:projects
             },
           });
+          alert("Your information is already changed.🆗")
           console.log("store complete");
 
     }

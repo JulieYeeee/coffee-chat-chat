@@ -76,14 +76,14 @@
                     padding: 10px 0;
                     .tag{
                         padding: 5px;
-                        margin-right:10px;
+                        // margin-right:10px;
+                        margin: 2.5px 10px 2.5px 0;
                         background: white;
                         border-radius: 10px;
                     }
                 }
                 .share-theme-box{
                     padding: 10px 0;
-                    
                     width: 100%;
                     .share-title{
                         font-size: 3.5vmin;
@@ -91,6 +91,7 @@
                     }
                     .share-box{
                         display: flex;
+                        align-items:baseline;
                         width: 100%;
                         .share{
                             width: 33%;
