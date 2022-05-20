@@ -1,0 +1,180 @@
+.membership-main{
+    // background: grey;
+    .membership-box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: grey;
+        width: 1200px;
+        .navigation{
+            background: blue;
+            width: 100%;
+            padding: 10px 0;
+            border-bottom:2px solid black;
+        }
+        .personal-data{
+            width: 90%;
+            display: flex;
+            flex-wrap: wrap;
+            
+            .personal-left{
+                width: 75%;
+                background: rgb(180, 180, 180);
+                margin-right:2.5%;
+                padding: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                .headshot-box{
+                    width: 25%;
+                    aspect-ratio: 1/1;
+                    background: white;
+                    border-radius: 50%;
+                }
+                .personal-basic-link{
+                    width: 70%;
+                    margin-left: 5%;
+                    // border-top:2px solid white;
+                    padding-bottom: 10px;
+                    border-bottom:2px solid white;
+                    p{
+                        font-size: 5vmin;
+                        font-weight: 700;
+                        padding: 5px 0;
+                    }
+                    .link-box{
+                        padding: 5px 0;
+                        img{
+                            width: 40px;
+                            aspect-ratio: 1/1;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+                .intro-box{
+                    width: 100%;
+                    padding: 20px 0;
+                    .intro-title{
+                        font-size: 3.5vmin;
+                        font-weight: 700;
+                    }
+                    .intro-content-box{
+                        width: 100%;
+                        background: white;
+                        padding: 10px;
+                    }
+                }
+                .tag-box{
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 10px 0;
+                    .tag{
+                        padding: 5px;
+                        margin-right:10px;
+                        background: white;
+                        border-radius: 10px;
+                    }
+                }
+                .share-theme-box{
+                    padding: 10px 0;
+                    
+                    width: 100%;
+                    .share-title{
+                        font-size: 3.5vmin;
+                        font-weight: 700;
+                    }
+                    .share-box{
+                        display: flex;
+                        width: 100%;
+                        .share{
+                            width: 33%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            border: 1px solid black;
+                            background: white;
+                            span{
+                                width: 15%;
+                                padding: 10px;
+                                text-align: center;
+                                border: 1px solid black;
+                            }
+                            .share-short-title{
+                                border: 1px solid black;
+                                width: 85%;
+                                padding: 10px;
+                            }
+                            .share-content{
+                                padding: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+            .personal-right{
+                width: 22.5%;
+                background: rgb(180, 180, 180);
+                height: fit-content;
+                form{
+                    padding: 10px;
+                    button{
+                        width: 100%;
+                        padding: 10px;
+                        font-size: 2.5vmin;
+                        font-weight: 700;
+                    }
+                    .ask-rule-box{
+                        padding: 10px 0;
+                        .ask-rule-title{
+                            font-size: 2.5vmin;
+                            font-weight: 700;
+                        }
+                    }
+                }
+
+            }
+            .personal-bottom{
+                width: 100%;
+                background: rgb(180, 180, 180);
+                padding: 20px;
+                border-top: 2px solid black;
+                .know-more-title{
+                    font-size: 3.5vmin;
+                    font-weight: 700;
+
+                }
+                .project-box{
+                    width: 100%;
+                    display: flex;
+                    .project{
+                        width: 33%;
+                        padding: 10px;
+                        display: flex;
+                        flex-direction: column;
+                        img{
+                            width: 95%;
+                            aspect-ratio: 3/2;
+                            background: white;
+
+                        }
+                        .project-type{
+                            font-weight: 700;
+                            width: 95%;
+                        }
+                        .project-content{
+                            width: 95%;
+                            padding: 10px 0;
+                        }
+                        a{
+                            width: 95%;
+                            background: white;
+                            padding: 10px;
+                            
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+}

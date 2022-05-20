@@ -48,20 +48,32 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
     useEffect(()=>{getInitialData();},[account]);
     const db = getFirestore(firebase);
     const getInitialData = async() =>{
-        console.log("fetch data");
         const docRef = doc(db, `user`, account);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             let userData=docSnap.data();
-            setUsername(userData["basic"]["username"]);
-            console.log("Document data:", docSnap.data());
+            setInitialData(userData);
         } else {
         // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-
-
     }
+
+    //set initial user data
+    const setInitialData =(userData)=>{
+        setUsername(userData["basic"]["username"]);
+        setTitle(userData["basic"]["title"]);
+        setWelcome(userData["basic"]["welcome"]);
+        setHeadshot(userData["basic"]["headshot"]);
+        setFbLink(userData["link"]["fb"]);
+        setLinkedinLink(userData["link"]["linkedin"]);
+        setBlogLink(userData["link"]["blog"]);
+        setIntro(userData["detail"]["intro"]);
+        setTags(userData["detail"]["keyword"]);
+        setShareList(userData["detail"]["share"]);
+        setProjects(userData["detail"]["project"])
+    }
+
     
 
     //store the user data into firestore
@@ -152,7 +164,6 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
     // },[imageURLs])
 ////////////////////////////////////////////////////////////////////////////////////////
     useEffect(()=>{
-        console.log("headshot effect");
         const storage = getStorage();
         let imageName=headshot;
         if(imageName){
@@ -161,7 +172,6 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
                 setHeadshot(url);                    
             })
             .catch((error) => {
-                console.log(error);
                 alert("oops!something went wrong");
             });
        }
@@ -173,7 +183,6 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
         projects.map((project,index)=>{
             let imageName=project["cover"];
             if(imageName){
-                console.log("YES");
                 getDownloadURL(ref(storage, imageName))
                 .then((url) => {
                     if(url){
@@ -190,7 +199,6 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
                     }else{
                         return;
                     }
-                    
                 })
                 .catch((error) => {
                     console.log(error);
@@ -198,7 +206,6 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
                 });
         
             }else{
-                console.log("NO");
                 return;
             }
 
@@ -208,8 +215,6 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
         
          
         
-
-
 
 
 
@@ -274,30 +279,30 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
                     <input type="text" id="name" placeholder="名稱" value={username} onChange={(e)=>{setUsername(e.target.value)}}></input>
                     </label>
                     <label htmlFor ="title">個人抬頭
-                    <input type="text" placeholder="為自己起一個響亮的Title" maxlength="15" onChange={(e)=>{setTitle(e.target.value)}}></input>
+                    <input type="text" placeholder="為自己起一個響亮的Title" value={title} maxLength="15" onChange={(e)=>{setTitle(e.target.value)}}></input>
                     </label>
                     <label htmlFor ="short-intro">短介紹
-                    <input type="text" placeholder="用20字招呼語讓人認識你" maxlength="25" onChange={(e)=>{setWelcome(e.target.value)}}></input>
+                    <input type="text" placeholder="用20字招呼語讓人認識你" value={welcome} maxLength="25" onChange={(e)=>{setWelcome(e.target.value)}}></input>
                     </label>
                 </div>
             </div>
                 <div className="personal-outlink">
                     <div className="personal-outlink-fb">
                         <img src={fb}></img>
-                        <input className="fb-link" onChange={(e)=>{setFbLink(e.target.value)}}></input>
+                        <input className="fb-link" value={fbLink} onChange={(e)=>{setFbLink(e.target.value)}}></input>
                     </div>
                     <div className="personal-outlink-linkedin">
                         <img src={linkedin}></img>
-                        <input className="linkedin-link" onChange={(e)=>{setLinkedinLink(e.target.value)}}></input>
+                        <input className="linkedin-link" value={linkedinLink} onChange={(e)=>{setLinkedinLink(e.target.value)}}></input>
                     </div>
                     <div className="personal-outlink-blog">
                         <img src={blog}></img>
-                        <input className="blog-link" onChange={(e)=>{setBlogLink(e.target.value)}}></input>
+                        <input className="blog-link" value={blogLink} onChange={(e)=>{setBlogLink(e.target.value)}}></input>
                     </div>
                 </div>
                 <div className="personal-intro">
                     <p>輸入自我介紹</p>
-                    <textarea onChange={(e)=>{setIntro(e.target.value)}}></textarea>
+                    <textarea value={intro} onChange={(e)=>{setIntro(e.target.value)}}></textarea>
                 </div>
                 <div className="personal-keyword">
                     <p>建立個人關鍵字</p>

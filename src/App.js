@@ -4,6 +4,7 @@ import Nav from "../component/Nav";
 import Homepage from "../page/Homepage";
 import Account from "../page/Account";
 import Memberlist from "../page/Memberlist";
+import Membership from "../page/membership";
 import Signin from "../page/Signin";
 import Inbox from "../page/Inbox";
 import firebase from "./Firebase";
@@ -29,17 +30,17 @@ const App = () =>{
     //     }
     //     });
     // }
+///sign out funtion
+    useEffect(()=>{
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            console.log("Sign-out successful.");
+        // Sign-out successful.
+        }).catch((error) => {
+        // An error happened.
+        });
 
-    // useEffect(()=>{
-    //     const auth = getAuth();
-    //     signOut(auth).then(() => {
-    //         console.log("Sign-out successful.");
-    //     // Sign-out successful.
-    //     }).catch((error) => {
-    //     // An error happened.
-    //     });
-
-    // },[])
+    },[])
     
     
     
@@ -63,9 +64,11 @@ const App = () =>{
             <BrowserRouter>
                 <Nav account={account} setAccount={setAccount}/>
                 <Routes>
+                <Route path= "/membership/:id" element={ <Membership  account={account} setAccount={setAccount}/>}/>
                     <Route path="/" element={<Homepage account={account} setAccount={setAccount} />}/>
                     <Route path="/account" element={<Account account={account} setAccount={setAccount} username={username} setUsername={setUsername} /> }/>
                     <Route path="/memberlist" element={ <Memberlist  account={account} setAccount={setAccount}/> }/>
+                    
                     <Route path="/inbox" element={account ? <Inbox  account={account} setAccount={setAccount}/> : <Navigate to='/signin' replace />}/>
                     <Route path="/signin" element={ <Signin  account={account} setAccount={setAccount} username={username} setUsername={setUsername}/>}/>
                 </Routes>

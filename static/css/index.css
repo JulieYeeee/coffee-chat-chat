@@ -748,4 +748,238 @@ main .bar-section1 img {
   padding: 10px;
   margin: 10px 0;
 }
+
+.membership-main .membership-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: grey;
+  width: 1200px;
+}
+
+.membership-main .membership-box .navigation {
+  background: blue;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 2px solid black;
+}
+
+.membership-main .membership-box .personal-data {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.membership-main .membership-box .personal-data .personal-left {
+  width: 75%;
+  background: #b4b4b4;
+  margin-right: 2.5%;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.membership-main .membership-box .personal-data .personal-left .headshot-box {
+  width: 25%;
+  aspect-ratio: 1/1;
+  background: white;
+  border-radius: 50%;
+}
+
+.membership-main .membership-box .personal-data .personal-left .personal-basic-link {
+  width: 70%;
+  margin-left: 5%;
+  padding-bottom: 10px;
+  border-bottom: 2px solid white;
+}
+
+.membership-main .membership-box .personal-data .personal-left .personal-basic-link p {
+  font-size: 5vmin;
+  font-weight: 700;
+  padding: 5px 0;
+}
+
+.membership-main .membership-box .personal-data .personal-left .personal-basic-link .link-box {
+  padding: 5px 0;
+}
+
+.membership-main .membership-box .personal-data .personal-left .personal-basic-link .link-box img {
+  width: 40px;
+  aspect-ratio: 1/1;
+  margin-right: 10px;
+}
+
+.membership-main .membership-box .personal-data .personal-left .intro-box {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.membership-main .membership-box .personal-data .personal-left .intro-box .intro-title {
+  font-size: 3.5vmin;
+  font-weight: 700;
+}
+
+.membership-main .membership-box .personal-data .personal-left .intro-box .intro-content-box {
+  width: 100%;
+  background: white;
+  padding: 10px;
+}
+
+.membership-main .membership-box .personal-data .personal-left .tag-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.membership-main .membership-box .personal-data .personal-left .tag-box .tag {
+  padding: 5px;
+  margin-right: 10px;
+  background: white;
+  border-radius: 10px;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box {
+  padding: 10px 0;
+  width: 100%;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box .share-title {
+  font-size: 3.5vmin;
+  font-weight: 700;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box .share-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box .share-box .share {
+  width: 33%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: 1px solid black;
+  background: white;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box .share-box .share span {
+  width: 15%;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box .share-box .share .share-short-title {
+  border: 1px solid black;
+  width: 85%;
+  padding: 10px;
+}
+
+.membership-main .membership-box .personal-data .personal-left .share-theme-box .share-box .share .share-content {
+  padding: 10px;
+}
+
+.membership-main .membership-box .personal-data .personal-right {
+  width: 22.5%;
+  background: #b4b4b4;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.membership-main .membership-box .personal-data .personal-right form {
+  padding: 10px;
+}
+
+.membership-main .membership-box .personal-data .personal-right form button {
+  width: 100%;
+  padding: 10px;
+  font-size: 2.5vmin;
+  font-weight: 700;
+}
+
+.membership-main .membership-box .personal-data .personal-right form .ask-rule-box {
+  padding: 10px 0;
+}
+
+.membership-main .membership-box .personal-data .personal-right form .ask-rule-box .ask-rule-title {
+  font-size: 2.5vmin;
+  font-weight: 700;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom {
+  width: 100%;
+  background: #b4b4b4;
+  padding: 20px;
+  border-top: 2px solid black;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .know-more-title {
+  font-size: 3.5vmin;
+  font-weight: 700;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .project-box {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .project-box .project {
+  width: 33%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .project-box .project img {
+  width: 95%;
+  aspect-ratio: 3/2;
+  background: white;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .project-box .project .project-type {
+  font-weight: 700;
+  width: 95%;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .project-box .project .project-content {
+  width: 95%;
+  padding: 10px 0;
+}
+
+.membership-main .membership-box .personal-data .personal-bottom .project-box .project a {
+  width: 95%;
+  background: white;
+  padding: 10px;
+}
 /*# sourceMappingURL=index.css.map */

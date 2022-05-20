@@ -55,6 +55,48 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
     }
 
 
+    //原本是useEffect直接放async function 但觸發不成功，後來查詢youtube說async其實不建議放在useEffect內因此提取出來成為函式，即可正常觸發
+    let [trigger,setTrigger]=useState(false);
+    useEffect(()=>{
+        console.log("trigger:",trigger)
+        if(trigger==="true"){
+            initialData()
+        }else{
+            return
+        }},[account]);
+
+    let navigate=useNavigate();
+    const initialData = async() =>{
+        const db = getFirestore(firebase);
+        console.log("5",account,username,email,password);
+        await setDoc(doc(db, "user", account), {
+            basic:{
+                username:username,
+                title:null,
+                welcome:null,
+                headshot:null
+            },
+            link:{
+                fb:null,
+                linkedin:null,
+                blog:null
+            },
+            detail:{
+                intro:null,
+                keyword:[],
+                share:[{num:1,title:"",content:""},{num:2,title:"",content:""},{num:3,title:"",content:""}],
+                project:[{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null}]
+            },
+            user:{
+                email:email,
+                password:password
+            }
+          });
+          navigate("/account");
+        console.log("open",account,username,email,password);
+    }
+
+
     const submit = (e) =>{
         e.preventDefault();
         if(e.target.innerText === "註冊會員"){
@@ -91,6 +133,7 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
                 console.log("warn:",userCredential,email,password);
               const user = userCredential.user;
               console.log("warn user:",user,user.uid);
+              setTrigger("true");
               setAccount(user.uid);
               console.log("4",account,username,email,password);
             })
@@ -113,38 +156,7 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
         }
         
     }
-//原本是useEffect直接放async function 但觸發不成功，後來查詢youtube說async其實不建議放在useEffect內因此提取出來成為韓式，即可正常觸發
-    useEffect(()=>{initialData();},[account]);
-    let navigate=useNavigate();
-    const initialData = async() =>{
-        const db = getFirestore(firebase);
-        console.log("5",account,username,email,password);
-        await setDoc(doc(db, "user", account), {
-            basic:{
-                username:username,
-                title:null,
-                welcome:null,
-                headshot:null
-            },
-            link:{
-                fb:null,
-                linkedin:null,
-                blog:null
-            },
-            detail:{
-                intro:null,
-                keyword:[],
-                share:[],
-                project:[]
-            },
-            user:{
-                email:email,
-                password:password
-            }
-          });
-          navigate("/account");
-        console.log("open",account,username,email,password);
-    }    
+    
 
 
     // let navigate=useNavigate();
@@ -168,19 +180,19 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
                     <img src={logo}></img>
                 </div>
                 <p className="signup-title">加入咖啡圈圈 開始資訊交流</p>
-                <label for="signup-username">
+                <label htmlFor="signup-username">
                     <p>使用者名稱</p>
                     <input type="text" id="signup-username" required onChange={register}></input>
                 </label>
-                <label for="signup-email">
+                <label htmlFor="signup-email">
                     <p>註冊信箱</p>
                     <input type="email" id="signup-email" required onChange={register}></input>
                 </label>
-                <label for="signup-password">
+                <label htmlFor="signup-password">
                     <p>註冊密碼</p>
                     <input type="password" id="signup-password" className="psw1" required onChange={register}></input>
                 </label>
-                <label for="signup-checkpsw">
+                <label htmlFor="signup-checkpsw">
                     <p>再次確認</p>
                     <input type="password" id="signup-checkpsw" className="psw2" required onChange={register}></input>
                 </label>
@@ -193,11 +205,11 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
                     <img src={logo}></img>
                 </div>
                 <p className="signin-title">加入咖啡圈圈 開始資訊交流</p>
-                <label for="signin-email">
+                <label htmlFor="signin-email">
                     <p>輸入信箱</p>
                     <input type="email" id="signin-email" required onChange={signin}></input>
                 </label>
-                <label for="signin-password">
+                <label htmlFor="signin-password">
                     <p>輸入密碼</p>
                     <input type="password" id="signin-password" className="psw" required onChange={signin}></input>
                 </label>
