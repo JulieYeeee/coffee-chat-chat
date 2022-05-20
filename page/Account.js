@@ -13,7 +13,7 @@ import PersonalProject from "../component/Personal/PersonalProject";
 import firebase from "../src/Firebase"; //initializtion
 import { getAuth ,onAuthStateChanged} from "firebase/auth"; //check login status
 import { getStorage , ref,uploadBytes,getDownloadURL} from "firebase/storage";//upload or dowload images 
-import { getFirestore,doc, setDoc,getDoc,updateDoc  } from "firebase/firestore";
+import { getFirestore,doc,getDoc,updateDoc  } from "firebase/firestore";
 
 
 const Account = ( {account,setAccount,username,setUsername} ) =>{ 

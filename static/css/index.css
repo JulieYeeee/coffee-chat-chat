@@ -800,6 +800,14 @@ main .bar-section1 img {
   aspect-ratio: 1/1;
   background: white;
   border-radius: 50%;
+  overflow: hidden;
+}
+
+.membership-main .membership-box .personal-data .personal-left .headshot-box img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .membership-main .membership-box .personal-data .personal-left .personal-basic-link {

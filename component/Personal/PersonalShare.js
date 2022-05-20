@@ -65,7 +65,7 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
     return(
         <div className="share-theme" draggable="true" onDragStart={dragStartHandler} onDragEnter={dragEnterHandler} onDragOver={dragOverHandler}  onDragEnd={dropHandler}>
             <div className="share-title-box"  >
-                <p>{index+1}</p><input type="text" placeholder="e.g PM轉職"  onChange={updateShare} value={share["title"]}></input>
+                <p>{index+1}</p><input type="text" placeholder="e.g PM轉職" maxLength="10" onChange={updateShare} value={share["title"]}></input>
             </div>
             <textarea onChange={updateShare} value={share["content"]}></textarea>
         </div>
