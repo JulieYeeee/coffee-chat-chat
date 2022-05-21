@@ -1,5 +1,117 @@
 .ask-main{
-    .ask-consultant-box{
-        width: 1200px;
+    .bar{
+        width: 100%;
+        height: 3px;
+        background: black;
     }
+    form{
+        width: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    .ask-consultant-box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        padding: 30px 0;
+        .ask-headshot{
+            width: 150px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background:grey;
+            border-radius: 50%;
+        }
+        .ask-welcome{
+            font-size: 5vmin;
+            padding-left: 30px;
+        }
+    }
+    
+    .ask-consultation-box{
+        padding: 30px 0;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        .ask-notification{
+            font-size: 3.5vmin;
+        }
+        .ask-information-box{
+            padding: 30px 0;
+            div{
+                display: flex;
+                align-items: center;
+                padding-bottom: 5px;
+                img{
+                    width: 30px;
+                    height: 30px;
+                }
+                p{
+                    font-size: 3.5vmin;
+                    font-weight: 700;
+                    padding-left: 5px;
+                }
+            }
+            textarea{
+                width: 100%;
+                resize: none;
+                font-size: 20px;
+                padding: 15px;
+            }
+        }
+        .ask-question-box{
+            padding: 30px 0;
+
+            div{
+                display: flex;
+                align-items: center;
+                padding-bottom: 5px;
+                img{
+                    width: 30px;
+                    height: 30px;
+                    // aspect-ratio: 1/1;
+                }
+                p{
+                    font-size: 3.5vmin;
+                    font-weight: 700;
+                    padding-left: 5px;
+                }
+            }
+            textarea{
+                width: 100%;
+                resize: none;
+                font-size: 20px;
+                padding: 15px;
+            }
+        }
+
+    }
+    .ask-payment-box{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        padding: 30px 0;
+        .ask-notification{
+            font-size: 3.5vmin;
+            text-align: center;
+        }
+        .ask-payment{
+            display: flex;
+            flex-direction: column;
+            input{
+                font-size: 20px;
+                padding: 15px;
+                margin: 10px 0;
+            }
+        }
+    }
+    button{
+        width: 80%;
+        font-size: 3vmin;
+        padding: 10px;
+        background: black;
+        color: aliceblue;
+    }
+    }
+
 }

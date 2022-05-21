@@ -16,7 +16,7 @@ const Nav = ( {account,setAccount} ) =>{
             <nav>
                 <Link to="/" className="logo"><img src={logo}></img></Link>
                 <ul className="menu">
-                    <li className="member-list"><Link to="/memberlist">尋找咖啡聊對象</Link></li>
+                    <li className="member-list"><Link to="/membership/nxOet24zw3gZ5ZqkiJfKwwS72Iy2">尋找咖啡聊對象</Link></li>
                     <li><Link to="/inbox" ><img src={inbox}></img></Link></li>
                     <li><Link to="/account" ><img src={user}></img></Link></li>
                 </ul>

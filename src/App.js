@@ -23,6 +23,7 @@ import { signOut } from "firebase/auth";
 const App = () =>{
     let [ account , setAccount ] = useState (false);
     let [ username, setUsername ]=useState("");
+    let [ orderNum, setOrderNum ]=useState("");
     // function check (){
     //     const auth = getAuth();
     //     onAuthStateChanged(auth, (user) => {
@@ -35,16 +36,16 @@ const App = () =>{
     //     });
     // }
 ///sign out funtion
-    useEffect(()=>{
-        const auth = getAuth();
-        signOut(auth).then(() => {
-            console.log("Sign-out successful.");
-        // Sign-out successful.
-        }).catch((error) => {
-        // An error happened.
-        });
+    // useEffect(()=>{
+    //     const auth = getAuth();
+    //     signOut(auth).then(() => {
+    //         console.log("Sign-out successful.");
+    //     // Sign-out successful.
+    //     }).catch((error) => {
+    //     // An error happened.
+    //     });
 
-    },[])
+    // },[])
     
     
     
@@ -71,9 +72,9 @@ const App = () =>{
                     <Route path="/" element={<Homepage account={account} setAccount={setAccount} />}/>
                     <Route path="/account" element={<Account account={account} setAccount={setAccount} username={username} setUsername={setUsername} /> }/>
                     <Route path="/memberlist" element={ <Memberlist  account={account} setAccount={setAccount}/> }/>
-                    <Route path= "/membership/:id" element={ <Membership  account={account} setAccount={setAccount}/>}/>
+                    <Route path= "/membership/:id" element={ <Membership username={username} account={account} setAccount={setAccount} orderNum={orderNum} setOrderNum={setOrderNum}/>}/>
                     {/* <Route path="/ask" element={account ? <Ask account={account} setAccount={setAccount} /> : <Navigate to='/signin' replace /> }/> */}
-                    <Route path="/ask" element={ <Ask account={account} setAccount={setAccount} /> }/>
+                    <Route path="/ask" element={ <Ask username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
 
                     <Route path="/inbox" element={account ? <Inbox  account={account} setAccount={setAccount}/> : <Navigate to='/signin' replace />}/>
                     <Route path="/signin" element={ <Signin  account={account} setAccount={setAccount} username={username} setUsername={setUsername}/>}/>

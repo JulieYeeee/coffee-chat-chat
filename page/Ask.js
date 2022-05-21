@@ -1,25 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ask from "../static/picture/ask.png";
 import info from "../static/picture/info.png";
 
-const Ask = () =>{
-    let [consultant,setConsultant]=useState(null);
+import firebase from "../src/Firebase";
+import { getFirestore,doc, setDoc,getDoc } from "firebase/firestore";
+
+const Ask = ({orderNum}) =>{
+
+    let [ consultantName,setConsultant ]=useState(null);
+    let [ headshot,setHeadshot]=useState(null);
+
+    //取得訂單資訊
+    useEffect(()=>{
+        setInitialOrder();
+    },[])
+    
+    const setInitialOrder =async()=>{
+        const db = getFirestore(firebase);
+            const docRef = doc(db, `pre-order`, orderNum);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                let orderData=docSnap.data();
+                setConsultant(orderData["consultantName"]);
+                setHeadshot(orderData["headshot"]);
+            } else {
+            // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        
+    }
+   
+
+    
+
+
+
+
     return (
         <main className="ask-main">
             <form>
             <div className="ask-consultant-box">
-                <img className="ask-headshot"></img>
-                <div className="ask-welcome">Hi, 我是 {consultant} <br/>很高興與你分享我的經驗!</div>
+                <img className="ask-headshot" src={headshot}></img>
+                <div className="ask-welcome">Hi, 我是 {consultantName} <br/>很高興與你分享我的經驗!</div>
             </div>
             <div className="bar"></div>
             <div className="ask-consultation-box">
-                <p className="ask-notification">提問前可以提供您的與提問有關之相關個人相關資訊。有助 {consultant} 更準確地回覆您的提問。</p>
+                <p className="ask-notification">提問前可以提供您認為有助分享者回覆您問題的相關個人資訊。讓 {consultantName} 能更準確地回覆您的提問。</p>
                 <div className="ask-information-box">
                     <div>
                         <img className="ask-icon" src={info}></img>
                         <p>你的資訊：</p>
                     </div>
-                    <textarea className="ask-information" ></textarea>
+                    <textarea className="ask-information" rows="10" ></textarea>
                 </div>
                 <div className="ask-question-box">
                     <div>
@@ -29,12 +61,13 @@ const Ask = () =>{
                     <textarea className="ask-question" rows="10"></textarea>
                 </div>
             </div>
+            <div className="bar"></div>
             <div className="ask-payment-box">
-                <p className="ask-notification">Buy me a coffee!<br/>填寫付款資訊，您將請 {consultant} 喝一杯 95 元咖啡。</p>
+                <p className="ask-notification">Buy me a coffee!<br/>填寫付款資訊，您將請 {consultantName} 喝一杯 95 元咖啡。</p>
                 <div className="ask-payment">
-                    <input></input>
-                    <input></input>
-                    <input></input>
+                    <input placeholder="Card number"></input>
+                    <input placeholder="CVV"></input>
+                    <input placeholder="Expired date"></input>
                 </div>
             </div>
             <button type="submit">提交諮詢</button>

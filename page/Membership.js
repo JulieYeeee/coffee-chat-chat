@@ -1,20 +1,23 @@
 //React modules
 import React, { useEffect,useState } from "react";
-import { Link,useParams } from "react-router-dom";
+import { Link,useNavigate,useParams } from "react-router-dom";
 //png pictures
 import fb from "../static/picture/fb.png";
 import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
 //firebase modules
 import firebase from "../src/Firebase"; //initializtion
-import { getFirestore,doc,getDoc } from "firebase/firestore";
+import { getFirestore,doc,getDoc,addDoc,collection,updateDoc } from "firebase/firestore";
 //components
 import MembershipTags from "../component/membership/Membershiptags";
 import MembershipProjects from "../component/membership/MembershipProjects";
 import MembershipShare from "../component/membership/MembershipShare";
 
-const Membership = () =>{
+
+const Membership = ({account,username,setOrderNum}) =>{
+    //取得 URL parameter
     const { id } = useParams();
+    
     //取得會員資料
     useEffect(()=>{getInitialData()},[id]);
     const db = getFirestore(firebase);
@@ -24,7 +27,6 @@ const Membership = () =>{
         if (docSnap.exists()) {
             let userData=docSnap.data();
             setMemberData(userData);
-            
         } else {
         // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -44,6 +46,7 @@ const Membership = () =>{
     let [ blogLink,setBlogLink]=useState(null);
     let [ intro,setIntro]=useState(null);
     let [ tags ,setTags ]=useState([]);
+    let [ memberEmail,setEmail ]=useState(null);
    
 
     //set initial user data
@@ -57,9 +60,41 @@ const Membership = () =>{
         setIntro(userData["detail"]["intro"]);
         setTags(userData["detail"]["keyword"]);
         setShareList(userData["detail"]["share"]);
-        setProjects(userData["detail"]["project"])
+        setProjects(userData["detail"]["project"]);
+        setEmail(userData["user"]["email"]);
     }
     
+    let navigate=useNavigate();
+    const buildAsk = async(e) =>{
+        e.preventDefault();
+        if(account){
+            const docRef = await addDoc(collection(db, "pre-order"), {
+                number:null,
+                account: account,
+                askInfo: null,
+                askName: username,
+                askQuestion: null,
+                consultantEmail: memberEmail,
+                consultantName: memberName,
+                payment: null,
+                headshot: headshot,
+                reply: false
+              });
+              //回傳文件編號，回存到訂單文件中
+            if(docRef.id){
+                await updateDoc(doc(db, "pre-order", docRef.id), {
+                    number:docRef.id
+                })
+                setOrderNum(docRef.id);
+                navigate("/ask");
+            }
+
+        }else{
+            console.log("3:",account);
+            alert("請先登入");
+        }
+
+    }
 
 
 
@@ -136,8 +171,8 @@ const Membership = () =>{
 
 
                 <div className="personal-right">
-                    <form action="/ask">
-                        <button type="submit">Ask me!立即提問</button>
+                    <form>
+                        <button type="submit" onClick={buildAsk}>Ask me!立即提問</button>
                         <div className="ask-rule-box">
                         <p className="ask-rule-title">提問前請遵守：</p>
                         <p className="ask-rule">不得詢問個人隱私之問題，若因提問不當分享者有權婉轉回復。請盡量詢問分享者可分享領域，若因提問超出分享範圍，可能導致您收不到良好回復。</p>

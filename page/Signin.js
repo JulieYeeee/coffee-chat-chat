@@ -4,7 +4,7 @@ import logo from "../static/picture/logo.png";
 // import getSignin from "../src/GetSignin";
 import firebase from "../src/Firebase";
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc,getDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
 
 
@@ -143,10 +143,9 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            user? navigate("/account"): null;
-            // if(user){
-            //     navigate("/account");
-            // }
+            if(user){
+                getUserdata();
+            }
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -154,6 +153,20 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
         });
     }
 
+
+    const getUserdata =async()=>{
+        const db = getFirestore(firebase);
+        const docRef = doc(db, "user", account);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            let userData=docSnap.data();
+            setUsername(userData["basic"]["username"]);
+            navigate("/account");
+        } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        }
+    }
 
     const changeForm = (e) =>{
         if (e.target.innerText === "已經是會員? 點我登入"){
