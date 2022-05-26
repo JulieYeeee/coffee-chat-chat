@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../static/picture/logo.png";
 // import getSignin from "../src/GetSignin";
 import firebase from "../src/Firebase";
-import { getFirestore } from "firebase/firestore";
-import { doc, setDoc,getDoc } from "firebase/firestore";
+import { getFirestore,doc, setDoc,getDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
 
 
@@ -58,7 +57,7 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
     let [trigger,setTrigger]=useState(false);
     useEffect(()=>{
         if(trigger==="true"){
-            initialData()
+            initialData();
         }else{
             return
         }},[account]);
@@ -122,6 +121,7 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
         }
 
     }
+
     const createAccount = () =>{
           const auth = getAuth(firebase);
           createUserWithEmailAndPassword(auth, email, password)
@@ -131,20 +131,21 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
               setAccount(user.uid);
             })
             .catch((error) => {
-              const errorCode = error.code;
               const errorMessage = error.message;
-              console.log("4",errorMessage);
+              alert(errorMessage);
             });
       
       }
 
+
     const getSignin = (email,password) =>{
-        const auth = getAuth();
+        const auth = getAuth(firebase);
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
             if(user){
-                getUserdata();
+                let newId=JSON.parse(JSON.stringify(user.uid));
+                setAccount(newId);
             }
         })
         .catch((error) => {
@@ -152,7 +153,8 @@ const Signin = ({account,setAccount,username,setUsername}) =>{
             const errorMessage = error.message;
         });
     }
-
+    
+    useEffect(()=>{getUserdata()},[account]);
 
     const getUserdata =async()=>{
         const db = getFirestore(firebase);

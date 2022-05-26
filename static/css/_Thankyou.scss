@@ -1,0 +1,26 @@
+.thankyou-main{
+    .thankyou-box{
+        display: flex;
+        width: fit-content;
+        // background: grey;
+        align-items: center;
+        margin-top: 100px;
+        img{
+            width: 200px;
+        }
+        .thankyou-right{
+            font-size: 3.5vmin;
+            .thankyou-right-buttons{
+                font-size: 3vmin;
+                padding: 10px 0;
+                a{
+                    margin-right: 10px;
+                    background: black;
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                }
+            }
+        }
+    }
+}

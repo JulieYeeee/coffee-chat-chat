@@ -10,7 +10,10 @@ const firebaseConfig = {
   storageBucket: "coffee-chat-together.appspot.com",
   messagingSenderId: "925098527252",
   appId: "1:925098527252:web:efbf5bf2103dc397b73501",
-  measurementId: "G-7ZS37857FM"
+  measurementId: "G-7ZS37857FM",
+  databaseURL:"https://coffee-chat-together-default-rtdb.asia-southeast1.firebasedatabase.app"
+
+
 };
 
 // Initialize Firebase

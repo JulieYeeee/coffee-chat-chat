@@ -7,7 +7,8 @@ import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
 //firebase modules
 import firebase from "../src/Firebase"; //initializtion
-import { getFirestore,doc,getDoc,addDoc,collection,updateDoc } from "firebase/firestore";
+import { getFirestore,doc,getDoc,addDoc,collection,updateDoc,getDocs,query,where,deleteDoc } from "firebase/firestore";
+import { getDatabase,get,ref,orderByChild,equalTo,set    } from "firebase/database";
 //components
 import MembershipTags from "../component/membership/Membershiptags";
 import MembershipProjects from "../component/membership/MembershipProjects";
@@ -47,10 +48,11 @@ const Membership = ({account,username,setOrderNum}) =>{
     let [ intro,setIntro]=useState(null);
     let [ tags ,setTags ]=useState([]);
     let [ memberEmail,setEmail ]=useState(null);
+    let [ consultantAccount,setConsultantAccount] = useState(null);
    
 
     //set initial user data
-    const setMemberData =(userData)=>{
+    const setMemberData =async(userData)=>{
         setMemberName(userData["basic"]["username"]);
         setTitle(userData["basic"]["title"]);
         setHeadshot(userData["basic"]["headshot"]);
@@ -62,37 +64,89 @@ const Membership = ({account,username,setOrderNum}) =>{
         setShareList(userData["detail"]["share"]);
         setProjects(userData["detail"]["project"]);
         setEmail(userData["user"]["email"]);
+        
+        const db = getFirestore(firebase);
+        const getConsultAccountQuery = query(collection(db, "user"),where("user.email","==",userData["user"]["email"]));
+        let docs = await getDocs(getConsultAccountQuery);
+        if(docs){
+            docs.forEach(doc=>{
+                setConsultantAccount(doc.id);
+            })
+        }               
     }
     
     let navigate=useNavigate();
     const buildAsk = async(e) =>{
         e.preventDefault();
-        if(account){
-            const docRef = await addDoc(collection(db, "pre-order"), {
-                number:null,
-                account: account,
-                askInfo: null,
-                askName: username,
-                askQuestion: null,
-                consultantEmail: memberEmail,
-                consultantName: memberName,
-                payment: null,
-                headshot: headshot,
-                reply: false
-              });
-              //回傳文件編號，回存到訂單文件中
-            if(docRef.id){
-                await updateDoc(doc(db, "pre-order", docRef.id), {
-                    number:docRef.id
-                })
-                setOrderNum(docRef.id);
-                navigate("/ask");
-            }
+        
+        // if(account){
+        //     const database = getDatabase(firebase);
+            
+        //     const checkQuery = query(dbRef, orderByChild('askaccount'), equalTo(""),orderByChild('consultantaccount'), equalTo(""));
+        //     let data = await get(checkQuery);
+        //     if(data){             
+        //         data.forEach(snapshot=>{
+        //         console.log(snapshot.val())      
+        //         })
+        //     }
+        // }else{
+        //     alert("請先登入");
+        //     return;
+        // }
 
+
+
+        if(account){
+            const checkQuery = query(collection(db, "pre-order"),where("account","==",account),where("consultantEmail","==",memberEmail),where("payment","==",null));
+            let docs = await getDocs(checkQuery);
+            console.log("askdocs:",docs);
+            if(docs){                
+                docs.forEach(docitem=>{
+                deleteRepeat(docitem);       
+                })
+            }
         }else{
-            console.log("3:",account);
             alert("請先登入");
+            return;
         }
+
+
+        async function deleteRepeat (docitem){
+            await deleteDoc(doc(db, "pre-order", docitem.id))
+        }        
+        
+        //如果前面沒被return 以下就會執行: 建立初步訂單
+        const docRef = await addDoc(collection(db, "pre-order"), {
+            number:null,
+            account: account,
+            askInfo: null,
+            askName: username,
+            askQuestion: null,
+            consultantAccount:consultantAccount,
+            consultantEmail: memberEmail,
+            consultantName: memberName,
+            payment: null,
+            headshot: headshot,
+            reply: false
+            });
+        //回傳文件編號，回存到訂單文件中
+        if(docRef.id){
+            await updateDoc(doc(db, "pre-order", docRef.id), {
+                number:docRef.id
+            })
+            //實時資料庫預存訂單狀態，未來若付款成功就觸發聊天功能
+            // const database = getDatabase(firebase);
+            // set(ref(database, 'order/' + docRef.id), {
+            //     payment: false,
+            //     askAcount: account,
+            //     consultantAccount:consultantAccount
+            // });
+            setOrderNum(docRef.id);
+            navigate("/ask");
+        }
+
+        
+
 
     }
 
@@ -143,11 +197,10 @@ const Membership = ({account,username,setOrderNum}) =>{
                     <div className="share-theme-box">
                         <p className="share-title">你可以問我：</p>
                         <div className="share-box">
-                            {shareList.map((share)=>{
-                                let num=0;
+                            {shareList.map((share,index)=>{
                                 if(share["title"] && share["content"]){
-                                    num++;
-                                    return  <MembershipShare share={share} num={num}/>
+
+                                    return  <MembershipShare share={share} index={index}/>
                                 }
                         })}
                             {/* <div className="share">

@@ -5,7 +5,7 @@ const Memberlist = () =>{
     useEffect(getStatus);
     return(
         <main>
-            Hi
+            Sorry... not finished yet.
         </main>
     )
 }

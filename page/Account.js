@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import fb from "../static/picture/fb.png";
 import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
+import defaultHeadshot from "../static/picture/headshot.png";
 //components
 import Tags from "../component/Personal/PersonalTags";
 import PersonalShare from "../component/Personal/PersonalShare";
@@ -16,6 +17,8 @@ import { getStorage , ref,uploadBytes,getDownloadURL} from "firebase/storage";//
 import { getFirestore,doc,getDoc,updateDoc  } from "firebase/firestore";
 
 
+
+
 const Account = ( {account,setAccount,username,setUsername} ) =>{ 
     //check user has login or not, if the user hasn't login, redirect to sigin page
     let navigate=useNavigate();    
@@ -25,13 +28,12 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
         if (user) {
             setAccount(user.uid);
             getInitialData();
-            console.log(user.uid);
         } else {
-            console.log("nobody");
             navigate("/signin");
         }
         });
     },[]);
+    
      // let navigate=useNavigate();
     // useEffect(()=>{
     //     if(account){
@@ -58,6 +60,7 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
             console.log("No such document!");
         }
     }
+
 
     //set initial user data
     const setInitialData =(userData)=>{
@@ -98,7 +101,8 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
                 project:projects
             },
           });
-          alert("Your information is already changed.🆗")
+          alert("Your information is already changed.🆗"+
+          `Your page: https://coffee-chat-together.web.app/membership/${account}`);
           console.log("store complete");
 
     }
@@ -179,38 +183,62 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
         
     },[headshot]);
 
-    const getImageURL =(imgElement)=>{
+    const getImageURL =(imgElement,index)=>{
         const storage = getStorage();
-        projects.map((project,index)=>{
-            let imageName=project["cover"];
-            if(imageName){
-                getDownloadURL(ref(storage, imageName))
-                .then((url) => {
-                    if(url){
-                        imgElement.src=url;
-                        setProjects(prev=>{
-                            prev[index]["cover"]=url;
-                            return [...prev];
-                        })
-                        // projects[index]["cover"]=url;
-                        // // let newprojects=JSON.parse(JSON.stringify(projects));
-                        // let newProjects=[...projects];
-                        // setProjects(newProjects);
+        let imageName= projects[index]["cover"];
+        if(imageName){
+            getDownloadURL(ref(storage, imageName))
+            .then((url) => {
+                if(url){
+                    imgElement.src=url;
+                    setProjects(prev=>{
+                        prev[index]["cover"]=url;
+                        return [...prev];
+                    })
 
-                    }else{
-                        return;
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    alert("oops!something went wrong");
-                });
+                }else{
+                    return;
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("oops!something went wrong");
+            });
+    
+        }else{
+            return;
+        }
+
+        // projects.map((project,index)=>{
+        //     let imageName=project["cover"];
+        //     if(imageName){
+        //         getDownloadURL(ref(storage, imageName))
+        //         .then((url) => {
+        //             if(url){
+        //                 imgElement.src=url;
+        //                 setProjects(prev=>{
+        //                     prev[index]["cover"]=url;
+        //                     return [...prev];
+        //                 })
+        //                 // projects[index]["cover"]=url;
+        //                 // // let newprojects=JSON.parse(JSON.stringify(projects));
+        //                 // let newProjects=[...projects];
+        //                 // setProjects(newProjects);
+
+        //             }else{
+        //                 return;
+        //             }
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //             alert("oops!something went wrong");
+        //         });
         
-            }else{
-                return;
-            }
+        //     }else{
+        //         return;
+        //     }
 
-         })
+        //  })
 
     }
         
@@ -254,7 +282,7 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
             projects[index]["cover"]=result["metadata"]["name"];
             let newProjects=[...projects];
             setProjects(newProjects);
-            getImageURL(imgElement);
+            getImageURL(imgElement,index);
             // setImageURLs(prev=>{
             //     prev[index+1]["cover"]=result["metadata"]["name"];
             //     return prev;
@@ -270,7 +298,7 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
         <form >
             <div className="personal-photo-name">
                 <div className="personal-img-upload">
-                    <img src={headshot}></img>
+                    <img src={headshot? headshot : defaultHeadshot}></img>
                     <label>選擇頭像
                     <input type="file" className="headshot" onChange={getFile(null)}></input>
                     </label>

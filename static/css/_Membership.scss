@@ -4,10 +4,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: grey;
+        // background: grey;
         width: 1200px;
         .navigation{
-            background: blue;
+            // background: blue;
             width: 100%;
             padding: 10px 0;
             border-bottom:2px solid black;
@@ -19,7 +19,7 @@
             
             .personal-left{
                 width: 75%;
-                background: rgb(180, 180, 180);
+                // background: rgb(180, 180, 180);
                 margin-right:2.5%;
                 padding: 20px;
                 display: flex;
@@ -78,7 +78,7 @@
                         padding: 5px;
                         // margin-right:10px;
                         margin: 2.5px 10px 2.5px 0;
-                        background: white;
+                        background: rgb(164, 164, 164);
                         border-radius: 10px;
                     }
                 }
@@ -119,7 +119,7 @@
             }
             .personal-right{
                 width: 22.5%;
-                background: rgb(180, 180, 180);
+                // background: rgb(180, 180, 180);
                 height: fit-content;
                 form{
                     padding: 10px;
@@ -141,7 +141,7 @@
             }
             .personal-bottom{
                 width: 100%;
-                background: rgb(180, 180, 180);
+                // background: rgb(180, 180, 180);
                 padding: 20px;
                 border-top: 2px solid black;
                 .know-more-title{
@@ -173,7 +173,8 @@
                         }
                         a{
                             width: 95%;
-                            background: white;
+                            background: black;
+                            color: white;
                             padding: 10px;
                             
                         }

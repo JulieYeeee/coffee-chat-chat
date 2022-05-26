@@ -1,7 +1,7 @@
 import React from "react";
+import defaultCover from "../../static/picture/fb.png";
 
 const PersonalProject = ({project,index,getFile,setProjects}) =>{
-
     const getSelectValue =(e)=>{
         setProjects(prev=>{
             prev[index]["type"]=e.target.value;
@@ -28,7 +28,7 @@ const PersonalProject = ({project,index,getFile,setProjects}) =>{
         <div className="project">
             <div className="image-type-box">
                 <div className="pj-image-upload">
-                <img src={project["cover"]}></img>
+                <img src={project["cover"]? project["cover"] : defaultCover}></img>
                 <label>上傳封面
                     <input type="file" className="project-image" onChange={getFile(index)}></input>
                 </label>

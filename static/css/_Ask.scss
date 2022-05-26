@@ -87,7 +87,7 @@
 
     }
     .ask-payment-box{
-        width: 80%;
+        width: 70%;
         display: flex;
         flex-direction: column;
         padding: 30px 0;
@@ -98,6 +98,24 @@
         .ask-payment{
             display: flex;
             flex-direction: column;
+            // align-items: center;
+            label{
+                // width: 50%;
+                display: flex;
+                align-items: center;
+                .item{
+                    width: 20%;
+                }
+                .tpfield {
+                    height: 40px;
+                    width: 80%;
+                    border: 1px solid gray;
+                    margin: 5px 0;
+                    padding: 5px;
+                }
+
+            }
+            
             input{
                 font-size: 20px;
                 padding: 15px;
