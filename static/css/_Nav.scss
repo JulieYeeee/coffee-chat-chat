@@ -2,7 +2,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background: black;
+    // background: #038C33;
+    border-bottom: 1px solid #6FBFB1;
+    background: #F2F2F0;
     nav{
         width: 1200px;
         display: flex;
@@ -11,7 +13,7 @@
             text-decoration: none;
             width: 50%;
             color: white;
-            padding:10px;
+            // padding:10px;
         }
         .menu{
             display: flex;
@@ -22,32 +24,52 @@
             padding:10px;
             li{
                 margin:10px;
+                position: relative;
                 a{
                     font-size: 3vmin;
                     font-weight: 900;
-                    color: white;
+                    color: #F27E63;
+
                     img{
                         width: 40px;
-                        border-radius: 50%;
-                        border: 1.5px solid white;
+                        border-radius: 10px;
+                        border: 1.5px solid #F27E63;
+                        background: #F27E63;
                     }
                     
                 }
                 .menu-notification{
-                    color: white;
+                    color: #F27E63;
+                    background: white;
+                    border-radius: 10px;
+                    text-align: center;
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
                 }
                 .signout{
+                    
                     width: 40px;
-                    border-radius: 50%;
-                    border: 1.5px solid white;
+                    border-radius: 10px;
+                    border: 1.5px solid #F27E63;
+                    background: #F27E63;
+                    cursor: pointer;
                 }
                 .signout-hide{
                     display: none;
                 }
                
             }
+            .inbox-notification{
+                position: relative;
+            }
+            li:hover{
+                bottom:5px;
+            }
             .member-list{
-                border: 1px solid white;
+                border: 1px solid #F27E63;
                 border-radius: 15px;
                 padding: 5px 10px;
             }

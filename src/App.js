@@ -9,6 +9,7 @@ import Memberlist from "../page/Memberlist";
 import Membership from "../page/membership";
 import Signin from "../page/Signin";
 import Inbox from "../page/Inbox";
+import InboxDefault from "../page/Inbox-default";
 import Ask from "../page/Ask";
 import Thankyou from "../page/Thankyou";
 
@@ -53,6 +54,7 @@ const App = () =>{
               message:null,
               askUnread:2,
               replyUnread:0,
+              time:Date.now()
             });
             const msgListRef = ref(database, `inbox/${orderNum}/message`);
             const newMsgRef = push(msgListRef);
@@ -82,21 +84,39 @@ const App = () =>{
     const inboxRef=query(ref(database, 'inbox/'));
     let unReadref=useRef();
     onValue(inboxRef, (snapshot) => {
+        console.log("listen to individual unread");
         const data = snapshot.val();
         let keys=Object.keys(data);
         unReadref.current=0;
         keys.forEach((item)=>{
             if (data[item]["consultantAccount"] && data[item]["consultantAccount"]===account && data[item]["askUnread"]){
-                unReadref.current=unReadref.current+data[item]["askUnread"];
-                set(ref(database, 'user/' + account), {
-                    unread:unReadref.current,
-                });
+                unReadref.current=unReadref.current+data[item]["askUnread"]; 
             }
-            
-
         })
+        set(ref(database, 'user/' + account), {
+            unread:unReadref.current,
+        });
         
     });
+
+    
+    let [unreadCount,setunreadCount]=useState();  
+    const checkUnreadRef=query(ref(database, 'user/',account)); 
+    onValue(checkUnreadRef, (snapshot) => {
+        console.log("listen to total unread");
+        const data = snapshot.val();
+        if(data[account]){
+            if(unreadCount!==data[account]["unread"]){
+                setunreadCount(data[account]["unread"])
+            }else{
+                console.log("Nav check nothing change:",unreadCount,data[account]["unread"]);
+            }
+
+        };
+        
+    });
+
+
     // onValue(inboxRef, (snapshot) => {
     //     const data = snapshot.val();
     //     let keys=Object.keys(data);
@@ -239,7 +259,7 @@ const App = () =>{
     return(
         <div>
             <BrowserRouter>
-                <Nav account={account} setAccount={setAccount}  />
+                <Nav account={account} setAccount={setAccount}  unreadCount={unreadCount} setunreadCount={setunreadCount} />
                 <Routes>
                     <Route path="/" element={<Homepage account={account} setAccount={setAccount} />}/>
                     <Route path="/account" element={<Account account={account} setAccount={setAccount} username={username} setUsername={setUsername} /> }/>
@@ -249,7 +269,8 @@ const App = () =>{
                     <Route path="/ask" element={ <Ask username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
                     <Route path="/thankyou" element={ <Thankyou username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
                     {/* <Route path="/inbox" element={account ? <Inbox  account={account} setAccount={setAccount}/> : <Navigate to='/signin' replace />}/> */}
-                    <Route path="/inbox" element={<Inbox  account={account} setAccount={setAccount} /> }/>
+                    <Route path="/inbox" element={<InboxDefault  account={account} setAccount={setAccount} setunreadCount={setunreadCount} /> }/>
+                    <Route path="/inbox/:id" element={<Inbox  account={account} setAccount={setAccount} setunreadCount={setunreadCount} /> }/>
                     <Route path="/signin" element={ <Signin  account={account} setAccount={setAccount} username={username} setUsername={setUsername}/>}/>
                 </Routes>
             </BrowserRouter>

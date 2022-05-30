@@ -3,19 +3,70 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    // background: #F2F2F0;
+    background: #F2F2F2;
+    // scroll-snap-type: y mandatory;
+    // height: 100%;
     
     .bar-section1{
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 10px 0 ;
-        p{
+        position: relative;
+        .cross-title{
             font-size: 3vmin;
+            color: #6FBFB1;
         }
         img{
+            position: absolute;
             width: 40px;
+            animation: crossFloatAnimation 1s;
+            animation-iteration-count:infinite;
         }
     }
+}
+
+@keyframes crossFloatAnimation {
+    0%{
+        top:40%;
+    }
+    100%{
+        top:100%
+    }
+    
+}
+
+.homepage-main{
+    background:#F2F2F2; 
+    animation: scrollUpAnimation 0.5s;
+
+}
+.homepage-main2{
+background: #F2B544;
+animation: scrollDownAnimation 0.5s;
+}
+@keyframes scrollDownAnimation {
+    0%{
+        background: #F2F2F2;
+    }
+    100%{
+        background: #F2B544;
+    }
+    
+}
+@keyframes scrollUpAnimation {
+    0%{
+        background: #f2b54400;
+    }
+    100%{
+        background: #F2F2F2;
+    }
+    
+}
+
+.font-color{
+    color:#F2F2F2;
 }
 
 @import "Hp-section1";
