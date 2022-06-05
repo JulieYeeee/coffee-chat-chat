@@ -8,9 +8,13 @@ const MembershipProjects = ({project}) =>{
            
            <img src={cover? cover : png}></img>
             {/* <img { cover? src={cover} :src={png} }></img> */}
-            <p className="project-type">{project["type"]}</p>
-            <p className="project-content">{project["content"]}</p>
-            <a href={project["link"]? project["link"]:"null"}>READ</a>
+            <div>
+                <p className="project-type">{project["type"]}</p>
+                <p className="project-content">{project["content"]}</p>
+                </div>
+                <a href={project["link"]? project["link"]:"null"}>READ</a>
+            
+            
         </div>
     )
 }

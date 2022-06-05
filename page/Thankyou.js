@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import coffee from "../static/picture/coffee.png";
+import coffee2 from "../static/picture/coffee2.png";
 
 const Thankyou = ()=>{
 return(
     <main className="thankyou-main">
         <div className="thankyou-box">
-            <img src={coffee}></img>
+            <img src={coffee2}></img>
             <div className="thankyou-right">
                 <p className="thankyou-content">
                     感謝你的咖啡!<br/>請留意訊息匣的回覆通知

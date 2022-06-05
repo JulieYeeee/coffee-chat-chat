@@ -3,6 +3,10 @@ import { useNavigate ,Link,useParams} from "react-router-dom";
 import { getAuth ,onAuthStateChanged} from "firebase/auth";
 import Firebase from "../src/Firebase";
 import { getDatabase,query,ref,onValue,child, get,push,set} from "firebase/database";
+import defaultmessage from "../static/picture/defaultmessage.png";
+import talk from "../static/picture/talk.png";
+
+
 
 
 const Inbox =  ( {account,setAccount,setunreadCount}) =>{
@@ -17,7 +21,6 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
         onAuthStateChanged(auth, (user) => {
         if (user) {
             setAccount(user.uid);
-            console.log("inbox:",account);
         } else {
             navigate("/signin");
         }
@@ -34,14 +37,14 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
         msgRef.current=[];
         keys.forEach((item)=>{
             if (data[item]["consultantAccount"]===account ){
-                msgRef.current.push({content:data[item]["askAccount"]+"向你發出提問!立即確認提問內容",msgId:item});
+                msgRef.current.push({content:data[item]["askName"]+" 向你發出提問!立即確認提問內容",msgId:item});
             }else if(data[item]["askAccount"]===account){
-                msgRef.current.push({content:`你已向 ${data[item]["consultantAccount"]} 發出提問!請靜候回覆`,msgId:item});
+                msgRef.current.push({content:`你已向 ${data[item]["consultantName"]} 發出提問!請靜候回覆`,msgId:item});
             }
-            // console.log("check all msg:",msgRef.current);
+            console.log("check all msg:",msgRef.current,msgList);
           
         })
-        if(msgList.length!==msgRef.current.length){
+        if(msgRef.current!==[] && msgList.length!==msgRef.current.length){
             setMsgList(msgRef.current);
         }
         
@@ -53,6 +56,7 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
     let [ msgRole,setMsgRole]=useState(null);
     let msgContentRef=useRef([]);
     useEffect(()=>{
+        if(id!=="default"){
             msgContentRef.current=[];
             const dbRef = ref(getDatabase());
             get(child(dbRef, `inbox/${id}`))
@@ -87,7 +91,11 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
             }
             }).catch((error) => {
             console.error(error);
-            });            
+            });         
+
+
+        }
+               
     },[id,account])
     
     
@@ -131,6 +139,9 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
    
     useEffect(()=>{
         const singleMsgRef=query(ref(database, `inbox/${id}/message`));
+        if(id==="default"){
+            return;
+        }
         onValue(singleMsgRef, (snapshot) => {
             const data = snapshot.val();
             let keys=Object.keys(data); 
@@ -145,10 +156,36 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
         });
 
     },[id,replyContent])
-      
     
 
-    // msgContent[0]==="consultant"
+    let [ msgSelectElement,setMsgSelectElement]=useState(null);
+    useEffect(()=>{
+        console.log("check msgSelectElement:",msgSelectElement);
+        if(msgSelectElement){
+            msgSelectElement.className="msgSelect";
+        }
+
+    },[])
+
+
+    
+    const selectCss =(e)=>{
+        if(msgSelectElement!=null){
+            msgSelectElement.className="";
+        }
+        setMsgSelectElement(e.target);
+        e.target.className="msgSelect";
+    }
+    
+
+    const showMsgList =(e)=>{
+        if(e.target.parentElement.className==="inbox-left"){
+            e.target.parentElement.className="inbox-left inbox-left-showup";
+        }else{
+            e.target.parentElement.className="inbox-left";
+        }
+        
+    }
    
 
 
@@ -156,17 +193,29 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
         <main className="inxbox-main">
             <div className="inbox-box">
             <div className="inbox-left">
+                <div className="inbox-left-list-open-control" onClick={showMsgList}>〉</div>
                 <div className="inbox-left-title">訊息列表</div>
                 <div className="inbox-left-list">
-                    {msgList? msgList.map((msg)=>{
-                        return <Link to={`/inbox/${msg["msgId"]}`}><p>{msg["content"]}</p></Link>
-                    }): "您還沒有任何訊息:)"}
+                    
+                    {msgList.length!==0 && msgList.map((msg)=>{
+                        return <Link to={`/inbox/${msg["msgId"]}`}><p onClick={selectCss}>{msg["content"]}</p></Link>
+                    })}
+                    {msgList.length===0 &&  <div className="msgList-default"><img src={talk}></img>
+                    <p>還沒有訊息，開始發問聊天吧!</p></div>}
                 </div>
             </div>
             <div className="inbox-right">
                 <div className="inbox-right-title">訊息內容</div>
                 <div className="inbox-right-conetent">
-                    { msgContent? msgContent.map((msg)=>{
+                    { id==="default" && <div className="defaultMsg-box">
+                        <img src={defaultmessage}></img>
+                        <p>點擊左方訊息查看內容</p>
+                        </div>
+                    }
+                        
+                    {
+                    msgContent? msgContent.map((msg)=>{
+                        console.log("id check:",id);
                             if(msgRole==="consultant" && msg["from"]==="ask"){
                                 
                                 return <div className="receive-box">
@@ -195,7 +244,9 @@ const Inbox =  ( {account,setAccount,setunreadCount}) =>{
                                         <div className="receive-blank"></div>
                                         </div>
                             }
-                        }): 點擊左方訊息查看內容
+                        }): console.log("id check:",id)
+                       
+                        
                     }
                     {/* <div className="receive-box">
                         <div className="receive-content">來自XXX訊息</div>

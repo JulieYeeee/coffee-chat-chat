@@ -25,9 +25,12 @@ import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "f
 
 const App = () =>{
     let [ account , setAccount ] = useState (false);
-    let [ username, setUsername ]=useState("");
+    let [ username, setUsername ]=useState(null);
     let [ orderNum, setOrderNum ]=useState("");
-   
+
+
+
+
     useEffect(()=>{
         const auth = getAuth(Firebase);
         onAuthStateChanged(auth, (user) => {
@@ -50,7 +53,9 @@ const App = () =>{
         if(data){
             set(ref(database, 'inbox/' + orderNum), {
               askAccount: data[orderNum]["askAccount"],
+              askName: data[orderNum]["askName"],
               consultantAccount:data[orderNum]["consultantAccount"],
+              consultantName: data[orderNum]["consultantName"],
               message:null,
               askUnread:2,
               replyUnread:0,
@@ -264,7 +269,7 @@ const App = () =>{
                     <Route path="/" element={<Homepage account={account} setAccount={setAccount} />}/>
                     <Route path="/account" element={<Account account={account} setAccount={setAccount} username={username} setUsername={setUsername} /> }/>
                     <Route path="/memberlist" element={ <Memberlist  account={account} setAccount={setAccount}/> }/>
-                    <Route path= "/membership/:id" element={ <Membership username={username} account={account} setAccount={setAccount} orderNum={orderNum} setOrderNum={setOrderNum}/>}/>
+                    <Route path= "/membership/:id" element={ <Membership username={username} setUsername={setUsername} account={account} setAccount={setAccount} orderNum={orderNum} setOrderNum={setOrderNum}/>}/>
                     {/* <Route path="/ask" element={account ? <Ask account={account} setAccount={setAccount} /> : <Navigate to='/signin' replace /> }/> */}
                     <Route path="/ask" element={ <Ask username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
                     <Route path="/thankyou" element={ <Thankyou username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>

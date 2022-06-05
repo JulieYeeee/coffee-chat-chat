@@ -8,6 +8,7 @@ import blog from "../static/picture/blog.png";
 //firebase modules
 import firebase from "../src/Firebase"; //initializtion
 import { getFirestore,doc,getDoc,addDoc,collection,updateDoc,getDocs,query,where,deleteDoc } from "firebase/firestore";
+
 import { getDatabase,get,ref,orderByChild,equalTo,set    } from "firebase/database";
 //components
 import MembershipTags from "../component/membership/Membershiptags";
@@ -15,7 +16,7 @@ import MembershipProjects from "../component/membership/MembershipProjects";
 import MembershipShare from "../component/membership/MembershipShare";
 
 
-const Membership = ({account,username,setOrderNum}) =>{
+const Membership = ({account,username,setOrderNum,setUsername}) =>{
     //取得 URL parameter
     const { id } = useParams();
     
@@ -116,6 +117,20 @@ const Membership = ({account,username,setOrderNum}) =>{
         }        
         
         //如果前面沒被return 以下就會執行: 建立初步訂單
+        
+        const userDocRef = doc(db, "user", account);
+        const userDocSnap = await getDoc(userDocRef);
+        console.log("gotta get user doc")
+        if (userDocSnap.exists()) {
+            let newUsername=JSON.parse(JSON.stringify(userDocSnap.data()["basic"]["username"]));
+            setUsername(newUsername);
+            
+        } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        }
+        
+
         const docRef = await addDoc(collection(db, "pre-order"), {
             number:null,
             account: account,
@@ -131,6 +146,8 @@ const Membership = ({account,username,setOrderNum}) =>{
             });
         //回傳文件編號，回存到訂單文件中
         if(docRef.id){
+            console.log(docRef.id);
+            console.log("check username:",username);
             await updateDoc(doc(db, "pre-order", docRef.id), {
                 number:docRef.id
             })
@@ -149,6 +166,40 @@ const Membership = ({account,username,setOrderNum}) =>{
 
 
     }
+
+    // useEffect(()=>{
+    //     const buildOrder= async()=>{
+    //         const docRef = await addDoc(collection(db, "pre-order"), {
+    //             number:null,
+    //             account: account,
+    //             askInfo: null,
+    //             askName: username,
+    //             askQuestion: null,
+    //             consultantAccount:consultantAccount,
+    //             consultantEmail: memberEmail,
+    //             consultantName: memberName,
+    //             payment: null,
+    //             headshot: headshot,
+    //             reply: false
+    //             });
+    //         //回傳文件編號，回存到訂單文件中
+    //         if(docRef.id){
+    //             console.log(docRef.id);
+    //             console.log("check username:",username);
+    //             await updateDoc(doc(db, "pre-order", docRef.id), {
+    //                 number:docRef.id
+    //             })
+    //             setOrderNum(docRef.id);
+    //             navigate("/ask");
+    //         }
+    //     }
+    //     if(username!==null){
+    //         buildOrder();
+    //     }
+        
+        
+
+    // },[username])
 
 
 

@@ -1,5 +1,6 @@
 import React from "react";
 import defaultCover from "../../static/picture/fb.png";
+import coverdefault from "../../static/picture/coverdefault.png";
 
 const PersonalProject = ({project,index,getFile,setProjects}) =>{
     const getSelectValue =(e)=>{
@@ -28,8 +29,10 @@ const PersonalProject = ({project,index,getFile,setProjects}) =>{
         <div className="project">
             <div className="image-type-box">
                 <div className="pj-image-upload">
-                <img src={project["cover"]? project["cover"] : defaultCover}></img>
-                <label>上傳封面
+                    { project["cover"] && <img className="realcover" src={project["cover"]}></img> }
+                    { !project["cover"] && <img className="coverdefault" src={coverdefault}></img>}
+                {/* <img src={project["cover"]? project["cover"] : coverdefault}></img> */}
+                <label><p>+</p>
                     <input type="file" className="project-image" onChange={getFile(index)}></input>
                 </label>
                 </div>

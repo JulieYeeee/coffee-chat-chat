@@ -1,0 +1,361 @@
+.memberlist-main{
+    .memberlist-search{
+        width: 100%;
+        padding: 150px 0;
+        background: url("../picture/searchbanner.png") #F2F2F0;
+        background-size: 20%;
+        background-repeat: no-repeat;
+        background-position: 80% ;
+        // box-shadow:-5px -5px 10px rgb(255, 255, 255),
+        // inset 0 -15px 10px -10px rgba(187, 187, 187, 0.51);
+        -webkit-filter: drop-shadow(1px 3px 3px rgba(187, 187, 187, 0.51));
+        filter: drop-shadow(1px 3px 3px rgba(174, 174, 174, 0.508));
+        p{
+            font-size: 5vmin;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+    .memberlist-box{
+        width: 1200px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 50px 0 ;
+        // border: 1px solid black;
+        
+        
+        .memberlist-card{
+            width: 47%;
+            margin:20px 1.5%;
+            padding: 20px 10px;
+            // border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            background: #F2F2F0;
+            box-shadow:-5px -5px 10px rgb(255, 255, 255),
+            inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
+            -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
+            filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+            border-radius: 20px;
+            // flex-wrap: wrap;
+            .memberlist-card-headshot{
+                width:35%;
+                aspect-ratio: 1/1;
+                border-radius: 50%;
+                margin: auto;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .memberlist-card-content{
+                width: 60%;
+                p{
+                    padding:  5px;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                    width: 100%;
+                    text-overflow:ellipsis;
+                    word-wrap:break-word;
+                    font-weight: 700;
+                    color:rgb(60, 59, 59);
+                }
+                .memberlist-card-name,.memberlist-card-title,.memberlist-card-welcome{
+                    font-size: 2.5vmin;
+                }
+                .memberlist-card-tag-box{
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    .memberlist-card-tag{
+                        background: #F2B544;
+                        border-radius: 15px;
+                        margin: 0 5px 5px 0;
+                        p{
+                            color: white;
+                            font-size: 2.5vmin;
+                        }
+                    }
+                }
+
+            }
+            
+        }
+    }
+}
+
+@media screen and (max-width:1199px){
+    .memberlist-main{
+        .memberlist-search{
+            width: 100%;
+            padding: 150px 0;
+            background: url("../picture/searchbanner.png") #F2F2F0;
+            background-size: 25%;
+            background-repeat: no-repeat;
+            background-position: right 10%;
+            -webkit-filter: drop-shadow(1px 3px 3px rgba(187, 187, 187, 0.51));
+            filter: drop-shadow(1px 3px 3px rgba(174, 174, 174, 0.508));
+            p{
+                font-size: 5vmin;
+                font-weight: 700;
+                text-align: center;
+            }
+        }
+        .memberlist-box{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 50px 0 ;
+            
+            
+            .memberlist-card{
+                width: 47%;
+                margin:20px 1.5%;
+                padding: 20px 10px;
+                display: flex;
+                justify-content: center;
+                background: #F2F2F0;
+                box-shadow:-5px -5px 10px rgb(255, 255, 255),
+                inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
+                -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
+                filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+                border-radius: 20px;
+                .memberlist-card-headshot{
+                    width:35%;
+                    aspect-ratio: 1/1;
+                    border-radius:  50%;
+                    margin: auto;
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .memberlist-card-content{
+                    width: 60%;
+                    p{
+                        padding:  5px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        overflow: hidden;
+                        width: 100%;
+                        text-overflow:ellipsis;
+                        word-wrap:break-word;
+                        font-weight: 700;
+                        color:rgb(60, 59, 59);
+                    }
+                    .memberlist-card-name,.memberlist-card-title{
+                        font-size: 2.5vmin;
+                    }
+                    .memberlist-card-tag-box{
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        .memberlist-card-tag{
+                            background: #F2B544;
+                            border-radius: 15px;
+                            margin: 0 5px 5px 0;
+                            p{
+                                color: white;
+                            }
+                        }
+                    }
+    
+                }
+                
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:850px){
+    .memberlist-main{
+        .memberlist-search{
+            width: 100%;
+            padding: 130px 0;
+            background: url("../picture/searchbanner.png") #F2F2F0;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            background-position: right 10%;
+            -webkit-filter: drop-shadow(1px 3px 3px rgba(187, 187, 187, 0.51));
+            filter: drop-shadow(1px 3px 3px rgba(174, 174, 174, 0.508));
+            p{
+                font-size: 5vmin;
+                font-weight: 700;
+                text-align: center;
+            }
+        }
+        .memberlist-box{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 50px 0 ;
+            // border: 1px solid black;
+            
+            
+            .memberlist-card{
+                width: 45%;
+                margin:20px 2.5% 25px 2.5%;
+                padding: 20px 10px;
+                // border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content:flex-start;
+                align-items: center;
+                background: #F2F2F0;
+                box-shadow:-5px -5px 10px rgb(255, 255, 255),
+                inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
+                -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
+                filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+                border-radius: 20px;
+                // flex-wrap: wrap;
+                .memberlist-card-headshot{
+                    width:40%;
+                    aspect-ratio: 1/1;
+                    border-radius:  50%;
+                    margin: 5%;
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .memberlist-card-content{
+                    width: 85%;
+                    margin: 10px 0;
+                    border-left: 2px solid #F2B544;
+                    padding-left: 30px;
+                    p{
+                        padding:  5px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        overflow: hidden;
+                        width: 100%;
+                        text-overflow:ellipsis;
+                        word-wrap:break-word;
+                        font-weight: 700;
+                        color:rgb(60, 59, 59);
+                    }
+                    .memberlist-card-name,.memberlist-card-title{
+                        font-size: 2.5vmin;
+                    }
+                    .memberlist-card-tag-box{
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        .memberlist-card-tag{
+                            background: #F2B544;
+                            border-radius: 15px;
+                            margin: 0 5px 5px 0;
+                            p{
+                                color: white;
+                            }
+                        }
+                    }
+    
+                }
+                
+            }
+        }
+    }
+    
+}
+
+
+@media screen and (max-width:550px){
+    .memberlist-main{
+        .memberlist-search{
+            width: 100%;
+            padding: 150px 0;
+            background: url("../picture/searchbanner.png") #F2F2F0;
+            background-size: 25%;
+            background-repeat: no-repeat;
+            background-position: right 10%;
+            -webkit-filter: drop-shadow(1px 3px 3px rgba(187, 187, 187, 0.51));
+            filter: drop-shadow(1px 3px 3px rgba(174, 174, 174, 0.508));
+            p{
+                font-size: 5vmin;
+                font-weight: 700;
+                text-align: center;
+            }
+        }
+        .memberlist-box{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin: 50px 0 ;
+            
+            
+            .memberlist-card{
+                width: 90%;
+                margin:20px 0;
+                padding: 20px 10px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                background: #F2F2F0;
+                border-radius: 20px;
+                .memberlist-card-headshot{
+                    width:37%;
+                    aspect-ratio: 1/1;
+                    border-radius:  50%;
+                    margin: auto;
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .memberlist-card-content{
+                    width: 60%;
+                    margin: 10px 0;
+                    border-style: none;
+                    padding-left: 10px;
+                    p{
+                        padding:  5px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        overflow: hidden;
+                        width: 100%;
+                        text-overflow:ellipsis;
+                        word-wrap:break-word;
+                        font-weight: 700;
+                        color:rgb(60, 59, 59);
+                    }
+                    .memberlist-card-name,.memberlist-card-title{
+                        font-size: 2.5vmin;
+                    }
+                    .memberlist-card-tag-box{
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        .memberlist-card-tag{
+                            background: #F2B544;
+                            border-radius: 15px;
+                            margin: 0 5px 5px 0;
+                            p{
+                                color: white;
+                            }
+                        }
+                    }
+    
+                }
+                
+            }
+        }
+    }
+    
+}

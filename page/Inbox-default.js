@@ -3,9 +3,11 @@ import { useNavigate ,Link,useParams} from "react-router-dom";
 import { getAuth ,onAuthStateChanged} from "firebase/auth";
 import Firebase from "../src/Firebase";
 import { getDatabase,query,ref,onValue,child, get, orderByChild} from "firebase/database";
+import defaultmessage from "../static/picture/defaultmessage.png";
 
 
 const InboxDefault =  ( {account,setAccount,setunreadCount}) =>{
+    
    
 
     let [msgList,setMsgList]=useState([]);
@@ -46,6 +48,17 @@ const InboxDefault =  ( {account,setAccount,setunreadCount}) =>{
         }
         
     });
+
+    const selectCss =(e)=>{
+        console.log("default click")
+        if(msgSelectElement!=null){
+            msgSelectElement.className="";
+        }
+        setMsgSelectElement(e.target);
+        e.target.className="msgSelect";
+        console.log("default click2:",e.target.className)
+    }
+    
 
      //取得 URL parameter
     // const { id } = useParams();
@@ -92,7 +105,7 @@ const InboxDefault =  ( {account,setAccount,setunreadCount}) =>{
                 <div className="inbox-left-title">訊息列表</div>
                 <div className="inbox-left-list">
                     {msgList? msgList.map((msg)=>{
-                        return <Link to={`/inbox/${msg["msgId"]}`}><p>{msg["content"]}</p></Link>
+                        return <Link to={`/inbox/${msg["msgId"]}`} ><p>{msg["content"]}</p></Link>
                     }):"沒有任何新訊息:)"
                 }
                     
@@ -101,7 +114,11 @@ const InboxDefault =  ( {account,setAccount,setunreadCount}) =>{
             <div className="inbox-right">
                 <div className="inbox-right-title">訊息內容</div>
                 <div className="inbox-right-conetent">
-                    點擊左方訊息查看內容
+                    <div className="defaultMsg-box">
+                        <img src={defaultmessage}></img>
+                        <p>點擊左方訊息查看內容</p>
+                    </div>
+                    
                     {/* { msgContent.map((msg)=>{
                             if(msgContent[0]==="consultant" && msg["from"]==="ask"){
                                 
@@ -143,10 +160,10 @@ const InboxDefault =  ( {account,setAccount,setunreadCount}) =>{
                     </div> */}
                    
                 </div>
-                <form className="inbox-reply-box">
+                {/* <form className="inbox-reply-box">
                     <textarea placeholder="輸入訊息" rows="1"></textarea>
                     <button type="submit" >傳送</button>
-                </form>
+                </form> */}
             </div>
             </div>
             Sorry...not finished yet.

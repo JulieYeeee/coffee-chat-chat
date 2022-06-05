@@ -6,6 +6,7 @@ import fb from "../static/picture/fb.png";
 import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
 import defaultHeadshot from "../static/picture/headshot.png";
+import coverdefault from "../static/picture/coverdefault.png";
 //components
 import Tags from "../component/Personal/PersonalTags";
 import PersonalShare from "../component/Personal/PersonalShare";
@@ -299,7 +300,7 @@ const Account = ( {account,setAccount,username,setUsername} ) =>{
             <div className="personal-photo-name">
                 <div className="personal-img-upload">
                     <img src={headshot? headshot : defaultHeadshot}></img>
-                    <label>選擇頭像
+                    <label><p>+</p>
                     <input type="file" className="headshot" onChange={getFile(null)}></input>
                     </label>
                 </div>

@@ -9,7 +9,7 @@ import { getFirestore,doc,setDoc,getDoc,collection,updateDoc, query, where, getD
 import { getDatabase,get,ref,orderByChild,equalTo,set    } from "firebase/database";
 
 
-const Ask = ({account,orderNum}) =>{
+const Ask = ({account,orderNum,username}) =>{
 
     let [ consultantName,setConsultant ]=useState(null);
     let [ headshot,setHeadshot]=useState(null);
@@ -50,11 +50,12 @@ const Ask = ({account,orderNum}) =>{
             const fields = {
                 number: {
                     element: '#card-number',
-                    placeholder: '**** **** **** ****'
+                    placeholder: '**** **** **** ****',
                 },
                 expirationDate: {
                     element: '#card-expiration-date',
                     placeholder: 'MM / YY'
+
                 },
                 ccv: {
                     element: '#card-ccv',
@@ -198,11 +199,15 @@ const Ask = ({account,orderNum}) =>{
         })
     }
 
+
+
     const navigate=useNavigate();
     const updateOrder = async() =>{
         const db = getFirestore(firebase);
+        
         await updateDoc(doc(db, "pre-order", orderNum), {
             askInfo: userInfo,
+            askName:username,
             askQuestion: question,
             payment:true
         })
@@ -211,9 +216,11 @@ const Ask = ({account,orderNum}) =>{
             orderNum:orderNum,
             payment: true,
             askAccount: account,
+            askName:username,
             askInfo: userInfo,
             askQuestion: question,
-            consultantAccount:consultantAccount
+            consultantAccount:consultantAccount,
+            consultantName:consultantName
         });
         navigate("/thankyou");
     }
@@ -252,22 +259,18 @@ const Ask = ({account,orderNum}) =>{
                 <div className="ask-payment">
                 <label>
                     <div className="item">信用卡號</div>
-                    <div className="tpfield" id="card-number"></div>
+                    <div className="tpfield" id="card-number" ></div>
                 </label>
 
                 <label>
                     <div className="item">有效日期</div>
-                    <div className="tpfield" id="card-expiration-date"></div>
+                    <div className="tpfield" id="card-expiration-date" ></div>
                 </label>
 
                 <label>
                     <div className="item">安全碼</div>
-                    <div className="tpfield" id="card-ccv"></div>
+                    <div className="tpfield" id="card-ccv" ></div>
                 </label>
-
-                    {/* <input placeholder="Card number"></input>
-                    <input placeholder="CVV"></input>
-                    <input placeholder="Expired date"></input> */}
                 </div>
             </div>
             <button type="submit" onClick={submitPay}>提交諮詢</button>
