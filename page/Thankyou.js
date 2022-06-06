@@ -13,7 +13,7 @@ return(
                     感謝你的咖啡!<br/>請留意訊息匣的回覆通知
                 </p>
                 <div className="thankyou-right-buttons">
-                    <Link to="/inbox" className="thankyou-inbox">前往訊息匣</Link>
+                    <Link to="/inbox/default" className="thankyou-inbox">前往訊息匣</Link>
                     <Link to="/memberlist" className="thankyou-memberlist">繼續找聊天對象</Link>
                 </div>
             </div>

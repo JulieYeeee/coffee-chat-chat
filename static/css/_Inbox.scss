@@ -64,6 +64,9 @@
                         -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
                         filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
                     }
+                    .inbox-notification .msgUnread{
+                        font-weight: 700;
+                    }
                 }
                 .msgSelect{
                     border-left: 2px solid #F2B544;
@@ -75,6 +78,7 @@
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    justify-content: center;
                     img{
                         width: 40%;
                         aspect-ratio: 1/1;
@@ -91,7 +95,6 @@
         }
         .inbox-right{
             width: 70%;
-            // border: 1px solid black;
             border-radius: 0 20px 20px 0;
             .inbox-right-title{
                 font-size: 3vmin;
@@ -168,18 +171,23 @@
                 
                 textarea{
                     margin: 10px 0 ;
-                    width: 85%;
+                    width: 80%;
                     padding: 10px;
                     resize: none;
                     border-radius: 20px 0 0 20px;
                     border-style: none;
                     
                 }
+                textarea:focus{
+                    outline: none;
+                }
                 button{
-                    width: 10%;
+                    width: 15%;
                     padding: 10px;
                     border-radius: 0 20px 20px 0;
                     border-style: none;
+                    background: white;
+                    color: rgb(60,59,59);
                     cursor: pointer;
                 }
             }
@@ -216,11 +224,16 @@
                         border-style: none;
                         
                     }
+                    textarea:focus{
+                        outline: none;
+                    }
                     button{
                         width: 15%;
                         padding: 10px;
                         border-radius: 0 20px 20px 0;
                         border-style: none;
+                        background: white;
+                        color: rgb(60,59,59);
                         cursor: pointer;
                     }
                 }

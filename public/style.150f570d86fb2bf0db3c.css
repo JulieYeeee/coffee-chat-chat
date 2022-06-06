@@ -118,6 +118,10 @@ a {
   right: -5px;
 }
 
+.nav-container nav .menu li .menu-notification-hide {
+  display: none;
+}
+
 .nav-container nav .menu li .signout {
   width: 40px;
   border-radius: 10px;
@@ -1517,7 +1521,8 @@ main .bar-section1 img {
   color: white;
   border-radius: 20px;
   margin-right: 5px;
-  padding: 7px;
+  margin: 3px 5px 3px 0;
+  padding: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2179,8 +2184,8 @@ main .bar-section1 img {
             box-shadow: inset 10px 15px 15px -15px #f59580;
     color: white;
     border-radius: 20px;
-    margin-right: 5px;
-    padding: 7px;
+    margin: 3px 5px 3px 0;
+    padding: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2250,6 +2255,7 @@ main .bar-section1 img {
     width: 100%;
     padding: 20px 10px;
     border-radius: 20px;
+    margin: 10px 0;
   }
   .personal-info-main form .personal-share-theme .share-theme-box .share-theme .share-title-box {
     width: 100%;
@@ -2623,8 +2629,8 @@ main .bar-section1 img {
             box-shadow: inset 10px 15px 15px -15px #f59580;
     color: white;
     border-radius: 20px;
-    margin-right: 5px;
-    padding: 7px;
+    margin: 3px 5px 3px 0;
+    padding: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3043,9 +3049,8 @@ main .bar-section1 img {
 }
 
 .membership-main .membership-box .personal-data .personal-left .tag-box .tag {
-  padding: 7px;
+  padding: 5px;
   margin: 2.5px 10px 2.5px 0;
-  border-radius: 10px;
   background: #F2B544;
   -webkit-box-shadow: inset 10px 15px 15px -15px #f59580;
           box-shadow: inset 10px 15px 15px -15px #f59580;
@@ -3126,14 +3131,15 @@ main .bar-section1 img {
 
 .membership-main .membership-box .personal-data .personal-right form button {
   color: #3c3b3b;
+  background: #F2F2F0;
   width: 100%;
   padding: 10px;
   font-size: 2.5vmin;
   font-weight: 700;
   border-radius: 20px;
   border-style: none;
-  -webkit-box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
-          box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+  -webkit-box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+          box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
   -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
   filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
   cursor: pointer;
@@ -3451,8 +3457,8 @@ main .bar-section1 img {
     font-weight: 700;
     border-radius: 20px;
     border-style: none;
-    -webkit-box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
-            box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+    -webkit-box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+            box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
     -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
     filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
     cursor: pointer;
@@ -4044,8 +4050,8 @@ main .bar-section1 img {
     font-weight: 700;
     border-radius: 20px;
     border-style: none;
-    -webkit-box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
-            box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+    -webkit-box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+            box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
     -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
     filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
     cursor: pointer;
@@ -4206,9 +4212,12 @@ main .bar-section1 img {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .membership-main .membership-box .personal-data .personal-left .headshot-box {
-    width: 25%;
+    width: 50%;
     aspect-ratio: 1/1;
     background: white;
     border-radius: 50%;
@@ -4227,7 +4236,7 @@ main .bar-section1 img {
        object-fit: cover;
   }
   .membership-main .membership-box .personal-data .personal-left .personal-basic-link {
-    width: 70%;
+    width: 100%;
     margin-left: 5%;
     padding-bottom: 10px;
   }
@@ -4371,8 +4380,8 @@ main .bar-section1 img {
     font-weight: 700;
     border-radius: 20px;
     border-style: none;
-    -webkit-box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
-            box-shadow: -5px -5px 10px white, inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+    -webkit-box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
+            box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.744), inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);
     -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
     filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
     cursor: pointer;
@@ -5139,6 +5148,10 @@ main .bar-section1 img {
   filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
 }
 
+.inxbox-main .inbox-box .inbox-left .inbox-left-list a .inbox-notification .msgUnread {
+  font-weight: 700;
+}
+
 .inxbox-main .inbox-box .inbox-left .inbox-left-list .msgSelect {
   border-left: 2px solid #F2B544;
   background: #f6d393;
@@ -5157,6 +5170,9 @@ main .bar-section1 img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .inxbox-main .inbox-box .inbox-left .inbox-left-list .msgList-default img {
@@ -5279,18 +5295,24 @@ main .bar-section1 img {
 
 .inxbox-main .inbox-box .inbox-right .inbox-reply-box textarea {
   margin: 10px 0;
-  width: 85%;
+  width: 80%;
   padding: 10px;
   resize: none;
   border-radius: 20px 0 0 20px;
   border-style: none;
 }
 
+.inxbox-main .inbox-box .inbox-right .inbox-reply-box textarea:focus {
+  outline: none;
+}
+
 .inxbox-main .inbox-box .inbox-right .inbox-reply-box button {
-  width: 10%;
+  width: 15%;
   padding: 10px;
   border-radius: 0 20px 20px 0;
   border-style: none;
+  background: white;
+  color: #3c3b3b;
   cursor: pointer;
 }
 
@@ -5330,11 +5352,16 @@ main .bar-section1 img {
     border-radius: 20px 0 0 20px;
     border-style: none;
   }
+  .inxbox-main .inbox-box .inbox-right .inbox-reply-box textarea:focus {
+    outline: none;
+  }
   .inxbox-main .inbox-box .inbox-right .inbox-reply-box button {
     width: 15%;
     padding: 10px;
     border-radius: 0 20px 20px 0;
     border-style: none;
+    background: white;
+    color: #3c3b3b;
     cursor: pointer;
   }
 }
@@ -5647,7 +5674,7 @@ main .bar-section1 img {
 
 .memberlist-main .memberlist-box .memberlist-card .memberlist-card-content .memberlist-card-tag-box .memberlist-card-tag p {
   color: white;
-  font-size: 2.5vmin;
+  font-size: 2vmin;
 }
 
 @media screen and (max-width: 1199px) {

@@ -24,18 +24,21 @@ import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "f
 
 
 const App = () =>{
+    const DOMref=React.createRef();
+
     let [ account , setAccount ] = useState (false);
     let [ username, setUsername ]=useState(null);
     let [ orderNum, setOrderNum ]=useState("");
 
 
 
-
+    let [notificationCSS,setnotificationCSS]=useState("menu-notification menu-notification-hide");
     useEffect(()=>{
         const auth = getAuth(Firebase);
         onAuthStateChanged(auth, (user) => {
         if (user) {
             setAccount(user.uid);
+            setnotificationCSS("menu-notification");
         } else {
             console.log("nobody");
         }
@@ -49,7 +52,6 @@ const App = () =>{
         const orderRef=query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
         onValue(orderRef, (snapshot) => {
         const data = snapshot.val();
-        console.log("realtimelisten:",data);
         if(data){
             set(ref(database, 'inbox/' + orderNum), {
               askAccount: data[orderNum]["askAccount"],
@@ -87,34 +89,37 @@ const App = () =>{
   
 
     const inboxRef=query(ref(database, 'inbox/'));
-    let unReadref=useRef();
+    let askUnreadRef=useRef();
+    let replyUnreadRef=useRef();
     onValue(inboxRef, (snapshot) => {
-        console.log("listen to individual unread");
+        askUnreadRef.current=0;
+        replyUnreadRef.current=0;
         const data = snapshot.val();
         let keys=Object.keys(data);
-        unReadref.current=0;
         keys.forEach((item)=>{
             if (data[item]["consultantAccount"] && data[item]["consultantAccount"]===account && data[item]["askUnread"]){
-                unReadref.current=unReadref.current+data[item]["askUnread"]; 
+                askUnreadRef.current=askUnreadRef.current+data[item]["askUnread"]; 
+            }
+            if (data[item]["askAccount"] && data[item]["askAccount"]===account && data[item]["replyUnread"]){
+                replyUnreadRef.current=replyUnreadRef.current+data[item]["replyUnread"]; 
             }
         })
         set(ref(database, 'user/' + account), {
-            unread:unReadref.current,
+            unread:askUnreadRef.current+replyUnreadRef.current,
         });
         
     });
 
     
     let [unreadCount,setunreadCount]=useState();  
-    const checkUnreadRef=query(ref(database, 'user/',account)); 
+    const checkUnreadRef=query(ref(database, `user/${account}`)); 
     onValue(checkUnreadRef, (snapshot) => {
-        console.log("listen to total unread");
         const data = snapshot.val();
-        if(data[account]){
-            if(unreadCount!==data[account]["unread"]){
-                setunreadCount(data[account]["unread"])
+        if(data){
+            if(unreadCount!==data["unread"]){
+                setunreadCount(data["unread"])
             }else{
-                console.log("Nav check nothing change:",unreadCount,data[account]["unread"]);
+                console.log("Nav check nothing change:",unreadCount,data["unread"]);
             }
 
         };
@@ -264,7 +269,7 @@ const App = () =>{
     return(
         <div>
             <BrowserRouter>
-                <Nav account={account} setAccount={setAccount}  unreadCount={unreadCount} setunreadCount={setunreadCount} />
+                <Nav account={account} setAccount={setAccount}  unreadCount={unreadCount} setunreadCount={setunreadCount} notificationCSS={notificationCSS} setnotificationCSS={setnotificationCSS} />
                 <Routes>
                     <Route path="/" element={<Homepage account={account} setAccount={setAccount} />}/>
                     <Route path="/account" element={<Account account={account} setAccount={setAccount} username={username} setUsername={setUsername} /> }/>
@@ -275,7 +280,7 @@ const App = () =>{
                     <Route path="/thankyou" element={ <Thankyou username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
                     {/* <Route path="/inbox" element={account ? <Inbox  account={account} setAccount={setAccount}/> : <Navigate to='/signin' replace />}/> */}
                     <Route path="/inbox" element={<InboxDefault  account={account} setAccount={setAccount} setunreadCount={setunreadCount} /> }/>
-                    <Route path="/inbox/:id" element={<Inbox  account={account} setAccount={setAccount} setunreadCount={setunreadCount} /> }/>
+                    <Route path="/inbox/:id" element={<Inbox  account={account} setAccount={setAccount} unreadCount={unreadCount} setunreadCount={setunreadCount} askUnreadRef={askUnreadRef} replyUnreadRef={replyUnreadRef} DOMref={DOMref}/> }/>
                     <Route path="/signin" element={ <Signin  account={account} setAccount={setAccount} username={username} setUsername={setUsername}/>}/>
                 </Routes>
             </BrowserRouter>

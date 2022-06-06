@@ -105,9 +105,9 @@
                     padding: 10px 0;
                     margin-bottom: 20px;
                     .tag{
-                        padding: 7px;
+                        padding: 5px;
                         margin: 2.5px 10px 2.5px 0;
-                        border-radius: 10px;
+                        
                         background: #F2B544;
                         box-shadow:inset 10px 15px 15px -15px #f59580; 
                         color: white;
@@ -171,13 +171,14 @@
                     padding: 10px;
                     button{
                         color: rgb(60, 59, 59);
+                        background: #F2F2F0;
                         width: 100%;
                         padding: 10px;
                         font-size: 2.5vmin;
                         font-weight: 700;
                         border-radius: 20px;
                         border-style: none;
-                        box-shadow:-5px -5px 10px rgb(255, 255, 255),
+                        box-shadow:-5px -5px 5px rgba(255, 255, 255, 0.744),
                         inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
                         -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
                         filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
@@ -455,7 +456,7 @@
                             font-weight: 700;
                             border-radius: 20px;
                             border-style: none;
-                            box-shadow:-5px -5px 10px rgb(255, 255, 255),
+                            box-shadow:-5px -5px 5px rgba(255, 255, 255, 0.744),
                             inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
                             -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
                             filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
@@ -999,7 +1000,7 @@
                             font-weight: 700;
                             border-radius: 20px;
                             border-style: none;
-                            box-shadow:-5px -5px 10px rgb(255, 255, 255),
+                            box-shadow:-5px -5px 5px rgba(255, 255, 255, 0.744),
                             inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
                             -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
                             filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
@@ -1148,8 +1149,9 @@
                     display: flex;
                     flex-wrap: wrap;
                     align-items: center;
+                    justify-content: center;
                     .headshot-box{
-                        width: 25%;
+                        width: 50%;
                         aspect-ratio: 1/1;
                         background: white;
                         border-radius: 50%;
@@ -1167,7 +1169,7 @@
                         }
                     }
                     .personal-basic-link{
-                        width: 70%;
+                        width: 100%;
                         margin-left: 5%;
                         padding-bottom: 10px;
                         p{
@@ -1228,7 +1230,7 @@
                     .share-theme-box{
                         padding: 10px 0;
                         width: 100%;
-                        
+                        // margin: 10px 0;
                         .share-title{
                             color: rgb(60, 59, 59);
                             font-size: 3.5vmin;
@@ -1296,7 +1298,7 @@
                             font-weight: 700;
                             border-radius: 20px;
                             border-style: none;
-                            box-shadow:-5px -5px 10px rgb(255, 255, 255),
+                            box-shadow:-5px -5px 5px rgba(255, 255, 255, 0.744),
                             inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
                             -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
                             filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));

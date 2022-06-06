@@ -46,6 +46,7 @@
                     }
                 }
                 .menu-notification{
+
                     color: #F27E63;
                     background: white;
                     border-radius: 10px;
@@ -55,6 +56,9 @@
                     position: absolute;
                     top: -5px;
                     right: -5px;
+                }
+                .menu-notification-hide{
+                    display: none;
                 }
                 .signout{
                     

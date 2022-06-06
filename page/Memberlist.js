@@ -14,7 +14,6 @@ const Memberlist = () =>{
             async function getMemberlist(){
                 const querySnapshot = await getDocs(collection(db, "user"));
                 querySnapshot.forEach((doc) => {
-                    console.log(doc.data()["basic"]["headshot"])
                     memberlistRef.current.push({id:doc.id,info:doc.data()}); 
                 });
                 setMemberlist(memberlistRef.current);
@@ -55,7 +54,6 @@ const Memberlist = () =>{
                         <div className="memberlist-card-tag-box">
                              {tags.map((tag,index)=>{
                                  if(index<5){
-                                     console.log(index);
                                     return <div className="memberlist-card-tag"><p>{tag["tag"]}</p></div>
                                  }
                                  

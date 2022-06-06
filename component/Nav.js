@@ -14,7 +14,7 @@ import { getDatabase,ref,onValue,query,set } from "firebase/database";
 
 
 
-const Nav = ( {account,setAccount,unreadCount,setunreadCount} ) =>{
+const Nav = ( {account,setAccount,unreadCount,setunreadCount,notificationCSS,setnotificationCSS} ) =>{
 
     
     // const database = getDatabase(firebase);
@@ -37,6 +37,7 @@ const Nav = ( {account,setAccount,unreadCount,setunreadCount} ) =>{
             const auth = getAuth(firebase);
             signOut(auth).then(() => {
                 setAccount(false);
+                setnotificationCSS("menu-notification menu-notification-hide");
                 console.log("Sign-out successful.");
             // Sign-out successful.
             }).catch((error) => {
@@ -54,7 +55,8 @@ const Nav = ( {account,setAccount,unreadCount,setunreadCount} ) =>{
                     <li className="member-list"><Link to="/memberlist">尋找咖啡聊對象</Link></li>
                     <li className="inbox-notification">
                         <Link to="/inbox/default" ><img src={inbox}></img></Link>
-                        <div className="menu-notification">{unreadCount}</div>
+                        <div className={notificationCSS}>{unreadCount}</div>
+                        {/* {unreadCount && <div className="menu-notification">{unreadCount}</div>} */}
                     </li>
                     <li><Link to="/account" ><img src={user}></img></Link></li>
                     { account? <li onClick={signoutHandler}><img src={signout} className="signout"></img></li> :null
