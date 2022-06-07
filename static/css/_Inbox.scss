@@ -1,28 +1,19 @@
+@import "variable"; 
+
 .inxbox-main{
     .inbox-box{
+        @extend %elementBasicStyle;
         width: 1200px;
         display: flex;
         margin: 50px 0;
-        border-radius: 20px;
-        box-shadow:-5px -5px 10px rgb(255, 255, 255),
-        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-        background: #F2F2F0;
-        .inbox-left-list-open-control-test{
-            position: relative;
-            height: fit-content;
-            padding: 10px 0;
-            right: -30%;
-            bottom: -100%;
-            // transform: translateX(100%);
-            background: #F2F2F0;
-            -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
-            filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
-        }
+        // border-radius: 20px;
+        // box-shadow:-5px -5px 10px rgb(255, 255, 255),
+        // inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
+        // -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
+        // filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+        // background: #F2F2F0;
         .inbox-left{
             width: 30%;
-            // overflow: auto;
             border-radius: 20px 0 0 20px;
             position: relative;
             .inbox-left-list-open-control{
@@ -31,9 +22,10 @@
                 right: 0px;
                 top: 50%;
                 transform: translateX(100%);
-                background: #F2F2F0;
-                -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
-                filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
+                background: var(--background);
+                // border-right:1px solid var(--standardGrey) ;
+                // -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
+                // filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
                 display: none;
             }
             .open-control-hide{
@@ -53,23 +45,20 @@
                 inset 0px 10px 10px -15px rgba(135, 135, 135, 0.764);
                 display: flex;
                 flex-direction: column;
-                
-                // justify-content: center;
-                // align-items: center;
                 a{
                     
                     p{
                         padding: 30px 10px;
-                        background:#F2F2F0 ;
+                        background:var(--background) ;
                         -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
                         filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
                     }
-                    .inbox-notification .msgUnread{
+                    .msgUnread{
                         font-weight: 700;
                     }
                 }
                 .msgSelect{
-                    border-left: 2px solid #F2B544;
+                    border-left: 2px solid var(--standardYellow);
                     background: #f6d393;
                 }
                 .msgList-default{
@@ -87,7 +76,7 @@
                     p{
                         font-size: 2.5vmin;
                         font-weight: 700;
-                        color: rgba(60, 59, 59, 0.607);
+                        color: rgba(60, 59, 59, 0.6);
                     }
                 }
                 
@@ -100,8 +89,7 @@
                 font-size: 3vmin;
                 font-weight: 700;
                 padding: 5px;
-                text-align: center;
-                
+                text-align: center;   
             }
             .inbox-right-conetent{
                 width: 100%;
@@ -110,15 +98,13 @@
                 overflow: auto;
                 box-shadow:
                 inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);
-               
 
-                // background: pink;
                 .receive-box{
                     display: flex;
                     padding: 5px;
                     .receive-content{
                         font-size: 2vmin;
-                        background: rgb(215, 185, 185);
+                        background: rgba(255, 255, 255, 0.9);
                         padding: 10px;
                         border-radius: 10px 10px 10px 0;
                         max-width: 70%;
@@ -134,7 +120,7 @@
                    
                    .send-content{
                     font-size: 2vmin;
-                    background: rgb(206, 206, 206);
+                    background: var(--decoYellow);
                     padding: 10px;
                     border-radius: 10px 10px 0 10px;
                     max-width: 70%;
@@ -157,7 +143,7 @@
                     p{
                         font-size: 2.5vmin;
                         font-weight: 700;
-                        color: rgba(60, 59, 59, 0.607);
+                        color: rgba(60, 59, 59, 0.6);
                     }
                 }
 
@@ -176,18 +162,19 @@
                     resize: none;
                     border-radius: 20px 0 0 20px;
                     border-style: none;
+                    &:focus{
+                        outline: none;
+                    }
                     
                 }
-                textarea:focus{
-                    outline: none;
-                }
+              
                 button{
                     width: 15%;
                     padding: 10px;
                     border-radius: 0 20px 20px 0;
                     border-style: none;
-                    background: white;
-                    color: rgb(60,59,59);
+                    background: var(--standardWhite);
+                    color: var(--standardGrey);
                     cursor: pointer;
                 }
             }
@@ -195,55 +182,6 @@
         }
     }
 }
-@media screen and (max-width:740px) {
-    .inxbox-main{
-        .inbox-box{
-            width: 90%;
-            display: flex;
-            margin: 50px 0;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            .inbox-right{
-                width: 100%;
-                border-radius: 0 20px 20px 0;
-            
-                .inbox-reply-box{
-                    width: 100%;
-                    font-size: 2vmin;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    
-                    textarea{
-                        margin: 10px 0 ;
-                        width: 80%;
-                        padding: 10px;
-                        resize: none;
-                        border-radius: 20px 0 0 20px;
-                        border-style: none;
-                        
-                    }
-                    textarea:focus{
-                        outline: none;
-                    }
-                    button{
-                        width: 15%;
-                        padding: 10px;
-                        border-radius: 0 20px 20px 0;
-                        border-style: none;
-                        background: white;
-                        color: rgb(60,59,59);
-                        cursor: pointer;
-                    }
-                }
-                
-            }
-        }
-    }
-    
-}
-
 
 
 @media screen and (max-width:1199px) {
@@ -254,6 +192,8 @@
     }
     
 }
+
+
 
 
 @media screen and (max-width:500px) {
@@ -270,12 +210,12 @@
                 left: -50%;
                 width: 50%;
                 height: 100%;
-                background: #F2F2F0;
+                background: var(--background);
                 z-index: 10;
-                // overflow: auto;
                 border-radius: 20px 0 0 20px;
-                -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
-                filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
+                border-right: 1px solid var(--standardWhite);
+                // -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
+                // filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
                 transition: 0.5s;
                 .inbox-left-list-open-control{
                     position: absolute;
@@ -283,61 +223,11 @@
                     right: 0px;
                     top: 50%;
                     transform: translateX(100%);
-                    background: #F2F2F0;
-                    -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
-                    filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
+                    background: var(--background);
                     display: block;
                 }
-                
-                // .open-control-hide{
-                //     display: none;
-                // }
-                .inbox-left-title{
-                    font-size: 3vmin;
-                    font-weight: 700;
-                    text-align: center;
-                    padding: 5px;
-                }
-                .inbox-left-list{
-                    height: 75vh;
-                    overflow:auto;
-                    box-shadow:
-                    inset 0px 10px 10px -15px rgba(135, 135, 135, 0.764);
-                    display: flex;
-                    flex-direction: column;
 
-                    a{
-                        
-                        p{
-                            padding: 30px 10px;
-                            background:#F2F2F0 ;
-                            -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
-                            filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
-                        }
-                    }
-                    .msgSelect{
-                        border-left: 2px solid #F2B544;
-                        background: #f6d393;
-                    }
-                    .msgList-default{
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        img{
-                            width: 40%;
-                            aspect-ratio: 1/1;
-                            opacity:0.5;
-                        }
-                        p{
-                            font-size: 2.5vmin;
-                            font-weight: 700;
-                            color: rgba(60, 59, 59, 0.607);
-                        }
-                    }
-    
-                }
+     
             }
             .inbox-left-showup{
                 left: 0;
@@ -346,94 +236,6 @@
             }
             .inbox-right{
                 width: 100%;
-                border-radius: 0 20px 20px 0;
-                .inbox-right-title{
-                    font-size: 3vmin;
-                    font-weight: 700;
-                    padding: 5px;
-                    text-align: center;
-                    
-                }
-                .inbox-right-conetent{
-                    width: 100%;
-                    height: 70vh;
-                    background: #F2F2F0;
-                    overflow: auto;
-                    box-shadow:
-                    inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);
-                   
-                    .receive-box{
-                        display: flex;
-                        padding: 5px;
-                        .receive-content{
-                            font-size: 2vmin;
-                            background: rgb(215, 185, 185);
-                            padding: 10px;
-                            max-width: 70%;
-                        }
-                        .receive-blank{
-                            flex-grow: 1;
-                        }
-    
-                    }
-                    .send-box{
-                        padding: 5px;
-                       display: flex;
-                       
-                       .send-content{
-                        font-size: 2vmin;
-                        background: rgb(206, 206, 206);
-                        padding: 10px;
-                        max-width: 70%;
-                        }
-                        .send-blank{
-                        flex-grow: 1;
-                        }
-                    }
-                    .defaultMsg-box{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        height: 100%;
-                        justify-content: center;
-                        img{
-                            width: 15%;
-                            aspect-ratio: 1/1;
-                            opacity:0.5;
-                        }
-                        p{
-                            font-size: 2.5vmin;
-                            font-weight: 700;
-                            color: rgba(60, 59, 59, 0.607);;
-                        }
-                    }
-    
-                }
-                .inbox-reply-box{
-                    width: 100%;
-                    font-size: 2vmin;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    
-                    textarea{
-                        margin: 10px 0 ;
-                        width: 80%;
-                        padding: 10px;
-                        resize: none;
-                        border-radius: 20px 0 0 20px;
-                        border-style: none;
-                        
-                    }
-                    button{
-                        width: 15%;
-                        padding: 10px;
-                        border-radius: 0 20px 20px 0;
-                        border-style: none;
-                        cursor: pointer;
-                    }
-                }
-                
             }
         }
     }

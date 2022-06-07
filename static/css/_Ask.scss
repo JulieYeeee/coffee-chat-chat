@@ -10,7 +10,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: rgb(60, 59, 59);
+        color: var(--standardGrey);
         margin: 50px 0;
     .ask-consultant-box{
         display: flex;
@@ -22,7 +22,7 @@
             width: 150px;
             aspect-ratio: 1/1;
             object-fit: cover;
-            background:grey;
+            background:var(--standardWhite);
             border-radius: 50%;
         }
         .ask-welcome{
@@ -39,7 +39,6 @@
         width: 80%;
         .ask-notification{
             font-size: 3vmin;
-            // font-size: 54vmin;
             font-weight: 400;
         }
         .ask-information-box{
@@ -65,10 +64,7 @@
                 padding: 15px;
                 border-radius: 20px;
                 border-style: none;
-                box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+                @extend %shadowStyle;
             }
             textarea:focus{
                 outline: none;
@@ -84,7 +80,6 @@
                 img{
                     width: 30px;
                     height: 30px;
-                    // aspect-ratio: 1/1;
                 }
                 p{
                     font-size: 3.5vmin;
@@ -99,10 +94,7 @@
                 padding: 15px;
                 border-radius: 20px;
                 border-style: none;
-                box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+                @extend %shadowStyle;
             }
             textarea:focus{
                 outline: none;
@@ -123,9 +115,7 @@
         .ask-payment{
             display: flex;
             flex-direction: column;
-            // align-items: center;
             label{
-                // width: 50%;
                 display: flex;
                 align-items: center;
 
@@ -137,19 +127,16 @@
                     
                 }
                 .tpfield {
+                    @extend %shadowStyle;
                     height: 40px;
                     width: 70%;
                     font-size: 3vmin;
-                    // border: 1px solid gray;
                     margin: 5px 0;
                     padding: 10px;
                     border-radius: 10px;
                     font-size: 3vmin;
                     background: white;
-                    box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                    inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                    -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                    filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+                    
                 }
 
             }
@@ -161,18 +148,14 @@
         font-size: 3vmin;
         font-weight: 700;
         padding: 10px;
-        color: rgb(60, 59, 59);
+        color: var(--standardGrey);
         border-radius: 20px;
         border-style: none;
-        box-shadow:-5px -5px 10px rgb(255, 255, 255),
-        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+        @extend %shadowStyle;
         cursor: pointer;
     }
     button:hover{
-        box-shadow:-3px -5px 8px rgb(255, 255, 255),
-        inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764); 
+        @extend %buttonHoverStyle;
     }
     }
 
@@ -181,186 +164,8 @@
 
 @media screen and(max-width:1199px){
     .ask-main{
-        .bar{
-            width: 100%;
-            height: 5px;
-            box-shadow:
-            inset 5px 10px 15px -15px rgba(135, 135, 135, 0.764);
-        }
         form{
             width: 85%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: rgb(60, 59, 59);
-            margin: 50px 0;
-        .ask-consultant-box{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80%;
-            padding: 30px 0;
-            .ask-headshot{
-                width: 150px;
-                aspect-ratio: 1/1;
-                object-fit: cover;
-                background:grey;
-                border-radius: 50%;
-            }
-            .ask-welcome{
-                font-size: 5vmin;
-                font-weight: 700;
-                padding-left: 30px;
-            }
-        }
-        
-        .ask-consultation-box{
-            padding: 30px 0;
-            display: flex;
-            flex-direction: column;
-            width: 80%;
-            .ask-notification{
-                font-size: 3vmin;
-                // font-size: 54vmin;
-                font-weight: 400;
-            }
-            .ask-information-box{
-                padding: 30px 0;
-                div{
-                    display: flex;
-                    align-items: center;
-                    padding-bottom: 5px;
-                    img{
-                        width: 30px;
-                        height: 30px;
-                    }
-                    p{
-                        font-size: 3.5vmin;
-                        font-weight: 700;
-                        padding-left: 5px;
-                    }
-                }
-                textarea{
-                    width: 100%;
-                    resize: none;
-                    font-size: 20px;
-                    padding: 15px;
-                    border-radius: 20px;
-                    border-style: none;
-                    box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                    inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                    -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                    filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-                }
-                textarea:focus{
-                    outline: none;
-                }
-            }
-            .ask-question-box{
-                padding: 30px 0;
-    
-                div{
-                    display: flex;
-                    align-items: center;
-                    padding-bottom: 5px;
-                    img{
-                        width: 30px;
-                        height: 30px;
-                        // aspect-ratio: 1/1;
-                    }
-                    p{
-                        font-size: 3.5vmin;
-                        font-weight: 700;
-                        padding-left: 5px;
-                    }
-                }
-                textarea{
-                    width: 100%;
-                    resize: none;
-                    font-size: 20px;
-                    padding: 15px;
-                    border-radius: 20px;
-                    border-style: none;
-                    box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                    inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                    -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                    filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-                }
-                textarea:focus{
-                    outline: none;
-                }
-            }
-    
-        }
-        .ask-payment-box{
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            padding: 30px 0;
-            .ask-notification{
-                font-size: 3.5vmin;
-                text-align: center;
-                padding: 20px 0 ;
-            }
-            .ask-payment{
-                display: flex;
-                flex-direction: column;
-                // align-items: center;
-                label{
-                    // width: 50%;
-                    display: flex;
-                    align-items: center;
-    
-                    .item{
-                        // width: 20%;
-                        font-size: 3vmin;
-                        
-                    }
-                    .tpfield {
-                        height: 40px;
-                        // width: 80%;
-                        font-size: 3vmin;
-                        // border: 1px solid gray;
-                        margin: 5px 0;
-                        padding: 10px;
-                        border-radius: 10px;
-                        font-size: 3vmin;
-                        background: white;
-                        box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-                    }
-    
-                }
-                
-                // input{
-                //     font-size: 20px;
-                //     padding: 15px;
-                //     margin: 10px 0;
-                // }
-            }
-        }
-        button{
-            width: 80%;
-            font-size: 3vmin;
-            font-weight: 700;
-            padding: 10px;
-            color: rgb(60, 59, 59);
-            // background: black;
-            // color: aliceblue;
-            border-radius: 20px;
-            border-style: none;
-            box-shadow:-5px -5px 10px rgb(255, 255, 255),
-            inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-            -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-            filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-            cursor: pointer;
-        }
-        button:hover{
-            box-shadow:-3px -5px 8px rgb(255, 255, 255),
-            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764); 
-        }
         }
     
     }
@@ -373,73 +178,19 @@
         form{
             
         .ask-payment-box{
-            width: 100%;
-            // display: flex;
-            // flex-direction: column;
-            // padding: 30px 0;
+            width: 90%;
             .ask-notification{
                 font-size: 3.5vmin;
                 text-align: center;
                 padding: 20px 0 ;
             }
-            .ask-payment{
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                label{
-                    display: flex;
-                    
-                    .item{
-                        width: 30%;
-                        font-size: 3vmin;
-                        
-                    }
-                    .tpfield {
-                        height: 40px;
-                        width: 60%;
-                        font-size: 3vmin;
-                        // border: 1px solid gray;
-                        margin: 5px 0;
-                        padding: 10px;
-                        border-radius: 10px;
-                        font-size: 3vmin;
-                        background: white;
-                        box-shadow:-5px -5px 10px rgb(255, 255, 255),
-                        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-                        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-                        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-                    }
-    
-                }
-                
-                // input{
-                //     font-size: 20px;
-                //     padding: 15px;
-                //     margin: 10px 0;
-                // }
-            }
+            // .ask-payment{
+            //     display: flex;
+            //     flex-direction: column;
+            //     width: 100%;
+            // }
         }
-        button{
-            width: 80%;
-            font-size: 3vmin;
-            font-weight: 700;
-            padding: 10px;
-            color: rgb(60, 59, 59);
-            // background: black;
-            // color: aliceblue;
-            border-radius: 20px;
-            border-style: none;
-            box-shadow:-5px -5px 10px rgb(255, 255, 255),
-            inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
-            -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
-            filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
-            cursor: pointer;
+        
         }
-        button:hover{
-            box-shadow:-3px -5px 8px rgb(255, 255, 255),
-            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764); 
-        }
-        }
-    
     }
 }

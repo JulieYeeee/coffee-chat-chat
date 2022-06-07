@@ -19,11 +19,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "firebase/database";
 
 
-
-
-
-
 const App = () =>{
+    
+
     const DOMref=React.createRef();
 
     let [ account , setAccount ] = useState (false);

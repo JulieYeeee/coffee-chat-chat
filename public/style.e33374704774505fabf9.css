@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Signika+Negative:wght@400;500;600;700&display=swap");
+/*!************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./static/css/index.css ***!
+  \************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Signika+Negative:wght@400;500;600;700&display=swap);
+/*!****************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./static/css/index.css (1) ***!
+  \****************************************************************************/
 * {
   padding: 0px;
   margin: 0px;
@@ -3178,9 +3184,6 @@ main .bar-section1 img {
     -webkit-transition: 0.5s;
     transition: 0.5s;
   }
-  .inxbox-main .inbox-box .inbox-right {
-    width: 100%;
-  }
 }
 
 :root {
@@ -3242,7 +3245,7 @@ main .bar-section1 img {
 .memberlist-main .memberlist-search {
   width: 100%;
   padding: 150px 0;
-  background: url("../picture/searchbanner.png") var(--background);
+  background: url(4ec8c66c4bfcd7567b85.png) var(--background);
   background-size: 20%;
   background-repeat: no-repeat;
   background-position: 80%;
@@ -3439,4 +3442,3 @@ main .bar-section1 img {
     font-size: 2.5vmin;
   }
 }
-/*# sourceMappingURL=index.css.map */
