@@ -5,12 +5,13 @@ import Firebase from "../src/Firebase";
 import { getDatabase,query,ref,onValue,child, get,push,set,update} from "firebase/database";
 import defaultmessage from "../static/picture/defaultmessage.png";
 import talk from "../static/picture/talk.png";
+import { GetGlobalContext } from "../component/context/GlobalContext";
 
 
 
 
-const Inbox =  ( {account,setAccount,unreadCount,setunreadCount,askUnreadRef,replyUnreadRef,DOMref}) =>{
-   
+const Inbox =  ( {DOMref}) =>{
+   const {account,setAccount,unreadCount,setunreadCount,askUnreadRef,replyUnreadRef}=GetGlobalContext();
 
     let [msgList,setMsgList]=useState([]);
 

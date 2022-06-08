@@ -15,8 +15,11 @@ import MembershipTags from "../component/membership/Membershiptags";
 import MembershipProjects from "../component/membership/MembershipProjects";
 import MembershipShare from "../component/membership/MembershipShare";
 
+import { GetGlobalContext } from "../component/context/GlobalContext";
 
-const Membership = ({account,username,setOrderNum,setUsername}) =>{
+
+const Membership = () =>{
+    const {account,username,setUsername,setOrderNum}=GetGlobalContext();
     //取得 URL parameter
     const { id } = useParams();
     

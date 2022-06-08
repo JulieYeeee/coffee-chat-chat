@@ -1,5 +1,5 @@
 // React module
-import React, { useState,useEffect, useRef } from "react";
+import React, { useState,useEffect, useRef} from "react";
 import { BrowserRouter , Routes , Route, Navigate } from "react-router-dom";
 //components
 import Nav from "../component/Nav";
@@ -18,19 +18,19 @@ import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "firebase/database";
 
+//context
+import { GetGlobalContext } from "../component/context/GlobalContext";
+
+
 
 const App = () =>{
-    
+    const {account,setAccount,username,setUsername,orderNum,setOrderNum,unreadCount,setunreadCount,askUnreadRef,replyUnreadRef,notificationCSS,setnotificationCSS}=GetGlobalContext();
 
     const DOMref=React.createRef();
 
-    let [ account , setAccount ] = useState (false);
-    let [ username, setUsername ]=useState(null);
-    let [ orderNum, setOrderNum ]=useState("");
 
 
 
-    let [notificationCSS,setnotificationCSS]=useState("menu-notification menu-notification-hide");
     useEffect(()=>{
         const auth = getAuth(Firebase);
         onAuthStateChanged(auth, (user) => {
@@ -87,8 +87,6 @@ const App = () =>{
   
 
     const inboxRef=query(ref(database, 'inbox/'));
-    let askUnreadRef=useRef();
-    let replyUnreadRef=useRef();
     onValue(inboxRef, (snapshot) => {
         askUnreadRef.current=0;
         replyUnreadRef.current=0;
@@ -109,7 +107,7 @@ const App = () =>{
     });
 
     
-    let [unreadCount,setunreadCount]=useState();  
+   
     const checkUnreadRef=query(ref(database, `user/${account}`)); 
     onValue(checkUnreadRef, (snapshot) => {
         const data = snapshot.val();
@@ -267,20 +265,22 @@ const App = () =>{
     return(
         <div>
             <BrowserRouter>
-                <Nav account={account} setAccount={setAccount}  unreadCount={unreadCount} setunreadCount={setunreadCount} notificationCSS={notificationCSS} setnotificationCSS={setnotificationCSS} />
+                
+                <Nav />
                 <Routes>
-                    <Route path="/" element={<Homepage account={account} setAccount={setAccount} />}/>
-                    <Route path="/account" element={<Account account={account} setAccount={setAccount} username={username} setUsername={setUsername} /> }/>
-                    <Route path="/memberlist" element={ <Memberlist  account={account} setAccount={setAccount}/> }/>
-                    <Route path= "/membership/:id" element={ <Membership username={username} setUsername={setUsername} account={account} setAccount={setAccount} orderNum={orderNum} setOrderNum={setOrderNum}/>}/>
+                    <Route path="/" element={<Homepage/>}/>
+                    <Route path="/account" element={<Account/> }/>
+                    <Route path="/memberlist" element={ <Memberlist /> }/>
+                    <Route path= "/membership/:id" element={ <Membership />}/>
                     {/* <Route path="/ask" element={account ? <Ask account={account} setAccount={setAccount} /> : <Navigate to='/signin' replace /> }/> */}
-                    <Route path="/ask" element={ <Ask username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
-                    <Route path="/thankyou" element={ <Thankyou username={username} account={account} setAccount={setAccount} orderNum={orderNum} /> }/>
+                    <Route path="/ask" element={ <Ask /> }/>
+                    <Route path="/thankyou" element={ <Thankyou /> }/>
                     {/* <Route path="/inbox" element={account ? <Inbox  account={account} setAccount={setAccount}/> : <Navigate to='/signin' replace />}/> */}
-                    <Route path="/inbox" element={<InboxDefault  account={account} setAccount={setAccount} setunreadCount={setunreadCount} /> }/>
-                    <Route path="/inbox/:id" element={<Inbox  account={account} setAccount={setAccount} unreadCount={unreadCount} setunreadCount={setunreadCount} askUnreadRef={askUnreadRef} replyUnreadRef={replyUnreadRef} DOMref={DOMref}/> }/>
-                    <Route path="/signin" element={ <Signin  account={account} setAccount={setAccount} username={username} setUsername={setUsername}/>}/>
+                    {/* <Route path="/inbox" element={<InboxDefault  setunreadCount={setunreadCount} /> }/> */}
+                    <Route path="/inbox/:id" element={<Inbox  DOMref={DOMref}/> }/>
+                    <Route path="/signin" element={ <Signin />}/>
                 </Routes>
+                
             </BrowserRouter>
         </div>
     )

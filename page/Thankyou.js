@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import coffee from "../static/picture/coffee.png";
 import coffee2 from "../static/picture/coffee2.png";
+import { GetGlobalContext } from "../component/context/GlobalContext";
 
 const Thankyou = ()=>{
+    const {account,setAccount,username,orderNum}=GetGlobalContext();
 return(
     <main className="thankyou-main">
         <div className="thankyou-box">

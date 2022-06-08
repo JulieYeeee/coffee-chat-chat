@@ -1,4 +1,4 @@
-import React ,{useEffect, useState,useRef} from "react";
+import React ,{useEffect, useState,useRef,useContext} from "react";
 import { Link } from "react-router-dom";
 import fb from "../static/picture/fb.png";
 import firebase from "../src/Firebase"; //initializtion
@@ -6,7 +6,10 @@ import { getFirestore,collection, getDocs } from "firebase/firestore";
 
 
 
+
 const Memberlist = () =>{ 
+
+
     let [memberlist,setMemberlist]=useState([]);
     let memberlistRef=useRef([]);
     const db = getFirestore(firebase);
@@ -39,7 +42,7 @@ const Memberlist = () =>{
     return(
         <main className="memberlist-main">
             <div className="memberlist-search">
-                <p>Ask Me Anything!</p>
+                <p >Ask Me Anything!</p>
             </div>
             <div className="memberlist-box">
                 {memberlist.map((data)=>{

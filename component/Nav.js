@@ -10,13 +10,15 @@ import firebase from "../src/Firebase";
 import { getAuth } from "firebase/auth";
 import { signOut } from "firebase/auth";
 
+import { GetGlobalContext } from "./context/GlobalContext";
+
 import { getDatabase,ref,onValue,query,set } from "firebase/database";
 
 
 
-const Nav = ( {account,setAccount,unreadCount,setunreadCount,notificationCSS,setnotificationCSS} ) =>{
+const Nav = () =>{
 
-    
+    const {account,setAccount,unreadCount,setunreadCount,notificationCSS,setnotificationCSS}=GetGlobalContext();
     // const database = getDatabase(firebase);
     // let [unreadCount,setunreadCount]=useState();  
     // const checkUnreadRef=query(ref(database, 'user/',account)); 
@@ -38,7 +40,6 @@ const Nav = ( {account,setAccount,unreadCount,setunreadCount,notificationCSS,set
             signOut(auth).then(() => {
                 setAccount(false);
                 setnotificationCSS("menu-notification menu-notification-hide");
-                console.log("Sign-out successful.");
             // Sign-out successful.
             }).catch((error) => {
                 console.log(error);

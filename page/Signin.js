@@ -5,10 +5,12 @@ import logo from "../static/picture/logo2.png";
 import firebase from "../src/Firebase";
 import { getFirestore,doc, setDoc,getDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
+import { GetGlobalContext } from "../component/context/GlobalContext";
 
 
+const Signin = () =>{
+    const {account,setAccount,username,setUsername}=GetGlobalContext();
 
-const Signin = ({account,setAccount,username,setUsername}) =>{
     let [ signupCSS ,setSignupCSS ]= useState("signup");
     let [ signinCSS ,setSigninCSS ]= useState("signin signin-hide");
     let [ email ,setEmail ]= useState("");

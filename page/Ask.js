@@ -8,8 +8,10 @@ import firebase from "../src/Firebase";
 import { getFirestore,doc,setDoc,getDoc,collection,updateDoc, query, where, getDocs } from "firebase/firestore";
 import { getDatabase,get,ref,orderByChild,equalTo,set    } from "firebase/database";
 
+import { GetGlobalContext } from "../component/context/GlobalContext";
 
-const Ask = ({account,orderNum,username}) =>{
+const Ask = () =>{
+    const {account,setAccount,username,setUsername,orderNum}=GetGlobalContext();
 
     let [ consultantName,setConsultant ]=useState(null);
     let [ headshot,setHeadshot]=useState(null);

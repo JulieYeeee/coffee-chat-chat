@@ -16,11 +16,13 @@ import firebase from "../src/Firebase"; //initializtion
 import { getAuth ,onAuthStateChanged} from "firebase/auth"; //check login status
 import { getStorage , ref,uploadBytes,getDownloadURL} from "firebase/storage";//upload or dowload images 
 import { getFirestore,doc,getDoc,updateDoc  } from "firebase/firestore";
+import { GetGlobalContext } from "../component/context/GlobalContext";
 
 
 
+const Account = () =>{ 
+    const {account,setAccount,username,setUsername}=GetGlobalContext();
 
-const Account = ( {account,setAccount,username,setUsername} ) =>{ 
     //check user has login or not, if the user hasn't login, redirect to sigin page
     let navigate=useNavigate();    
     useEffect(()=>{
