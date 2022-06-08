@@ -1,13 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom/client"
-import App from "./App"
-import "../static/css/index.css"
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "../static/css/index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));  
 
 root.render(
-  <React.StrictMode>
-      <div>hello</div>
-      <App />
-  </React.StrictMode>
+  // <React.StrictMode>
+  //     <div>
+  //        {/* 主要開發位置 */}
+  //     </div>
+  //     <App />
+  // </React.StrictMode>
+   <App />
 );

@@ -1,0 +1,196 @@
+.ask-main{
+    .bar{
+        width: 100%;
+        height: 5px;
+        box-shadow:
+        inset 5px 10px 15px -15px rgba(135, 135, 135, 0.764);
+    }
+    form{
+        width: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--standardGrey);
+        margin: 50px 0;
+    .ask-consultant-box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        padding: 30px 0;
+        .ask-headshot{
+            width: 150px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background:var(--standardWhite);
+            border-radius: 50%;
+        }
+        .ask-welcome{
+            font-size: 5vmin;
+            font-weight: 700;
+            padding-left: 30px;
+        }
+    }
+    
+    .ask-consultation-box{
+        padding: 30px 0;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        .ask-notification{
+            font-size: 3vmin;
+            font-weight: 400;
+        }
+        .ask-information-box{
+            padding: 30px 0;
+            div{
+                display: flex;
+                align-items: center;
+                padding-bottom: 5px;
+                img{
+                    width: 30px;
+                    height: 30px;
+                }
+                p{
+                    font-size: 3.5vmin;
+                    font-weight: 700;
+                    padding-left: 5px;
+                }
+            }
+            textarea{
+                width: 100%;
+                resize: none;
+                font-size: 20px;
+                padding: 15px;
+                border-radius: 20px;
+                border-style: none;
+                @extend %shadowStyle;
+            }
+            textarea:focus{
+                outline: none;
+            }
+        }
+        .ask-question-box{
+            padding: 30px 0;
+
+            div{
+                display: flex;
+                align-items: center;
+                padding-bottom: 5px;
+                img{
+                    width: 30px;
+                    height: 30px;
+                }
+                p{
+                    font-size: 3.5vmin;
+                    font-weight: 700;
+                    padding-left: 5px;
+                }
+            }
+            textarea{
+                width: 100%;
+                resize: none;
+                font-size: 20px;
+                padding: 15px;
+                border-radius: 20px;
+                border-style: none;
+                @extend %shadowStyle;
+            }
+            textarea:focus{
+                outline: none;
+            }
+        }
+
+    }
+    .ask-payment-box{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        padding: 30px 0;
+        .ask-notification{
+            font-size: 3.5vmin;
+            text-align: center;
+            padding: 20px 0 ;
+        }
+        .ask-payment{
+            display: flex;
+            flex-direction: column;
+            label{
+                display: flex;
+                align-items: center;
+
+                .item{
+                    width: 30%;
+                    font-size: 3vmin;
+                    text-align: end;
+                    padding-right: 20px;
+                    
+                }
+                .tpfield {
+                    @extend %shadowStyle;
+                    height: 40px;
+                    width: 70%;
+                    font-size: 3vmin;
+                    margin: 5px 0;
+                    padding: 10px;
+                    border-radius: 10px;
+                    font-size: 3vmin;
+                    background: white;
+                    
+                }
+
+            }
+            
+        }
+    }
+    button{
+        width: 80%;
+        font-size: 3vmin;
+        font-weight: 700;
+        padding: 10px;
+        color: var(--standardGrey);
+        border-radius: 20px;
+        border-style: none;
+        @extend %shadowStyle;
+        cursor: pointer;
+    }
+    button:hover{
+        @extend %buttonHoverStyle;
+    }
+    }
+
+}
+
+
+@media screen and(max-width:1199px){
+    .ask-main{
+        form{
+            width: 85%;
+        }
+    
+    }
+}
+
+
+
+@media screen and(max-width:870px){
+    .ask-main{
+        form{
+            
+        .ask-payment-box{
+            width: 90%;
+            .ask-notification{
+                font-size: 3.5vmin;
+                text-align: center;
+                padding: 20px 0 ;
+            }
+            // .ask-payment{
+            //     display: flex;
+            //     flex-direction: column;
+            //     width: 100%;
+            // }
+        }
+        
+        }
+    }
+}

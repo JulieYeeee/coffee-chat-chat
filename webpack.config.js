@@ -30,16 +30,47 @@ module.exports = {
 				test: /\.css$/i,
 				use: [MiniCssExtractPlugin.loader,"css-loader"]
 			},
-            {
-                test: /\.m?js$/,
-                exclude: /(node_modules)/,
-                use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env']
-                }
-                } 
-            }, 
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+              presets: ['@babel/preset-env']
+          }
+        } 
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg|mp4)$/,
+        type: 'asset/resource',
+        // generator: {
+        //   filename: 'images/[name][ext]'
+        // }
+        //     loader: 'file-loader',
+        // options: {
+        //   outputPath: '/',
+        // },
+      //  options:{
+      //     context: path.resolve(__dirname, "static/"),
+      //     outputPath: 'public/',
+      //     publicPath: '../',
+
+      //   } 
+    
+        // use: ['file-loader'],
+        // options:{
+        //   context: path.resolve(__dirname, "static/"),
+        //   outputPath: 'public/',
+        //   publicPath: '../',
+
+        // }        
+        // options: {
+        //   name: '[name].[ext]',
+        //   outputPath: 'assets/',
+        //   publicPath: 'images/'
+        // }
+
+      } 
 		],
 	},
   };

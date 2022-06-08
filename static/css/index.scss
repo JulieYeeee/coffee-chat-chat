@@ -2,4 +2,52 @@
     padding:0px;
     margin:0px;
     box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-family: 'Signika Negative', sans-serif;
 }
+a{
+    text-decoration: none;
+    color: black;
+}
+
+::-webkit-scrollbar {
+
+    width: 7px;
+
+  }
+
+  ::-webkit-scrollbar-button {
+
+    background: transparent;
+
+  }
+
+  ::-webkit-scrollbar-track-piece {
+
+    background: transparent;
+
+  }
+
+  ::-webkit-scrollbar-thumb {
+
+    border-radius: 4px;
+
+    background-color: rgb(238, 195, 125);
+
+    border: 1px solid rgb(255, 255, 255);
+
+  }
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Signika+Negative:wght@400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;900&family=Signika+Negative:wght@300;400;500&display=swap');
+@import "./Nav";
+@import "./Homepage";
+@import "Signup";
+@import "Personal";
+@import "Membership";
+@import "Ask";
+@import "Thankyou";
+@import "Inbox";
+@import "Memberlist";
