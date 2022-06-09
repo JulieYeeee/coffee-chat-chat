@@ -7,6 +7,11 @@ import { getFirestore,doc, setDoc,getDoc } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
 import { GetGlobalContext } from "../component/context/GlobalContext";
 
+//styled-component
+import { Main,SingupForm,Logo,CTAtitle,InputLabel,SignupChangeTrigger,SinginForm } from "../component/style/Signin.styled";
+import { Button } from "../component/style/Button.styled";
+
+
 
 const Signin = () =>{
     const {account,setAccount,username,setUsername}=GetGlobalContext();
@@ -194,19 +199,47 @@ const Signin = () =>{
     //     }
     // },[registrationStatus]);
     //錯誤用法因為useState不及時 導致infinity loop
-       
 
+
+    
+
+
+    
+   
+    
     
 
    
     return(
-        <main className="signin-main" >
-            <form className={signupCSS}>
-                <div className="signin-logo-container">
+        <Main>
+        {/* <main className="signin-main" > */}
+            <SingupForm hideControl={signupCSS}>
+            {/* <form className={signupCSS}> */}
+                <Logo>
+                {/* <div className="signin-logo-container"> */}
                     <img src={logo}></img>
-                </div>
-                <p className="signup-title">加入咖啡圈圈 開始資訊交流</p>
-                <label htmlFor="signup-username">
+                    {/* <img src={logo}></img> */}
+                {/* </div> */}
+                </Logo>
+                <CTAtitle> 加入咖啡圈圈 開始資訊交流 </CTAtitle>
+                {/* <p className="signup-title">加入咖啡圈圈 開始資訊交流</p> */}
+                <InputLabel htmlFor="signup-username">
+                    <p> 使用者名稱</p>
+                    <input id="signup-username" required onChange={register}></input>
+                </InputLabel>
+                <InputLabel htmlFor="signup-email">
+                    <p> 註冊信箱</p>
+                    <input id="signup-email" required onChange={register}></input>
+                </InputLabel>
+                <InputLabel htmlFor="signup-password">
+                    <p> 註冊密碼</p>
+                    <input id="signup-password" required onChange={register}></input>
+                </InputLabel>
+                <InputLabel htmlFor="signup-checkpsw">
+                    <p> 再次確認</p>
+                    <input id="signup-checkpsw" required onChange={register}></input>
+                </InputLabel>
+                {/* <label htmlFor="signup-username">
                     <p>使用者名稱</p>
                     <input type="text" id="signup-username" required onChange={register}></input>
                 </label>
@@ -221,30 +254,49 @@ const Signin = () =>{
                 <label htmlFor="signup-checkpsw">
                     <p>再次確認</p>
                     <input type="password" id="signup-checkpsw" className="psw2" required onChange={register}></input>
-                </label>
-                <button type="submit" className="signup-btn" onClick={submit}>註冊會員</button>
-                <div className="signup-change" onClick={changeForm}>已經是會員? 點我登入</div>
-            </form>
+                </label> */}
+                <Button type="submit" onClick={submit}>註冊會員</Button>
+                {/* <button type="submit" className="signup-btn" onClick={submit}>註冊會員</button> */}
+                <SignupChangeTrigger onClick={changeForm}>已經是會員? 點我登入</SignupChangeTrigger>
+                {/* <div className="signup-change" onClick={changeForm}></div> */}
+            {/* </form> */}
+            </SingupForm>
             
-            <form className={signinCSS}>
-                <div className="signin-logo-container">
+            <SinginForm hideControl={signinCSS}>
+            {/* <form className={signinCSS}> */}
+                <Logo>
+                {/* <div className="signin-logo-container"> */}
                     <img src={logo}></img>
-                </div>
-                <p className="signin-title">加入咖啡圈圈 開始資訊交流</p>
-                <label htmlFor="signin-email">
+                    {/* <img src={logo}></img> */}
+                {/* </div> */}
+                </Logo>
+                <CTAtitle> 加入咖啡圈圈 開始資訊交流 </CTAtitle>
+                <InputLabel htmlFor="signin-email">
+                    <p> 輸入信箱</p>
+                    <input type="email" id="signin-email" required onChange={signin}></input>
+                </InputLabel>
+                <InputLabel htmlFor="signin-password">
+                    <p> 輸入密碼</p>
+                    <input type="password" id="signin-password" required onChange={signin}></input>
+                </InputLabel>
+                {/* <label htmlFor="signin-email">
                     <p>輸入信箱</p>
                     <input type="email" id="signin-email" required onChange={signin}></input>
                 </label>
                 <label htmlFor="signin-password">
                     <p>輸入密碼</p>
                     <input type="password" id="signin-password" className="psw" required onChange={signin}></input>
-                </label>
-                <button type="submit" className="signin-btn" onClick={submit}>登入會員</button>
-                <div className="signin-change" onClick={changeForm}>還不是會員? 點我註冊</div>
-            </form>
+                </label> */}
+                 <Button type="submit" onClick={submit}>登入會員</Button>
+                 <SignupChangeTrigger onClick={changeForm}>還不是會員? 點我註冊</SignupChangeTrigger>
+                {/* <button type="submit" className="signin-btn" onClick={submit}>登入會員</button>
+                <div className="signin-change" onClick={changeForm}>還不是會員? 點我註冊</div> */}
+            {/* </form> */}
+            </SinginForm>
 
 
-        </main>
+        {/* </main> */}
+        </Main>
     )
 }
 
