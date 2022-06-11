@@ -21,9 +21,33 @@ import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "f
 //context
 import { GetGlobalContext } from "../component/context/GlobalContext";
 
+import { GlobalStyle } from "../component/style/GlobalStyle";
+import { ThemeProvider } from "styled-components";
+
 
 
 const App = () =>{
+    const  theme = {
+        fontColor:{
+            lightBGfont:"rgb(70, 70, 70)",
+            yellowBGfont:"#ffffff",
+        },
+
+        bgColor:{
+            mainBGColor:"#F2F2F0",
+            yellowBGColor:"#F2B544",
+        },
+          
+        decoColor:{
+            decoGreen:"#6FBFB1",
+            decoOrange: "#F27E63",
+            decoYellow: "#f6d393",
+            opacityWhite: "rgba(255, 255, 255, 0.75)"
+
+        }
+      }
+
+
     const {account,setAccount,username,setUsername,orderNum,setOrderNum,unreadCount,setunreadCount,askUnreadRef,replyUnreadRef,notificationCSS,setnotificationCSS}=GetGlobalContext();
 
     const DOMref=React.createRef();
@@ -263,7 +287,10 @@ const App = () =>{
 
 
     return(
+        
         <div>
+            <GlobalStyle/>
+            <ThemeProvider theme = {theme}>
             <BrowserRouter>
                 
                 <Nav />
@@ -282,7 +309,10 @@ const App = () =>{
                 </Routes>
                 
             </BrowserRouter>
+            </ThemeProvider>
+            
         </div>
+       
     )
 }
 

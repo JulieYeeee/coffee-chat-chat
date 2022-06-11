@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 //png images
@@ -7,6 +7,7 @@ import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
 import defaultHeadshot from "../static/picture/headshot.png";
 import coverdefault from "../static/picture/coverdefault.png";
+import loading from "../static/picture/loading.gif";
 //components
 import Tags from "../component/Personal/PersonalTags";
 import PersonalShare from "../component/Personal/PersonalShare";
@@ -18,7 +19,10 @@ import { getStorage , ref,uploadBytes,getDownloadURL} from "firebase/storage";//
 import { getFirestore,doc,getDoc,updateDoc  } from "firebase/firestore";
 import { GetGlobalContext } from "../component/context/GlobalContext";
 
-
+import {Loading} from "../component/style/Loading.styled";
+import { AccountForm,AccountBasic,Headshot,Headshotimg,HeadshotLabel,BasicInfoBox} from "../component/style/Account.styled";
+import { AccountLinkBox,SingleLink,AccountIntroBox,AccountKeywordBox,KeywordInsideBox } from "../component/style/Account.styled";
+import { AccountShareThemeBox,ShareThemeInsideBox,AccountProjectBox,AccountButton } from "../component/style/Account.styled";
 
 const Account = () =>{ 
     const {account,setAccount,username,setUsername}=GetGlobalContext();
@@ -50,14 +54,16 @@ const Account = () =>{
 
 
     //取得會員資料
+   const userDatatRef=useRef();
     useEffect(()=>{getInitialData();},[account]);
     const db = getFirestore(firebase);
     const getInitialData = async() =>{
         const docRef = doc(db, `user`, account);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
+            userDatatRef.current=docSnap.data();
             let userData=docSnap.data();
-            setInitialData(userData);
+            setInitialData(userDatatRef.current);
         } else {
         // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -298,72 +304,108 @@ const Account = () =>{
 
     return(
         <main className="personal-info-main">
-        <form >
-            <div className="personal-photo-name">
-                <div className="personal-img-upload">
-                    <img src={headshot? headshot : defaultHeadshot}></img>
-                    <label><p>+</p>
-                    <input type="file" className="headshot" onChange={getFile(null)}></input>
-                    </label>
-                </div>
-                <div className="personal-name-info">
+        <Loading src={loading} closeCheck={userDatatRef.current}></Loading>
+        {/* <img src={loading}></img>    */}
+        <AccountForm>
+        {/* <form > */}
+            <AccountBasic>
+            {/* <div className="personal-photo-name"> */}
+                <Headshot>
+                {/* <div className="personal-img-upload"> */}
+                <Headshotimg src={headshot? headshot : defaultHeadshot}/>
+                    {/* <img src={headshot? headshot : defaultHeadshot}></img> */}
+                    <HeadshotLabel>
+                    {/* <label> */}
+                    <p>+</p>
+                    <input type="file"  onChange={getFile(null)}></input>
+                    {/* </label> */}
+                    </HeadshotLabel>
+                {/* </div> */}
+                </Headshot>
+
+                <BasicInfoBox>
+                {/* <div className="personal-name-info"> */}
                     <label htmlFor="name">名稱
-                    <input type="text" id="name" placeholder="名稱" value={username} onChange={(e)=>{setUsername(e.target.value)}}></input>
+                    <input type="text" id="name" placeholder="名稱" value={username?username:undefined} onChange={(e)=>{setUsername(e.target.value)}}></input>
                     </label>
                     <label htmlFor ="title">個人抬頭
-                    <input type="text" placeholder="為自己起一個響亮的Title" value={title} maxLength="15" onChange={(e)=>{setTitle(e.target.value)}}></input>
+                    <input type="text" placeholder="為自己起一個響亮的Title" value={title?title:undefined} maxLength="15" onChange={(e)=>{setTitle(e.target.value)}}></input>
                     </label>
                     <label htmlFor ="short-intro">短介紹
-                    <input type="text" placeholder="用20字招呼語讓人認識你" value={welcome} maxLength="25" onChange={(e)=>{setWelcome(e.target.value)}}></input>
+                    <input type="text" placeholder="用20字招呼語讓人認識你" value={welcome?welcome:undefined} maxLength="25" onChange={(e)=>{setWelcome(e.target.value)}}></input>
                     </label>
-                </div>
-            </div>
-                <div className="personal-outlink">
-                    <div className="personal-outlink-fb">
+                {/* </div> */}
+                </BasicInfoBox>
+            {/* </div> */}
+            </AccountBasic>
+            <AccountLinkBox>
+                {/* <div className="personal-outlink"> */}
+                <SingleLink>
+                    {/* <div className="personal-outlink-fb"> */}
                         <img src={fb}></img>
-                        <input className="fb-link" value={fbLink} onChange={(e)=>{setFbLink(e.target.value)}}></input>
-                    </div>
-                    <div className="personal-outlink-linkedin">
+                        <input className="fb-link" value={fbLink?fbLink:undefined} onChange={(e)=>{setFbLink(e.target.value)}}></input>
+                    {/* </div> */}
+                    </SingleLink>
+                    <SingleLink>
+                    {/* <div className="personal-outlink-linkedin"> */}
                         <img src={linkedin}></img>
-                        <input className="linkedin-link" value={linkedinLink} onChange={(e)=>{setLinkedinLink(e.target.value)}}></input>
-                    </div>
-                    <div className="personal-outlink-blog">
+                        <input className="linkedin-link" value={linkedinLink?linkedinLink:undefined} onChange={(e)=>{setLinkedinLink(e.target.value)}}></input>
+                    {/* </div> */}
+                    </SingleLink>
+                    <SingleLink>
+                    {/* <div className="personal-outlink-blog"> */}
                         <img src={blog}></img>
-                        <input className="blog-link" value={blogLink} onChange={(e)=>{setBlogLink(e.target.value)}}></input>
-                    </div>
-                </div>
-                <div className="personal-intro">
+                        <input className="blog-link" value={blogLink?blogLink:undefined} onChange={(e)=>{setBlogLink(e.target.value)}}></input>
+                    {/* </div> */}
+                    </SingleLink>
+                {/* </div> */}
+            </AccountLinkBox>
+            <AccountIntroBox>
+                {/* <div className="personal-intro"> */}
                     <p>輸入自我介紹</p>
-                    <textarea value={intro} onChange={(e)=>{setIntro(e.target.value)}}></textarea>
-                </div>
-                <div className="personal-keyword">
+                    <textarea value={intro?intro:undefined} onChange={(e)=>{setIntro(e.target.value)}}></textarea>
+                {/* </div> */}
+            </AccountIntroBox>
+            <AccountKeywordBox>
+                {/* <div className="personal-keyword"> */}
                     <p>建立個人關鍵字</p>
-                    <div className="tags-box">
-                        {tags.map((tag)=>(
+                    <KeywordInsideBox>
+                    {/* <div className="tags-box"> */}
+                        {tags?tags.map((tag)=>(
                             <Tags tag={tag.tag} id={tag.id} key={tag.id} tags={tags} setTags={setTags}/>
-                        ))}
+                        )):undefined}
                         <input placeholder="輸入關鍵字並Enter即可生成" onKeyPress={addTags}></input>  
-                    </div>
+                    {/* </div> */}
+                    </KeywordInsideBox>
                     
-                </div>
-                <div className="personal-share-theme">
+                {/* </div> */}
+            </AccountKeywordBox>
+            <AccountShareThemeBox>
+                {/* <div className="personal-share-theme"> */}
                     <p>告訴別人你的可分享領域</p>
-                    <div className="share-theme-box">
-                        {shareList.map((share,index)=>
+                    <ShareThemeInsideBox>
+                    {/* <div className="share-theme-box"> */}
+                        {shareList?shareList.map((share,index)=>
                             <PersonalShare shareList={shareList} setShareList={setShareList} index={index} share={share} dragIndex={dragIndex} setDragIndex={setDragIndex} exchange={exchange} setExchange={setExchange}/>
-                        )}
-                    </div>
+                        ):undefined}
+                    {/* </div> */}
+                    </ShareThemeInsideBox>
                     
-                </div>
-                <div className="personal-project">
+                {/* </div> */}
+            </AccountShareThemeBox>
+            <AccountProjectBox>
+                {/* <div className="personal-project"> */}
                     <p>建立作品/文章連結</p>
-                    {projects.map((project,index)=>
+                    {projects? projects.map((project,index)=>
                         <PersonalProject getFile={getFile} index={index} project={project} setProjects={setProjects} />
-                        )
+                        ):undefined
                     }
-                </div>
-            <button type="submit" onClick={addUserData} >填寫完成，建立個人頁面</button>
-        </form>
+                {/* </div> */}
+            </AccountProjectBox>   
+            <AccountButton type="submit" onClick={addUserData}>填寫完成，建立個人頁面</AccountButton> 
+            {/* <button type="submit" onClick={addUserData} >填寫完成，建立個人頁面</button> */}
+        {/* </form> */}
+        </AccountForm>
         </main>
     )
 };

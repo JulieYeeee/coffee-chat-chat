@@ -5,6 +5,7 @@ import { Link,useNavigate,useParams } from "react-router-dom";
 import fb from "../static/picture/fb.png";
 import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
+import loading from "../static/picture/loading.gif";
 //firebase modules
 import firebase from "../src/Firebase"; //initializtion
 import { getFirestore,doc,getDoc,addDoc,collection,updateDoc,getDocs,query,where,deleteDoc } from "firebase/firestore";
@@ -17,6 +18,11 @@ import MembershipShare from "../component/membership/MembershipShare";
 
 import { GetGlobalContext } from "../component/context/GlobalContext";
 
+import { MembershipBox,Navigation,MemberdataBox,MemberDataLeft,MemberHeadshot,BasicInfoBox,BasicInfoText,LinkBox ,IntroBox,Title,TagBox,Tag,ShareThemeBox,ShareThemeInsideBox,SingleShare,ShareTitle,ShareContent} from "../component/style/Membership.styled";
+import { MemberDataRight,Askform } from "../component/style/Membership.styled";
+import { ProjectBox,ProjectInsideBox, } from "../component/style/Membership.styled";
+import {Button} from "../component/style/Button.styled" ;
+import { Loading } from "../component/style/Loading.styled";
 
 const Membership = () =>{
     const {account,username,setUsername,setOrderNum}=GetGlobalContext();
@@ -208,21 +214,28 @@ const Membership = () =>{
 
     return(
         <main className="membership-main">
-            <div className="membership-box">
-            
-            <div className="navigation"><Link to="/memberlist">重返列表</Link></div>
-            
-            <div className="personal-data">
-                <div className="personal-left">
-
-                    <div className="headshot-box">
+            <Loading src={loading} closeCheck={memberEmail}/>
+            <MembershipBox closeCheck={memberEmail}>
+            {/* <div className="membership-box"> */}
+            <Navigation><Link to="/memberlist">重返列表</Link></Navigation>
+            {/* <div className="navigation"><Link to="/memberlist">重返列表</Link></div> */}
+            <MemberdataBox>
+            {/* <div className="personal-data"> */}
+                <MemberDataLeft>
+                {/* <div className="personal-left"> */}
+                    <MemberHeadshot>
+                    {/* <div className="headshot-box"> */}
                         <img className="headshot" src={headshot? headshot : null}></img>
-                    </div>
-
-                    <div className="personal-basic-link">
-                        <p className="personal-username">{memberName? memberName : ""}</p>
-                        <p className="personal-title">{title? title : ""}</p>
-                        <div className="link-box">
+                    {/* </div> */}
+                    </MemberHeadshot>
+                    <BasicInfoBox>
+                    {/* <div className="personal-basic-link"> */}
+                        <BasicInfoText>{memberName? memberName : ""}</BasicInfoText>
+                        <BasicInfoText>{title? title : ""}</BasicInfoText>
+                        {/* <p className="personal-username">{memberName? memberName : ""}</p>
+                        <p className="personal-title">{title? title : ""}</p> */}
+                        <LinkBox>
+                        {/* <div className="link-box"> */}
                             <a href={fbLink? fbLink:""} className="link fb">
                                 <img className="icon fb" src={fb}></img>
                             </a>
@@ -232,29 +245,51 @@ const Membership = () =>{
                             <a href={blogLink? blogLink : ""} className="link blog">
                                 <img className="icon blog" src={blog}></img>
                             </a>
-                        </div>
-                    </div>
-
-                    <div className="intro-box">
-                        <p className="intro-title">關於分享者</p>
+                        {/* </div> */}
+                        </LinkBox>
+                    {/* </div> */}
+                    </BasicInfoBox>
+                    <IntroBox>
+                    {/* <div className="intro-box"> */}
+                        <Title>關於分享者</Title>
+                        {/* <p className="intro-title">關於分享者</p> */}
                         <div className="intro-content-box">
                             <p className="intro">{intro? intro:""}</p>
                         </div>
-                    </div>
+                    {/* </div> */}
+                    </IntroBox>
 
-                    <div className="tag-box">
+                    <TagBox>
+                    {/* <div className="tag-box"> */}
                         {tags.map((tag)=>(
-                            <MembershipTags tag={tag}/>
+                            <Tag>
+                                <p>{tag["tag"]}</p>
+                            </Tag>
+                            // <MembershipTags tag={tag}/>
                         ))}
-                    </div>
+                    {/* </div> */}
+                    </TagBox>
 
-                    <div className="share-theme-box">
-                        <p className="share-title">你可以問我：</p>
-                        <div className="share-box">
+                    <ShareThemeBox>
+                    {/* <div className="share-theme-box"> */}
+                        <Title>你可以問我</Title>
+                        {/* <p className="share-title">你可以問我：</p> */}
+                        <ShareThemeInsideBox>
+                        {/* <div className="share-box"> */}
                             {shareList.map((share,index)=>{
                                 if(share["title"] && share["content"]){
 
-                                    return  <MembershipShare share={share} index={index}/>
+                                    return <SingleShare>
+                                        <ShareTitle>
+                                            <span>{index+1}</span>
+                                            <p >{share["title"]}</p>
+                                        </ShareTitle>
+                                        <ShareContent>{share["content"]}</ShareContent>
+                                        {/* <p >{share["content"]}</p>   */}
+                                    </SingleShare> 
+                                    
+                                    
+                                    // <MembershipShare share={share} index={index}/>
                                 }
                         })}
                             {/* <div className="share">
@@ -272,23 +307,33 @@ const Membership = () =>{
                                 <p className="share-short-title">轉職PM建議</p>
                                 <p className="share-content">擁有豐富的轉職經歷，在業務背景下轉殖PM，並且深耕科技產業，可與你分享該產業或PM的領域知識。</p>
                             </div> */}
-                        </div>
-                    </div>
-                </div>
+                        {/* </div> */}
+                        </ShareThemeInsideBox>
+                    {/* </div> */}
+                    </ShareThemeBox>
+                {/* </div> */}
+                </MemberDataLeft>
 
-
-                <div className="personal-right">
-                    <form>
-                        <button type="submit" onClick={buildAsk}>Ask me!立即提問</button>
+                <MemberDataRight>
+                {/* <div className="personal-right"> */}
+                    <Askform>
+                    {/* <form> */}
+                        <Button onClick={buildAsk}>Ask me!立即提問</Button>
+                        {/* <button type="submit" onClick={buildAsk}>Ask me!立即提問</button> */}
                         <div className="ask-rule-box">
                         <p className="ask-rule-title">提問前請遵守：</p>
                         <p className="ask-rule">不得詢問個人隱私之問題，若因提問不當分享者有權婉轉回復。請盡量詢問分享者可分享領域，若因提問超出分享範圍，可能導致您收不到良好回復。</p>
                         </div>
-                    </form>
-                </div>
-                <div className="personal-bottom">
-                    <p className="know-more-title">了解更多</p>
-                    <div className="project-box">
+                    {/* </form> */}
+                    </Askform>
+                {/* </div> */}
+                </MemberDataRight>
+                <ProjectBox>
+                {/* <div className="personal-bottom"> */}
+                    <Title>了解更多</Title>
+                    <ProjectInsideBox>
+                    {/* <ProjectInsideBox> */}
+                    {/* <div className="project-box"> */}
                             {/* {projects.map((project)=>{
                                 console.log("project reading");
                                 if(project["type"] && project["link"] && project["content"]){
@@ -296,8 +341,9 @@ const Membership = () =>{
                                     return <MembershipProjects project={project}/>
                                 }
                             })} */}
+                         
                             {projects.map((project)=>
-                                project["type"] && project["link"] && project["content"] ? <MembershipProjects project={project}/> : null
+                                project["type"] && project["link"] && project["content"] ? <MembershipProjects project={project}/> : "分享者沒有更多資訊了"
     
                             )}
                             {/* {projects.map((project)=>
@@ -323,11 +369,14 @@ const Membership = () =>{
                             <Link to="">READ</Link>
                         </div> */}
                         
-                    </div>
-                </div>
-            </div>
-            </div>
-
+                    {/* </div> */}
+                    </ProjectInsideBox>
+                {/* </div> */}
+                </ProjectBox>
+            {/* </div> */}
+            </MemberdataBox>
+            {/* </div> */}
+            </MembershipBox>
 
 
         </main>
