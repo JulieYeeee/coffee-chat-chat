@@ -1,17 +1,25 @@
 import styled from "styled-components";
 import { Button } from "./Button.styled";
 
+  
 
 
 export const AccountForm=styled.form`
     padding: 50px 0;
     width: 1200px;
-    display: flex;
+    display: ${({closeCheck})=>closeCheck? "flex":"none"};
     flex-direction: column;
     align-items: center;
     border-radius: 80px;
     margin: 50px 0;
     color: ${({theme})=>theme.fontColor.lightBGfont};
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+
+    @media (max-width: 700px){
+        width: 100%;
+    }
 
 
 
@@ -28,7 +36,15 @@ export const AccountBasic=styled.div`
     border-radius: 20px;
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
-    
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 100%;
+    }
+    @media (max-width: 600px){
+        flex-direction: column;
+    }
 
 `
 
@@ -39,9 +55,13 @@ export const Headshot=styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    @media (max-width:600px){
+        width: 50%;
+    }
+   
 
 `
+
 
 export const Headshotimg=styled.img`
     width: 90%;
@@ -78,6 +98,12 @@ export const HeadshotLabel=styled.label`
     input{
         display: none;
     }
+    @media (max-width:950px) {
+        width: 20%;
+    
+    }
+    
+
 `
 
 export const BasicInfoBox=styled.div`
@@ -106,7 +132,9 @@ export const BasicInfoBox=styled.div`
             outline: none;
         }
     }
-
+    @media (max-width: 600px){
+        width: 100%;
+    }
 
 
 `
@@ -120,7 +148,12 @@ export const AccountLinkBox=styled.div`
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
 
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 100%;
+    }
 
 `
 
@@ -152,7 +185,14 @@ export const SingleLink=styled.div`
         input:focus{
             border: 1px solid ${({theme})=>theme.bgColor.yellowBGColor};
             outline: none;
-        }     
+        }  
+        
+        @media (max-width: 600px){
+            img{
+                width: 40px;
+                height: 40px;
+            }
+        }
 
 `
 
@@ -187,6 +227,12 @@ export const AccountIntroBox=styled.div`
             border: 1px solid ${({theme})=>theme.bgColor.yellowBGColor};
             outline: none;
         }
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 100%;
+    }
 
 `
 
@@ -201,7 +247,12 @@ export const AccountKeywordBox=styled.div`
     border-radius: 20px;
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 100%;
+    }
 
 `
 
@@ -232,6 +283,11 @@ export const KeywordInsideBox=styled.div`
     }
     input:focus{
         outline: none;
+    }
+    @media (max-width: 700px){
+        input{
+            width:50%;
+        }
     }
 
 `
@@ -281,15 +337,29 @@ export const AccountShareThemeBox=styled.div`
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
 
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 100%;
+    }
 
 `
+
+
 
 export const ShareThemeInsideBox=styled.div`
 
     display: flex;
     justify-content: space-between;
     margin: 5px 0;
+
+    @media (max-width:700px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+    }
 
 
 
@@ -345,7 +415,13 @@ export const SingleTheme=styled.div`
             outline: none;
         }
     
-
+        @media (max-width:700px){
+            width: 100%;
+            margin: 10px 0;
+            textarea{
+                aspect-ratio: 4/1;
+            }
+        }
 
 
 `
@@ -362,7 +438,12 @@ export const AccountProjectBox=styled.div`
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
 
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 100%;
+    }
 `
 
 export const SingleProject=styled.div`
@@ -374,7 +455,9 @@ export const SingleProject=styled.div`
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53)); 
     padding: 20px 10px;
     border-radius: 20px;
-
+    @media (max-width:700px){
+        width: 100%;
+    }
 
 `
 
@@ -412,6 +495,14 @@ export const ProjectCover=styled.div`
 
         }
     }
+
+    @media (max-width: 700px){
+        width: 40%;
+    }
+   @media (max-width:600px){
+        width: 100%;
+        margin-bottom: 10px;
+   }
     
 
 
@@ -420,6 +511,9 @@ export const ProjectCover=styled.div`
 export const LayoutBox=styled.div`
     display: flex;
     width: 100%;
+    @media (max-width: 600px){
+        flex-direction: column;
+    }
 
 `
 
@@ -429,7 +523,16 @@ export const ReaclCover=styled.img`
         height: 100%;
         background: ${({theme})=>theme.fontColor.yellowBGfont};
         object-fit: cover;
+/* @media (max-width: 700px){
+  
+        width: 100%;
+        aspect-ratio: 3/2;
+        background: var(--background);
+        object-fit: cover;
+        overflow: hidden;
 
+
+} */
 
 `
 
@@ -481,6 +584,12 @@ export const ProjectContent=styled.div`
         border: 1px solid ${({theme})=>theme.bgColor.yellowBGColor};
         outline: none;
     }
+    @media (max-width: 600px){
+        /* flex-direction: column; */
+        width: 100%;
+        padding:0;
+    }
+    
 
 `
 

@@ -54,7 +54,7 @@ const Account = () =>{
 
 
     //取得會員資料
-   const userDatatRef=useRef();
+   const userDatatRef=useRef(null);
     useEffect(()=>{getInitialData();},[account]);
     const db = getFirestore(firebase);
     const getInitialData = async() =>{
@@ -303,10 +303,10 @@ const Account = () =>{
 
 
     return(
-        <main className="personal-info-main">
+        <main >
         <Loading src={loading} closeCheck={userDatatRef.current}></Loading>
         {/* <img src={loading}></img>    */}
-        <AccountForm>
+        <AccountForm closeCheck={userDatatRef.current}>
         {/* <form > */}
             <AccountBasic>
             {/* <div className="personal-photo-name"> */}
