@@ -13,8 +13,15 @@
 ![](https://github.com/JulieYeeee/git-work/blob/main/%E7%99%BB%E5%85%A5.gif)   
 
 
-+ 個人頁面建立
-上傳圖片、分享區拖曳功能
++ 個人頁面建立  
+上傳圖片、Enter生成標籤、分享區拖曳功能  
+  + 上傳圖片、即時預覽  
+  ![](https://github.com/JulieYeeee/git-work/blob/main/1655058502484.jpg)  
+  + Enter 生成標籤  
+  ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%A8%99%E7%B1%A4.gif)  
+  + 分享區拖曳改變資料順序
+  ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%8B%96%E6%9B%B3.gif)  
+
 
 
 + 會員資料瀏覽
