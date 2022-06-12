@@ -46,6 +46,6 @@
 
 ****  
 ## Contact Info
-葉怡君 Julie Ye 
-Email : oopsyeh056@gmail.com
-Linkedin : www.linkedin.com/in/julieyeeee 
+葉怡君 Julie Ye  
+Email : oopsyeh056@gmail.com  
+Linkedin : www.linkedin.com/in/julieyeeee   
