@@ -33,8 +33,8 @@
   + ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%8F%90%E5%95%8F.gif) 
 
 
-+ 開通即時聊天室  
-+ ![](https://github.com/JulieYeeee/git-work/blob/main/%E5%9B%9E%E8%A6%86.gif) 
++ 開通即時聊天室
+  + ![](https://github.com/JulieYeeee/git-work/blob/main/%E5%9B%9E%E8%A6%86.gif) 
 
 
 + 右上未讀訊息通知
