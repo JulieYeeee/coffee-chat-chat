@@ -26,7 +26,8 @@
 + 右上未讀訊息通知
 ****  
 ## 組件架構
-![](https://github.com/JulieYeeee/git-work/blob/main/1655057317355.jpg)  
+![](https://github.com/JulieYeeee/git-work/blob/main/1655057317355.jpg)   
++ Nav為共用組件
 
 ****  
 ## 使用技術  
