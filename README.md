@@ -27,11 +27,17 @@
 ## 使用技術  
 + React
   + React Router : 建立 SPA 頁面
-  + React useContext : 管理常用共用 state、ref、props
+  + React useContext : 管理共用 state、ref、props
   + React useState、useRef : 兩者搭配處理資料、適時使用 useRef 避免過度渲染頁面
   + React useEffect : 透過 dependency 觸發相關程式
-
 + css
-  + styled componet 
+  + styled-components
     + CreateGlobalStyle : 全局共通 css 設定
     + Theme : 建立網站共同主題色彩 
+    + Adapting based on props
++ Firebase  
+  +  Hosting : 部屬網站
+  +  Authentication : 實現會員登入、註冊
+  +  Database : 儲存會員資料、訊息、實時監聽訂單、訊息異動
++ BABEL : 編譯器
++ Webpack : 模組打包 
