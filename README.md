@@ -25,11 +25,12 @@
 
 
 + 會員資料瀏覽  
-   ![](https://github.com/JulieYeeee/git-work/blob/main/%E7%80%8F%E8%A6%BD%E6%9C%83%E5%93%A1.gif) 
+  + ![](https://github.com/JulieYeeee/git-work/blob/main/%E7%80%8F%E8%A6%BD%E6%9C%83%E5%93%A1.gif) 
 
 
 
 + 付款諮詢  
+  + ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%8F%90%E5%95%8F.gif) 
 
 
 + 開通即時聊天室  
