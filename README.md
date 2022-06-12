@@ -42,3 +42,9 @@
 + BABEL : 編譯器
 + Webpack : 模組打包 
 + Tappay : 金流串接 (測試版)
+
+****  
+## Contact Info
+葉怡君 Julie Ye 
+Email : oopsyeh056@gmail.com
+Linkedin : www.linkedin.com/in/julieyeeee 
