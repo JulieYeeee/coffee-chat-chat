@@ -9,6 +9,7 @@ export const GlobalStyle=createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Noto Sans TC', sans-serif;
     font-family: 'Signika Negative', sans-serif;
+    font-size: 2.5vmin;
     
 }
 
@@ -24,7 +25,7 @@ main{
 
 a{
     text-decoration: none;
-    /* color: black; */
+    color: ${({theme})=>theme.fontColor.lightBGfont};
 }
 
 ::-webkit-scrollbar {

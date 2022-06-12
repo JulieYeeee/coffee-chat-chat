@@ -523,16 +523,7 @@ export const ReaclCover=styled.img`
         height: 100%;
         background: ${({theme})=>theme.fontColor.yellowBGfont};
         object-fit: cover;
-/* @media (max-width: 700px){
-  
-        width: 100%;
-        aspect-ratio: 3/2;
-        background: var(--background);
-        object-fit: cover;
-        overflow: hidden;
 
-
-} */
 
 `
 

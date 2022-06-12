@@ -2,20 +2,24 @@ import styled from "styled-components";
 
 
 
-export const Section1Wrapper=styled.main`
+export const Main=styled.main`
 
-    width: 1200px;
+    width: 100%;
     display: flex;
     height: auto;
     min-height: 100vh;
     color:#F7AA42;
+    /* background: ${({bgColor})=>bgColor==="light" && "#F2F2F0"};
+    background: ${({bgColor})=>bgColor==="yellow" && "#F2B544"}; */
+    background: ${({bgColor})=>bgColor=="light"? "#F2F2F0":"#F2B544"};
+    transition: 0.5s;
 
     
 `
 
 
 export const Bar =styled.div`
-    display: flex;
+    display: ${({bgColor})=>bgColor==="light"? "flex":"none"};
     flex-direction: column;
     align-items: center;
     padding: 20px 0 ;
@@ -44,6 +48,7 @@ export const Bar =styled.div`
 
 
 `
+
 
 
 export const Section =styled.section`
@@ -319,8 +324,8 @@ export const Section3section=styled.section`
             padding: 5px 10px;
         }
     }
-    @media screen and (max-width:819px) {
-    width: 100%;
+    @media (max-width: 819px) {
+        width: 100%;
 
     }
 

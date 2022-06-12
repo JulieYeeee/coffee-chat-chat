@@ -56,6 +56,9 @@ export const MemberDataLeft=styled.div`
         width: 100%;
         margin-right:0;
     }
+    @media (max-width: 500px){
+        justify-content: center;
+    }
 
 `
 
@@ -91,6 +94,9 @@ export const BasicInfoBox=styled.div`
     width: 70%;
     margin-left: 5%;
     padding-bottom: 10px;
+    @media (max-width: 500px){
+        width: 100%;
+    }
 
 `
 
@@ -302,6 +308,8 @@ export const Askform=styled.form`
 export const ProjectBox=styled.div`
     width: 100%;
     padding: 20px;
+    display: ${({closeCheck})=>closeCheck!==0 && closeCheck%3===0? "none":"block"};
+    /* display: block; */
 
 `
 
@@ -417,7 +425,7 @@ export const ProjectType=styled.p`
 
 export const ProejectText=styled.p `
     width: 95%;
-    height: 90px;
+    height: 110px;
     margin: 10px 0;
     color: var(--standardGrey);
     overflow:hidden;
@@ -429,7 +437,7 @@ export const ProejectText=styled.p `
     white-space: normal;
 
     @media (max-width: 1199px){
-        height: 90px;
+        height: 110px;
         margin: 10px 0;
         overflow:hidden;
         white-space: nowrap;
@@ -443,8 +451,13 @@ export const ProejectText=styled.p `
     @media (max-width: 819px){
   
         width: 95%;
-        height: 90px;
              
+    }
+    @media (max-width: 600px){
+  
+        width: 95%;
+        height: 80px;
+     
     }
 
     @media (max-width: 500px){
@@ -456,7 +469,6 @@ export const ProejectText=styled.p `
         white-space: nowrap;
         text-overflow: ellipsis;
         display: -webkit-inline-box;
-        // display: block;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         white-space: normal;
