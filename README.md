@@ -25,6 +25,10 @@
 
 + 右上未讀訊息通知
 ****  
+## 組件架構
+![](https://github.com/JulieYeeee/git-work/blob/main/1655057317355.jpg)  
+
+****  
 ## 使用技術  
 + React
   + React Router : 建立 SPA 頁面
