@@ -19,7 +19,7 @@
   ![](https://github.com/JulieYeeee/git-work/blob/main/1655058502484.jpg)  
   + Enter 生成標籤  
   ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%A8%99%E7%B1%A4.gif)  
-  + 分享區拖曳改變資料順序
+  + 分享區拖曳改變資料順序  
   ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%8B%96%E6%9B%B3.gif)  
 
 
