@@ -10,6 +10,8 @@
 ## 主要功能  
 + 會員登入/註冊功能 
 單頁切換登入/註冊介面
+![](https://github.com/JulieYeeee/git-work/blob/main/%E7%99%BB%E5%85%A5.gif)  
+
 
 + 個人頁面建立
 上傳圖片、分享區拖曳功能
