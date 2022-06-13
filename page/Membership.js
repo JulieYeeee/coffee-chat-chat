@@ -22,132 +22,128 @@ import { Loading } from "../component/style/Loading.styled";
 
 const Membership = () =>{
     //useContext取得共用state
-    const {account,username,setUsername,setOrderNum}=GetGlobalContext();
+    const {
+        account,
+        username,
+        setUsername,
+        setOrderNum
+    } = GetGlobalContext();
 
     //取得 URL parameter,對應資料庫編號取得會員資料
     const { id } = useParams();
     //取得會員資料
     const db = getFirestore(firebase);
-    useEffect(()=>{
-        closeRef.current=0;
-        const getInitialData = async() =>{
-            const docRef = doc(db, `user`, id);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                let userData=docSnap.data();
-                setMemberData(userData);
-            } else {
-            // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }
-        //取得會員資料
-        getInitialData()}
-    ,[id]);
+    useEffect(() => {
+    	closeRef.current = 0;
+    	const getInitialData = async () => {
+    		const docRef = doc(db, `user`, id);
+    		const docSnap = await getDoc(docRef);
+    		if (docSnap.exists()) {
+    			let userData = docSnap.data();
+    			setMemberData(userData);
+    		} else {
+    			// doc.data() will be undefined in this case
+    			console.log("No such document!");
+    		}
+    	}
+    	//取得會員資料
+    	getInitialData()
+    }, [id]);
     
     
 
     //states for form data 會員資料取得後分別儲存state
-    let [shareList,setShareList] = useState([{num:1,title:"",content:""},{num:2,title:"",content:""},{num:3,title:"",content:""}]);
-    let [headshot,setHeadshot]=useState(null);
-    let [projects,setProjects]=useState([{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null}]);
-    let [ memberName,setMemberName]=useState(null);
-    let [ title,setTitle]=useState(null);
-    let [ fbLink,setFbLink]=useState(null);
-    let [ linkedinLink,setLinkedinLink]=useState(null);
-    let [ blogLink,setBlogLink]=useState(null);
-    let [ intro,setIntro]=useState(null);
-    let [ tags ,setTags ]=useState([]);
-    let [ memberEmail,setEmail ]=useState(null);
-    let [ consultantAccount,setConsultantAccount] = useState(null);
-    let closeRef=useRef(0);
+    let [shareList, setShareList] = useState([{num:1,title:"",content:""},{num:2,title:"",content:""},{num:3,title:"",content:""}]);
+    let [headshot, setHeadshot] = useState(null);
+    let [projects, setProjects] = useState([{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null}]);
+    let [memberName, setMemberName] = useState(null);
+    let [title, setTitle] = useState(null);
+    let [fbLink, setFbLink] = useState(null);
+    let [linkedinLink, setLinkedinLink] = useState(null);
+    let [blogLink, setBlogLink] = useState(null);
+    let [intro, setIntro] = useState(null);
+    let [tags, setTags] = useState([]);
+    let [memberEmail, setEmail] = useState(null);
+    let [consultantAccount, setConsultantAccount] = useState(null);
+    let closeRef = useRef(0);
    
     //set initial user data
-    const setMemberData =async(userData)=>{
-        setMemberName(userData["basic"]["username"]);
-        setTitle(userData["basic"]["title"]);
-        setHeadshot(userData["basic"]["headshot"]);
-        setFbLink(userData["link"]["fb"]);
-        setLinkedinLink(userData["link"]["linkedin"]);
-        setBlogLink(userData["link"]["blog"]);
-        setIntro(userData["detail"]["intro"]);
-        setTags(userData["detail"]["keyword"]);
-        setShareList(userData["detail"]["share"]);
-        setProjects(userData["detail"]["project"]);
-        setEmail(userData["user"]["email"]);
-        closeRef.current=0;
-        const db = getFirestore(firebase);
-        const getConsultAccountQuery = query(collection(db, "user"),where("user.email","==",userData["user"]["email"]));
-        let docs = await getDocs(getConsultAccountQuery);
-        if(docs){
-            docs.forEach(doc=>{
-                setConsultantAccount(doc.id);
-            })
-        }               
+    const setMemberData = async (userData) => {
+    	setMemberName(userData["basic"]["username"]);
+    	setTitle(userData["basic"]["title"]);
+    	setHeadshot(userData["basic"]["headshot"]);
+    	setFbLink(userData["link"]["fb"]);
+    	setLinkedinLink(userData["link"]["linkedin"]);
+    	setBlogLink(userData["link"]["blog"]);
+    	setIntro(userData["detail"]["intro"]);
+    	setTags(userData["detail"]["keyword"]);
+    	setShareList(userData["detail"]["share"]);
+    	setProjects(userData["detail"]["project"]);
+    	setEmail(userData["user"]["email"]);
+    	closeRef.current = 0;
+    	const db = getFirestore(firebase);
+    	const getConsultAccountQuery = query(collection(db, "user"), where("user.email", "==", userData["user"]["email"]));
+    	let docs = await getDocs(getConsultAccountQuery);
+    	if (docs) {
+    		docs.forEach(doc => {
+    			setConsultantAccount(doc.id);
+    		})
+    	}
     }
     
     //使用者按下提問後建立事前訂單資料,若未登入將阻止使用者提問
-    let navigate=useNavigate();
-    const buildAsk = async(e) =>{
+    let navigate = useNavigate();
+    const buildAsk = async (e) => {
         e.preventDefault();
         //確認使用者先前是否有存在未完成訂單，若有則刪除，避免多餘無效訂單
-        if(account){
-            const checkQuery = query(collection(db, "pre-order"),where("account","==",account),where("consultantEmail","==",memberEmail),where("payment","==",null));
+        if (account) {
+            const checkQuery = query(collection(db, "pre-order"), where("account", "==", account), where("consultantEmail", "==", memberEmail), where("payment", "==", null));
             let docs = await getDocs(checkQuery);
-            if(docs){                
-                docs.forEach(docitem=>{
-                deleteRepeat(docitem);       
+            if (docs) {
+                docs.forEach(docitem => {
+                    deleteRepeat(docitem);
                 })
             }
-        }else{
+        } else {
             alert("請先登入");
             return;
         }
-
         //如果前面沒被return 以下就會執行: 建立新初步訂單
-        async function deleteRepeat (docitem){
+        async function deleteRepeat(docitem) {
             await deleteDoc(doc(db, "pre-order", docitem.id))
-        }        
-        
+        }
         const userDocRef = doc(db, "user", account);
         const userDocSnap = await getDoc(userDocRef);
         if (userDocSnap.exists()) {
-            let newUsername=JSON.parse(JSON.stringify(userDocSnap.data()["basic"]["username"]));
+            let newUsername = JSON.parse(JSON.stringify(userDocSnap.data()["basic"]["username"]));
             setUsername(newUsername);
-            
         } else {
-        // doc.data() will be undefined in this case
+            // doc.data() will be undefined in this case
             console.log("No such document!");
         }
-        
-
         const docRef = await addDoc(collection(db, "pre-order"), {
-            number:null,
+            number: null,
             account: account,
             askInfo: null,
             askName: username,
             askQuestion: null,
-            consultantAccount:consultantAccount,
+            consultantAccount: consultantAccount,
             consultantEmail: memberEmail,
             consultantName: memberName,
             payment: null,
             headshot: headshot,
             reply: false
-            });
+        });
         //回傳文件編號，回存到訂單文件中
-        if(docRef.id){
+        if (docRef.id) {
             console.log(docRef.id);
-            console.log("check username:",username);
+            console.log("check username:", username);
             await updateDoc(doc(db, "pre-order", docRef.id), {
-                number:docRef.id
+                number: docRef.id
             })
             setOrderNum(docRef.id);
             navigate("/ask");
         }
-
-        
-
-
     }
 
     

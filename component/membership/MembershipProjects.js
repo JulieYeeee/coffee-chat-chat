@@ -6,7 +6,7 @@ import {SingleProject,ProjectCover,ProjectContentBox,ProjectType,ProejectText,Ou
 
 const MembershipProjects = ({project}) =>{
 
-    let cover=project["cover"];
+    let cover = project["cover"];
     return(
         <SingleProject>
            <ProjectCover>

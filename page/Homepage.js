@@ -10,28 +10,26 @@ import downarrow from "../static/picture/downarrow.png";
 import { Bar,Footer } from "../component/style/Homepage.styled";
 import { Main } from "../component/style/Homepage.styled";
 
-const Homepage = () =>{
-    let bgRef=useRef("light");
-    let [bgChange,setBgChange]=useState("light");
-    let [fontColor,setFontColor]=useState(false);
+const Homepage = () => {
+    let bgRef = useRef("light");
+    let [bgChange, setBgChange] = useState("light");
+    let [fontColor, setFontColor] = useState(false);
     //按 scrollbar 滑動改變背景色
-    window.onscroll=(e)=>{
-        if(window.scrollY>window.innerHeight*0.7){
-            bgRef.current="yellow";
+    window.onscroll = (e) => {
+        if (window.scrollY > window.innerHeight * 0.7) {
+            bgRef.current = "yellow";
             setBgChange("yellow");
             setFontColor(true);
         }
-        if(window.scrollY>window.innerHeight*1.5){
-            bgRef.current="light";
+        if (window.scrollY > window.innerHeight * 1.5) {
+            bgRef.current = "light";
             setBgChange("light");
         }
-        if(window.scrollY<window.innerHeight*0.7){
-            
-            bgRef.current="light";
+        if (window.scrollY < window.innerHeight * 0.7) {
+            bgRef.current = "light";
             setBgChange("light");
             setFontColor(false);
         }
-
     }
     
     return(

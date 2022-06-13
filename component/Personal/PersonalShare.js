@@ -5,74 +5,72 @@ import { SingleTheme } from "../style/Account.styled";
 const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragIndex,exchange,setExchange}) =>{
 
     //當使用者輸入分享內容時，更新state值，以便後續儲存至資料庫
-    const updateShare = (e) =>{
-        if(e.target.tagName==="INPUT"){
-            shareList[index]["title"]=e.target.value;
-        }else{
-            shareList[index]["content"]=e.target.value;
+    const updateShare = (e) => {
+        if (e.target.tagName === "INPUT") {
+            shareList[index]["title"] = e.target.value;
+        } else {
+            shareList[index]["content"] = e.target.value;
         }
-        let newShareList=JSON.parse(JSON.stringify(shareList));
-        setShareList(newShareList);        
+        let newShareList = JSON.parse(JSON.stringify(shareList));
+        setShareList(newShareList);
     }
 
     //Drag and Drop-抓取
-    const dragStartHandler = (e) =>{
+    const dragStartHandler = (e) => {
         setDragIndex(index);
-        let dragNum = index+1;
+        let dragNum = index + 1;
         let dragTitle = e.target.children[0].children[1].value;
         let dragContent = e.target.children[1].value;
-        exchange["drag"]["num"]=dragNum;
-        exchange["drag"]["title"]=dragTitle;
-        exchange["drag"]["content"]=dragContent;
-        let newExchang=JSON.parse(JSON.stringify(exchange));
+        exchange["drag"]["num"] = dragNum;
+        exchange["drag"]["title"] = dragTitle;
+        exchange["drag"]["content"] = dragContent;
+        let newExchang = JSON.parse(JSON.stringify(exchange));
         setExchange(newExchang)
-
     }
     //Drag and Drop-進入
-    const dragEnterHandler = (e) =>{
+    const dragEnterHandler = (e) => {
         e.dataTransfer.setData('text/plain', e.target.id)
-        // console.log("START:",e.dataTransfer.getData('text/plain')) ;
-        if(index!==dragIndex){
+        if (index !== dragIndex) {
             let parent;
-            if(e.target.tagName==="INPUT"){
-                parent=e.target.parentElement.parentElement;           
-            }else if(e.target.tagName==="TEXTAREA"){
-                parent=e.target.parentElement;
-            }else{
-                parent=e.target;
+            if (e.target.tagName === "INPUT") {
+                parent = e.target.parentElement.parentElement;
+            } else if (e.target.tagName === "TEXTAREA") {
+                parent = e.target.parentElement;
+            } else {
+                parent = e.target;
             }
             parent.classList.add("borderPlus");
-            exchange["drop"]["num"]=index+1;
-            exchange["drop"]["title"]=parent.children[0].children[1].value;
-            exchange["drop"]["content"]=parent.children[1].value;
+            exchange["drop"]["num"] = index + 1;
+            exchange["drop"]["title"] = parent.children[0].children[1].value;
+            exchange["drop"]["content"] = parent.children[1].value;
         }
-        
     }
     //Drag and Drop-經過
-    const dragOverHandler =(e) =>{
+    const dragOverHandler = (e) => {
         e.preventDefault();
         let parent;
-        if(e.target.tagName==="INPUT"){
-            parent=e.target.parentElement.parentElement;           
-        }else if(e.target.tagName==="TEXTAREA"){
-            parent=e.target.parentElement;
-        }else{
-            parent=e.target;
+        if (e.target.tagName === "INPUT") {
+            parent = e.target.parentElement.parentElement;
+        } else if (e.target.tagName === "TEXTAREA") {
+            parent = e.target.parentElement;
+        } else {
+            parent = e.target;
         }
         parent.classList.add("borderPlus");
     }
 
     //Drag and Drop-放下
-    const dropHandler = (e) =>{
-        let dragNewNum=exchange["drop"]["num"];
-        let dropNewNum=exchange["drag"]["num"];
-        shareList[dragNewNum-1]["title"]=exchange["drag"]["title"];
-        shareList[dragNewNum-1]["content"]=exchange["drag"]["content"];
-        shareList[dropNewNum-1]["title"]=exchange["drop"]["title"];
-        shareList[dropNewNum-1]["content"]=exchange["drop"]["content"];
-        let newShareList=JSON.parse(JSON.stringify(shareList));
+    const dropHandler = (e) => {
+        let dragNewNum = exchange["drop"]["num"];
+        let dropNewNum = exchange["drag"]["num"];
+        shareList[dragNewNum - 1]["title"] = exchange["drag"]["title"];
+        shareList[dragNewNum - 1]["content"] = exchange["drag"]["content"];
+        shareList[dropNewNum - 1]["title"] = exchange["drop"]["title"];
+        shareList[dropNewNum - 1]["content"] = exchange["drop"]["content"];
+        let newShareList = JSON.parse(JSON.stringify(shareList));
         setShareList(newShareList);
     }
+    
     return(
         <SingleTheme draggable="true" onDragStart={dragStartHandler} onDragEnter={dragEnterHandler} onDragOver={dragOverHandler}  onDragEnd={dropHandler} >
        

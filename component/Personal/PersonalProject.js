@@ -5,28 +5,27 @@ import coverdefault from "../../static/picture/coverdefault.png";
 import { SingleProject,LayoutBox,ProjectCover,ReaclCover,DefaultCover,ProjectContent,ProjectLink } from "../style/Account.styled";
 
 
-const PersonalProject = ({project,index,getFile,setProjects}) =>{
+const PersonalProject = ({project,index,getFile,setProjects}) => {
     //取得使用者選擇的作品類型
-    const getSelectValue =(e)=>{
-        setProjects(prev=>{
-            prev[index]["type"]=e.target.value;
+    const getSelectValue = (e) => {
+        setProjects(prev => {
+            prev[index]["type"] = e.target.value;
             return [...prev];
         })
     }
     //取得使用者輸入的作品集或文章連結
-    const getLink =(e)=>{
-        setProjects(prev=>{
-            prev[index]["link"]=e.target.value;
+    const getLink = (e) => {
+        setProjects(prev => {
+            prev[index]["link"] = e.target.value;
             return [...prev];
         })
     }
     //取得使用者輸入的作品或文章的說明
-    const getContent =(e)=>{
-        setProjects(prev=>{
-            prev[index]["content"]=e.target.value;
+    const getContent = (e) => {
+        setProjects(prev => {
+            prev[index]["content"] = e.target.value;
             return [...prev];
         })
-
     }
 
     return(
@@ -39,7 +38,7 @@ const PersonalProject = ({project,index,getFile,setProjects}) =>{
                     </div>
                     <label>
                         <p>+</p>
-                        <input type="file" onChange={getFile(index)}></input>
+                        <input type="file" onChange={getFile(index)} id="project-image"></input>
                     </label>
                 </ProjectCover>
                 <ProjectContent>

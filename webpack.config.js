@@ -42,33 +42,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg|mp4)$/,
-        type: 'asset/resource',
-        // generator: {
-        //   filename: 'images/[name][ext]'
-        // }
-        //     loader: 'file-loader',
-        // options: {
-        //   outputPath: '/',
-        // },
-      //  options:{
-      //     context: path.resolve(__dirname, "static/"),
-      //     outputPath: 'public/',
-      //     publicPath: '../',
-
-      //   } 
-    
-        // use: ['file-loader'],
-        // options:{
-        //   context: path.resolve(__dirname, "static/"),
-        //   outputPath: 'public/',
-        //   publicPath: '../',
-
-        // }        
-        // options: {
-        //   name: '[name].[ext]',
-        //   outputPath: 'assets/',
-        //   publicPath: 'images/'
-        // }
+        type: 'asset/resource',    
 
       } 
 		],

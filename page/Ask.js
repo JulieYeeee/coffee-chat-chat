@@ -13,105 +13,100 @@ import { GetGlobalContext } from "../component/context/GlobalContext";
 import { AskForm,AskConsultantBox,Bar,QuestionBox,Notification, SingleQuestion,PaymentBox,PaymentInputBox, InputLabel,InputTitle,Input,TestNumCopy} from "../component/style/Ask.styled";
 import { Button } from "../component/style/Button.styled";
 
-const Ask = () =>{
+const Ask = () => {
     //useContext取得共用state
-    const {account,username,orderNum}=GetGlobalContext();
-    
+    const {
+        account,
+        username,
+        orderNum
+    } = GetGlobalContext();
     //儲存使用者輸入的提問資訊
-    let [ consultantName,setConsultant ]=useState(null);
-    let [ headshot,setHeadshot]=useState(null);
-    let [ userInfo,setUserInfo]=useState(null);
-    let [ question,setQuestion]=useState(null);
-    let [ consultantAccount,setConsultantAccount]=useState(null);
+    let [consultantName, setConsultant] = useState(null);
+    let [headshot, setHeadshot] = useState(null);
+    let [userInfo, setUserInfo] = useState(null);
+    let [question, setQuestion] = useState(null);
+    let [consultantAccount, setConsultantAccount] = useState(null);
 
     //取得上一階段的預先訂單資訊
-    useEffect(()=>{
-        const setInitialOrder =async()=>{
+    useEffect(() => {
+        const setInitialOrder = async () => {
             const db = getFirestore(firebase);
             const docRef = doc(db, `pre-order`, orderNum);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                let orderData=docSnap.data();
+                let orderData = docSnap.data();
                 setConsultant(orderData["consultantName"]);
                 setHeadshot(orderData["headshot"]);
                 setConsultantAccount(orderData["consultantAccount"]);
             } else {
-            // doc.data() will be undefined in this case
+                // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }
         setInitialOrder();
-    },[])
+    }, [])
 
     
   
     //串接Tappay資料
-    let tapStatusss=true;
-    useEffect(()=>{
-        if(tapStatusss===true){
-            tapStatusss=false;
-            const appKey ="app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
+    let tapStatusss = true;
+    useEffect(() => {
+        if (tapStatusss === true) {
+            tapStatusss = false;
+            const appKey = "app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
             const appId = 123999;
             TPDirect.setupSDK(appId, appKey, 'sandbox');
-        
-                const fields = {
-                    number: {
-                        element: '#card-number',
-                        placeholder: '**** **** **** ****',
-                    },
-                    expirationDate: {
-                        element: '#card-expiration-date',
-                        placeholder: 'MM / YY'
-
-                    },
-                    ccv: {
-                        element: '#card-ccv',
-                        placeholder: 'ccv'
-                    }
+            const fields = {
+                number: {
+                    element: '#card-number',
+                    placeholder: '**** **** **** ****',
+                },
+                expirationDate: {
+                    element: '#card-expiration-date',
+                    placeholder: 'MM / YY'
+                },
+                ccv: {
+                    element: '#card-ccv',
+                    placeholder: 'ccv'
                 }
-        
-                TPDirect.card.setup({
-                    fields: fields,
-                    styles: {
-                        // Style all elements
+            }
+            TPDirect.card.setup({
+                fields: fields,
+                styles: {
+                    // Style all elements
+                    'input': {
+                        'color': 'gray',
+                        'font-size': '24px',
+                    },
+                    // style valid state
+                    '.valid': {
+                        'color': 'green'
+                    },
+                    // style invalid state
+                    '.invalid': {
+                        'color': 'red'
+                    },
+                    // Media queries
+                    // Note that these apply to the iframe, not the root window.
+                    '@media screen and (max-width: 400px)': {
                         'input': {
-                            'color': 'gray',
-                            'font-size':'24px',
-                            
-                        },
-                        
-                        // style valid state
-                        '.valid': {
-                            'color': 'green'
-                        },
-                        // style invalid state
-                        '.invalid': {
-                            'color': 'red'
-                        },
-                        // Media queries
-                        // Note that these apply to the iframe, not the root window.
-                        '@media screen and (max-width: 400px)': {
-                            'input': {
-                                'color': 'orange'
-                            }
+                            'color': 'orange'
                         }
                     }
-                })
-            }
-        
-    },[])
+                }
+            })
+        }
+    }, [])
     
     //動態確認使用者輸入付款資料是否正確
-   TPDirect.card.onUpdate(function (update) {
+    TPDirect.card.onUpdate(function(update) {
         if (update.canGetPrime) {
             checkPrime();
         } else {
             return
         }
-    
     })
-
-    const checkPrime = () =>{
+    const checkPrime = () => {
         const tappayStatus = TPDirect.card.getTappayFieldsStatus();
         // Check TapPay Fields Status is can get prime
         if (tappayStatus.canGetPrime === false) {
@@ -167,36 +162,35 @@ const Ask = () =>{
 
 
     //更新訂單資料，並且導至感謝頁面
-    const navigate=useNavigate();
-    const updateOrder = async() =>{
-        const db = getFirestore(firebase);
-        
-        await updateDoc(doc(db, "pre-order", orderNum), {
-            askInfo: userInfo,
-            askName:username,
-            askQuestion: question,
-            payment:true
-        })
-        const database = getDatabase(firebase);
-        set(ref(database, 'order/' + orderNum), {
-            orderNum:orderNum,
-            payment: true,
-            askAccount: account,
-            askName:username,
-            askInfo: userInfo,
-            askQuestion: question,
-            consultantAccount:consultantAccount,
-            consultantName:consultantName
-        });
-        navigate("/thankyou");
+    const navigate = useNavigate();
+    const updateOrder = async () => {
+    	const db = getFirestore(firebase);
+    	await updateDoc(doc(db, "pre-order", orderNum), {
+    		askInfo: userInfo,
+    		askName: username,
+    		askQuestion: question,
+    		payment: true
+    	})
+    	const database = getDatabase(firebase);
+    	set(ref(database, 'order/' + orderNum), {
+    		orderNum: orderNum,
+    		payment: true,
+    		askAccount: account,
+    		askName: username,
+    		askInfo: userInfo,
+    		askQuestion: question,
+    		consultantAccount: consultantAccount,
+    		consultantName: consultantName
+    	});
+    	navigate("/thankyou");
     }
 
 
     //複製測試號碼
-    const copyNum=(e)=>{
-        let content=e.target.parentElement.children[0];
-        content.select();
-        document.execCommand('copy',false,content.select());
+    const copyNum = (e) => {
+    	let content = e.target.parentElement.children[0];
+    	content.select();
+    	document.execCommand('copy', false, content.select());
     }
 
 

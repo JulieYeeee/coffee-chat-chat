@@ -17,6 +17,7 @@ import firebase from "../src/Firebase"; //initializtion
 import { getAuth ,onAuthStateChanged} from "firebase/auth"; //check login status
 import { getStorage , ref,uploadBytes,getDownloadURL} from "firebase/storage";//upload or dowload images 
 import { getFirestore,doc,getDoc,updateDoc  } from "firebase/firestore";
+//useContext
 import { GetGlobalContext } from "../component/context/GlobalContext";
 //styled-component
 import {Loading} from "../component/style/Loading.styled";
@@ -25,12 +26,18 @@ import { AccountLinkBox,SingleLink,AccountIntroBox,AccountKeywordBox,KeywordInsi
 import { AccountShareThemeBox,ShareThemeInsideBox,AccountProjectBox,AccountButton } from "../component/style/Account.styled";
 
 const Account = () =>{ 
-    const {account,setAccount,username,setUsername}=GetGlobalContext();
+    //useContext 取得共用 state
+    const {
+        account,
+        setAccount,
+        username,
+        setUsername
+    } = GetGlobalContext();
 
     //確認使用者是否登入，若未登入跳轉至登入頁
-    let navigate=useNavigate();    
-    useEffect(()=>{
-        const auth=getAuth();
+    let navigate = useNavigate();
+    useEffect(() => {
+        const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAccount(user.uid);
@@ -39,21 +46,23 @@ const Account = () =>{
                 navigate("/signin");
             }
         });
-    },[]);
-    
+    }, []);
+        
 
     //取得會員資料
     const userDatatRef = useRef(null);
-    useEffect(()=>{getInitialData();},[account]);
+    useEffect(() => {
+        getInitialData();
+    }, [account]);
     const db = getFirestore(firebase);
-    const getInitialData = async()=>{
+    const getInitialData = async () => {
         const docRef = doc(db, `user`, account);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             userDatatRef.current = docSnap.data();
             setInitialData(userDatatRef.current);
         } else {
-        // doc.data() will be undefined in this case
+            // doc.data() will be undefined in this case
             console.log("No such document!");
         }
     }
@@ -185,7 +194,7 @@ const Account = () =>{
     //使用者上傳圖像後
     const getFile=(index)=>async(e)=>{
         let imgElement=e.target.parentElement.parentElement.children[0];
-        let inputSource=e.target.className;
+        let inputSource=e.target.id;
         let file=e.target.files[0];
         let imageType=/image.*/;
         if (!file.type.match(imageType)) {
@@ -217,11 +226,11 @@ const Account = () =>{
             <Loading src={loading} closeCheck={userDatatRef.current}></Loading>
             <AccountForm closeCheck={userDatatRef.current}>
                 <AccountBasic>
-                    <Headshot className="headshot">
+                    <Headshot >
                     <Headshotimg src={headshot? headshot : defaultHeadshot}/>
                         <HeadshotLabel>
                         <p>+</p>
-                        <input type="file" onChange={getFile(null)}></input>
+                        <input type="file" onChange={getFile(null)} id="headshot"></input>
                         </HeadshotLabel>
                     </Headshot>
 

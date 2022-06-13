@@ -19,135 +19,135 @@ import { Button } from "../component/style/Button.styled";
 const Signin = () =>{
 
     //useContext取得共用state
-    const {account,setAccount,username,setUsername}=GetGlobalContext();
+    const {
+        account,
+        setAccount,
+        username,
+        setUsername
+    } = GetGlobalContext();  
+   
 
     //觸發styled-component css的state,用來控制顯示或隱藏表單
-    let [ signupCSS ,setSignupCSS ]=useState("signup signup-hide");
-    let [ signinCSS ,setSigninCSS ]=useState("signin");
+    let [signupCSS, setSignupCSS] = useState("signup signup-hide");
+    let [signinCSS, setSigninCSS] = useState("signin");
     
     //放置註冊或登入的信箱及密碼的state
-    let [ email ,setEmail ]=useState("test@gmail.com");
-    let [ password , setPassword ]=useState("testtest");
+    let [email, setEmail] = useState("test@gmail.com");
+    let [password, setPassword] = useState("testtest");
+    
     
     //偵測註冊表單的輸入資料
     let passwordCheck;
-    const register=(e)=>{
-        if (e.target.id==="signup-username"){
-            let value=e.target.value;
+    const register = (e) => {
+        if (e.target.id === "signup-username") {
+            let value = e.target.value;
             setUsername(value);
-        }else if(e.target.id==="signup-email"){
-            let value=e.target.value;
+        } else if (e.target.id === "signup-email") {
+            let value = e.target.value;
             setEmail(value);
-        }else if(e.target.id==="signup-password"){
-            let value=e.target.value;
-            setPassword(value);            
-        }else{
-            if(password.length<6){
+        } else if (e.target.id === "signup-password") {
+            let value = e.target.value;
+            setPassword(value);
+        } else {
+            if (password.length < 6) {
                 alert("密碼少於六字，請確認");
                 return;
             }
-            if(e.target.value===password){
-                passwordCheck=true;
-            }else{
-                passwordCheck=false;
-               
+            if (e.target.value === password) {
+                passwordCheck = true;
+            } else {
+                passwordCheck = false;
             }
         }
-
     }
 
     //偵測會員登入表單偵測
-    const signin=(e)=>{
-        if(e.target.id==="signin-email"){
+    const signin = (e) => {
+        if (e.target.id === "signin-email") {
             setEmail(e.target.value);
-        }else{
+        } else {
             setPassword(e.target.value);
         }
     }
 
 
     //當會員註冊成功，觸發以下 useEffect 建立個人資料
-    let [trigger,setTrigger]=useState(false);
-    useEffect(()=>{
-        if(trigger==="true"){
+    let [trigger, setTrigger] = useState(false);
+    useEffect(() => {
+        if (trigger === "true") {
             initialData();
-        }else{
+        } else {
             return
-        }},[account]);
+        }
+    }, [account]);
 
 
-    let navigate=useNavigate();
-    const initialData=async() =>{
-        const db=getFirestore(firebase);
+    let navigate = useNavigate();
+    const initialData = async () => {
+        const db = getFirestore(firebase);
         await setDoc(doc(db, "user", account), {
-            basic:{
+            basic: {
                 username:username,
-                title:null,
-                welcome:null,
-                headshot:null
+                title: null,
+                welcome: null,
+                headshot: null
             },
-            link:{
-                fb:null,
-                linkedin:null,
-                blog:null
+            link: {
+                fb: null,
+                linkedin: null,
+                blog: null
             },
-            detail:{
-                intro:null,
-                keyword:[],
-                share:[{num:1,title:"",content:""},{num:2,title:"",content:""},{num:3,title:"",content:""}],
-                project:[{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null},{cover:null,type:null,content:null,link:null}]
+            detail: {
+                intro: null,
+                keyword: [],
+                share: [{num: 1, title: "", content: "" },{num: 2, title: "", content: "" },{num: 3, title: "", content: "" }],
+                project:[{cover: null, type: null, content: null, link: null },{cover: null, type: null, content: null, link: null },{cover: null, type: null, content: null, link: null }]
             },
-            user:{
-                email:email,
-                password:password
+            user: {
+                email: email,
+                password: password
             }
-          });
-          navigate("/account");
+        });
+        navigate("/account");
     }
 
     //依照使用者按下的按鈕，觸發登入或註冊會員功能
-    const submit = (e) =>{
+    const submit = (e) => {
         e.preventDefault();
-        if(e.target.innerText === "註冊會員"){
-            if(passwordCheck===false){
+        if (e.target.innerText === "註冊會員") {
+            if (passwordCheck === false) {
                 alert("密碼二次確認錯誤");
                 return;
-            }else{
-                if(!username || !email || !password){
+            } else {
+                if (!username || !email || !password) {
                     alert("註冊資料缺漏，請確認");
                     return;
                 }
-                if(email){
+                if (email) {
                     let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-                    if(email.search(emailRule)==-1){
+                    if (email.search(emailRule) == -1) {
                         alert("非有效Email");
                         return;
                     }
                 }
             }
-
             createAccount();
-
-        }else{
-            getSignin(email,password);
+        } else {
+            getSignin(email, password);
         }
-
     }
     
-    const createAccount = () =>{
-          const auth = getAuth(firebase);
-          createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              setTrigger("true");
-              setAccount(user.uid);
-            })
-            .catch((error) => {
-              const errorMessage = error.message;
-              alert(errorMessage);
-            });
-      
-      }
+    const createAccount = () => {
+        const auth = getAuth(firebase);
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            const user = userCredential.user;
+            setTrigger("true");
+            setAccount(user.uid);
+        }).catch((error) => {
+            const errorMessage = error.message;
+            alert(errorMessage);
+        });
+    }
 
 
     const getSignin = (email,password) =>{
@@ -183,20 +183,17 @@ const Signin = () =>{
     }
 
     //改變會員表單
-    const changeForm = (e) =>{
-        if (e.target.innerText === "已經是會員? 點我登入"){
+    const changeForm = (e) => {
+        if (e.target.innerText === "已經是會員? 點我登入") {
             setSignupCSS("signup signup-hide");
             setSigninCSS("signin");
-        }else{
+        } else {
             setSignupCSS("signup");
             setSigninCSS("signin signin-hide");
         }
-        
     }
    
    
-    
-    
 
    
     return(
@@ -233,11 +230,11 @@ const Signin = () =>{
                 <CTAtitle> 加入咖啡圈圈 開始資訊交流 </CTAtitle>
                 <InputLabel htmlFor="signin-email">
                     <p> 輸入信箱</p>
-                    <input type="email" id="signin-email" required onChange={signin} value="test@gmail.com"></input>
+                    <input type="email" id="signin-email" required onChange={signin} value={email}></input>
                 </InputLabel>
                 <InputLabel htmlFor="signin-password">
                     <p> 輸入密碼</p>
-                    <input type="password" id="signin-password" required onChange={signin} value="testtest"></input>
+                    <input type="password" id="signin-password" required onChange={signin} value={password}></input>
                 </InputLabel>
                  <Button type="submit" onClick={submit}>登入會員</Button>
                  <SignupChangeTrigger onClick={changeForm}>還不是會員? 點我註冊</SignupChangeTrigger>
