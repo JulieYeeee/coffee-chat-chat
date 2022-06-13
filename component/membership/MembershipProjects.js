@@ -1,21 +1,23 @@
 import React from "react";
-import png from "../../static/picture/fb.png";
+//圖片
+import coverwarn from "../../static/picture/coverwarn.png";
+//styled-component
+import {SingleProject,ProjectCover,ProjectContentBox,ProjectType,ProejectText,Outlink,Coverimg} from "../style/Membership.styled";
 
 const MembershipProjects = ({project}) =>{
-    let cover =project["cover"];
+
+    let cover = project["cover"];
     return(
-        <div className="project">
-           
-           <img src={cover? cover : png}></img>
-            {/* <img { cover? src={cover} :src={png} }></img> */}
-            <div>
-                <p className="project-type">{project["type"]}</p>
-                <p className="project-content">{project["content"]}</p>
-                </div>
-                <a href={project["link"]? project["link"]:"null"}>READ</a>
-            
-            
-        </div>
+        <SingleProject>
+           <ProjectCover>
+                <Coverimg src={cover? cover : coverwarn} coverCheck={cover}/>
+           </ProjectCover>
+            <ProjectContentBox>
+                <ProjectType>{project["type"]}</ProjectType>
+                <ProejectText>{project["content"]}</ProejectText>
+            </ProjectContentBox>
+            <Outlink href={project["link"]? project["link"]:"null"} >READ</Outlink>
+        </SingleProject>
     )
 }
 

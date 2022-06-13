@@ -8,11 +8,6 @@
   font-family: 'Signika Negative', sans-serif;
 }
 
-a {
-  text-decoration: none;
-  color: black;
-}
-
 ::-webkit-scrollbar {
   width: 7px;
 }
@@ -671,7 +666,7 @@ main .bar-section1 img {
   }
   .hp-2 .hp-2-users .user img {
     color: white;
-    height: 20vh;
+    height: 22vh;
   }
 }
 
@@ -1701,6 +1696,10 @@ main .bar-section1 img {
 .personal-info-main form .personal-share-theme .share-theme-box .share-theme textarea:focus {
   border: 1px solid var(--standardYellow);
   outline: none;
+}
+
+.personal-info-main form .personal-share-theme .share-theme-box .borderPlus {
+  border: 1px dashed grey;
 }
 
 .personal-info-main form .personal-share-theme .share-theme-box .personal-share2 {

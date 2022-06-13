@@ -1,25 +1,24 @@
 import React from "react";
+//styled-componet
+import { Keyword } from "../style/Account.styled";
 
-const Tags = ({tag,id,tags,setTags}) =>{
-    const deleteTag = (e) =>{
-        for(let index=0;index<tags.length;index++){
-            console.log(index);
-            console.log(tags[index].id);
-            console.log(id);
-            if(tags[index].id===id){
-                tags.splice(index,1);
-                let newTags=JSON.parse(JSON.stringify(tags));
+const Tags = ({tag,id,tags,setTags}) => {
+    //使用者編輯關鍵字區，欲刪除指定關鍵字時觸發
+    const deleteTag = () => {
+        for (let index = 0; index < tags.length; index++) {
+            if (tags[index].id === id) {
+                tags.splice(index, 1);
+                let newTags = JSON.parse(JSON.stringify(tags));
                 setTags(newTags);
-                console.log(newTags);
             }
         }
-
     }
+    
     return(
-        <span className="tag">
+        <Keyword>
             {tag}
-            <div className="tag-delete" onClick={deleteTag}><p>X</p></div>
-        </span>
+            <div onClick={deleteTag}><p>X</p></div>
+        </Keyword>
     )
 }
 
