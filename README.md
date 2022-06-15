@@ -46,13 +46,13 @@
 ****  
 ## 使用技術  
 + React
-  + React Router : 建立 SPA 頁面
-  + React useContext : 管理共用 state、ref、props
+  + React Router : 建立 SPA 頁面、實現跳轉
+  + React useContext : 管理共用 state、ref
   + React useState、useRef : 兩者搭配處理資料、適時使用 useRef 避免過度渲染頁面
   + React useEffect : 透過 dependency 觸發相關程式
 + css
   + styled-components
-    + CreateGlobalStyle : 全局共通 css 設定
+    + CreateGlobalStyle : 全局共通 CSS 設定
     + Theme : 建立網站共同主題色彩 
     + Adapting based on props
 + Firebase  
