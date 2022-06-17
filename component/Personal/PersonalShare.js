@@ -1,4 +1,7 @@
 import React from "react";
+
+import dragicon from "../../static/picture/dragicon.png";
+
 //styled-component
 import { SingleTheme } from "../style/Account.styled";
 
@@ -19,8 +22,8 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
     const dragStartHandler = (e) => {
         setDragIndex(index);
         let dragNum = index + 1;
-        let dragTitle = e.target.children[0].children[1].value;
-        let dragContent = e.target.children[1].value;
+        let dragTitle = e.target.children[1].children[1].value;
+        let dragContent = e.target.children[2].value;
         exchange["drag"]["num"] = dragNum;
         exchange["drag"]["title"] = dragTitle;
         exchange["drag"]["content"] = dragContent;
@@ -29,7 +32,7 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
     }
     //Drag and Drop-進入
     const dragEnterHandler = (e) => {
-        e.dataTransfer.setData('text/plain', e.target.id)
+        // e.dataTransfer.setData('text/plain', e.target.id)
         if (index !== dragIndex) {
             let parent;
             if (e.target.tagName === "INPUT") {
@@ -41,8 +44,9 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
             }
             parent.classList.add("borderPlus");
             exchange["drop"]["num"] = index + 1;
-            exchange["drop"]["title"] = parent.children[0].children[1].value;
-            exchange["drop"]["content"] = parent.children[1].value;
+            exchange["drop"]["title"] = parent.children[1].children[1].value;
+            exchange["drop"]["content"] = parent.children[2].value;
+
         }
     }
     //Drag and Drop-經過
@@ -73,11 +77,11 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
     
     return(
         <SingleTheme draggable="true" onDragStart={dragStartHandler} onDragEnter={dragEnterHandler} onDragOver={dragOverHandler}  onDragEnd={dropHandler} >
-       
+            <img src={dragicon}></img>
             <div className="share-title-box"  >
-                <p>{index+1}</p><input type="text" placeholder="e.g PM轉職" maxLength="12" onChange={updateShare} value={share["title"]}></input>
+                <p>{index+1}</p><input type="text" placeholder="e.g PM轉職" maxLength="12" onChange={updateShare} value={share["title"]? share["title"]:""}></input>
             </div>
-            <textarea onChange={updateShare} value={share["content"]}></textarea>
+            <textarea onChange={updateShare} value={share["content"]? share["content"]:""}></textarea>
         </SingleTheme>
 
     )

@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
 
 module.exports = {
+    // devtool: 'source-map',
     mode: "development",
     entry: "./src/index.js",
     output: {
@@ -18,7 +19,8 @@ module.exports = {
       },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./static/base.html",      
+            template: "./static/base.html",
+            favicon: "./static/picture/minilogofavi.ico",      
         }),
         new MiniCssExtractPlugin({
             filename: "style.[hash].css",

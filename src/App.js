@@ -3,6 +3,7 @@ import React, { useEffect} from "react";
 import { BrowserRouter , Routes , Route } from "react-router-dom";
 //components
 import Nav from "../component/Nav";
+import DownNav from "../component/DownNav";
 import Homepage from "../page/Homepage";
 import Account from "../page/Account";
 import Memberlist from "../page/Memberlist";
@@ -79,7 +80,8 @@ const App = () => {
     }, []);
 
 
-    //全站隨時監聽是否有跟使用者相關的新訂單，並觸發更新右上角訊息未讀
+
+    //全站監聽新訂單，若有新訂單，另起聊天室資料表
     const database = getDatabase(Firebase);
     const orderRef = query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
     onValue(orderRef, (snapshot) => {
@@ -122,11 +124,28 @@ const App = () => {
         const data = snapshot.val();
         let keys = Object.keys(data);
         keys.forEach((item) => {
-            if (data[item]["consultantAccount"] && data[item]["consultantAccount"] === account && data[item]["askUnread"]) {
-                askUnreadRef.current = askUnreadRef.current + data[item]["askUnread"];
+            if (data[item]["consultantAccount"] && data[item]["consultantAccount"] === account) {
+                let msgKeys = Object.keys(data[item]["message"]);
+                msgKeys.forEach((single)=>{
+                    
+                    if(data[item]["message"][single]["from"]==="ask" && data[item]["message"][single]["read"]===false){
+                        askUnreadRef.current = askUnreadRef.current + 1;
+                    
+                    }
+                    
+                })
+
             }
-            if (data[item]["askAccount"] && data[item]["askAccount"] === account && data[item]["replyUnread"]) {
-                replyUnreadRef.current = replyUnreadRef.current + data[item]["replyUnread"];
+            if (data[item]["askAccount"] && data[item]["askAccount"] === account) {
+                let msgKeys = Object.keys(data[item]["message"]);
+                msgKeys.forEach((single)=>{
+                    if(data[item]["message"][single]["from"]==="reply" && data[item]["message"][single]["read"]===false){
+                        replyUnreadRef.current = replyUnreadRef.current + 1;
+                    }
+                    
+                })
+
+
             }
         })
         set(ref(database, 'user/' + account), {
@@ -164,6 +183,8 @@ const App = () => {
                     <Route path="/inbox/:id" element={<Inbox DOMref={DOMref}/> }/>
                     <Route path="/signin" element={ <Signin />}/>
                 </Routes>
+                <DownNav/>
+
             </BrowserRouter>
             </ThemeProvider>
             

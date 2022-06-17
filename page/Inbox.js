@@ -118,7 +118,7 @@ const Inbox = ( {DOMref}) => {
     
     //取得正在回覆的訊息內容(input value)
     let preMsgRef = useRef();
-    // let [ replyContent,setReplyContent]=useState(null);
+
     const getReplyContent = (e) => {
     	preMsgRef.current = e.target.value;
     }
@@ -134,7 +134,15 @@ const Inbox = ( {DOMref}) => {
     				content: preMsgRef.current,
     				time: Date.now(),
     				read: false
-    			});
+    			})
+                .then((data) => {
+                    console.log("show error:",data);
+                    // Data saved successfully!
+                  })
+                  .catch((error) => {
+                   console.log("show error:",error);
+                  });
+
     		};
     		if (msgRole === "consultant") {
     			set(newMsgRef, {
@@ -142,10 +150,15 @@ const Inbox = ( {DOMref}) => {
     				content: preMsgRef.current,
     				time: Date.now(),
     				read: false
-    			});
+    			})
+                .then((data) => {
+                    console.log("show error:",data);
+                    // Data saved successfully!
+                  })
+                  .catch((error) => {
+                   console.log("show error:",error);
+                  });
     		}
-    		setUnreadtoDB();
-    		// setReplyContent(preMsgRef.current);
     		preMsgRef.current = "";
     		e.target.parentElement.children[0].value = "";
     	}
@@ -159,6 +172,7 @@ const Inbox = ( {DOMref}) => {
         }
     }, [msgContent])
     useEffect(() => {
+        console.log("確認會一職觸發嗎")
         const singleMsgRef = query(ref(database, `inbox/${id}/message`));
         if (id === "default" || account === null || msgRole === null) {
             return;
@@ -175,51 +189,22 @@ const Inbox = ( {DOMref}) => {
                 setMsgContent(msgContentRef.current);
             }
         });
-    }, [id, msgRole])
+    }, [id, msgRole,preMsgRef.current])
 
-
-    const setUnreadtoDB = () => {
-        if (msgRole === "consultant") {
-            const dbRef = ref(getDatabase(Firebase));
-            get(child(dbRef, `inbox/${id}/`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    let msgInfo = snapshot.val();
-                    update(ref(database, `inbox/${id}/`), {
-                        replyUnread: msgInfo["replyUnread"] + 1
-                    });
-                }
-            })
-        }
-        if (msgRole === "ask") {
-            const dbRef = ref(getDatabase(Firebase));
-            get(child(dbRef, `inbox/${id}/`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    let msgInfo = snapshot.val();
-                    update(ref(database, `inbox/${id}/`), {
-                        askUnread: msgInfo["askUnread"] + 1
-                    });
-                }
-            })
-        }
-    }
-    
     //當訊息被選取時，標記色彩
     let [msgSelectElement, setMsgSelectElement] = useState(null);
     useEffect(() => {
         if (msgSelectElement) {
-            msgSelectElement.className = "msgSelect";
-            setSelect("true");
+            msgSelectElement.classList.add("msgSelect");
         }
     }, [])
     let [select, setSelect] = useState(null);
     const selectCss = (e) => {
         if (msgSelectElement != null) {
-            msgSelectElement.className = "";
-            setSelect(null);
+            msgSelectElement.classList.remove("msgSelect");
         }
         setMsgSelectElement(e.target);
-        e.target.className = "msgSelect";
-        setSelect("true");
+        e.target.classList.add("msgSelect");
     }
     
     //當視窗大小在500px時，左側訊息列表收闔設定

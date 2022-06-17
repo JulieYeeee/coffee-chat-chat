@@ -115,50 +115,40 @@ const Ask = () => {
         }
     }
     
-    //提問及付款資料送出
-    function submitPay(e) {
+    //提問及付款資料送出，到 firebase function 處理
+    const submitPay = (e) => {
         e.preventDefault();
         TPDirect.card.getPrime(function(result) {
             if (result.status !== 0) {
-                return 
+                return
             }
             let prime = result.card.prime;
-            fetch("https://cors-anywhere.herokuapp.com/https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime",{
+            fetch("https://us-central1-coffee-chat-together.cloudfunctions.net/getPay", {
                 method: 'POST',
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
-                    "x-api-key": "partner_RxqtAj9N3juu6kDlJU87Nzpqlizth6moQIsozJgrUwe9bVLHf43tPvTR",
                 },
-                body:JSON.stringify({
-                    "prime": prime,
-                    "partner_key": "partner_RxqtAj9N3juu6kDlJU87Nzpqlizth6moQIsozJgrUwe9bVLHf43tPvTR",
-                    "merchant_id": "oopsyeh056_CTBC",
-                    "details":"TapPay Test",
-                    "amount": 95,
-                    "cardholder": {
-                        "phone_number": "+886923456789",
-                        "name": "coffeechat",
-                        "email": "coffeechat@gmail.com",
-                        "zip_code": "",
-                        "address": "",
-                        "national_id": ""
-                    }
+                body: JSON.stringify({
+                    "primenum": prime,
                 })
-            })
-            .then(response=>{
-                let res=response.json();
-                //付款成功，更新訂單狀態
-                if(response.ok){
-                    res.then(data=>{
+            }).then(response => {
+                let result = response.json();
+                if (response.ok) {
+                    result.then(data => {
+                        console.log("payment status:", data.status);
                         updateOrder();
                     })
+                } else {
+                    result.then(wrong => {
+                        console.log(wrong);
+                    })
                 }
-            })
-            .catch(error=>{
-                console.log("Pay bill failed",error);
+            }).catch(error => {
+                console.log(error);
             })
         })
     }
+
 
 
     //更新訂單資料，並且導至感謝頁面
@@ -228,15 +218,15 @@ const Ask = () => {
                             <Input className="tpfield" id="card-number"></Input>
                         </InputLabel>
                         <TestNumCopy>
-                            測試卡號<textarea rows="1" readonly="readonly">4242424242424242</textarea><div onClick={copyNum}>Copy</div>
+                            測試卡號<textarea rows="1" readOnly value={"4242424242424242"}></textarea><div onClick={copyNum}>Copy</div>
                         </TestNumCopy>
 
                         <InputLabel>
                             <InputTitle>有效日期</InputTitle>
-                            <Input className="tpfield" id="card-expiration-date"></Input>
+                            <Input className="tpfield" id="card-expiration-date" ></Input>
                         </InputLabel>
                         <TestNumCopy>
-                            測試日期<textarea rows="1" readonly="readonly">0123</textarea><div onClick={copyNum}>Copy</div>
+                            測試日期<textarea rows="1" readOnly value={"0123"}></textarea><div onClick={copyNum}>Copy</div>
                         </TestNumCopy>
 
                         <InputLabel>
@@ -244,7 +234,7 @@ const Ask = () => {
                             <Input className="tpfield" id="card-ccv"></Input>
                         </InputLabel>
                         <TestNumCopy>
-                            測試安全碼<textarea rows="1" readonly="readonly">123</textarea><div onClick={copyNum}>Copy</div>
+                            測試安全碼<textarea rows="1" readOnly value={"123"}></textarea><div onClick={copyNum}>Copy</div>
                         </TestNumCopy>
                     </PaymentInputBox>
             

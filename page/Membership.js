@@ -15,7 +15,7 @@ import MembershipProjects from "../component/membership/MembershipProjects";
 import { GetGlobalContext } from "../component/context/GlobalContext";
 //styled-component
 import { MembershipBox,Navigation,MemberdataBox,MemberDataLeft,MemberHeadshot,BasicInfoBox,BasicInfoText,LinkBox ,IntroBox,Title,TagBox,Tag,ShareThemeBox,ShareThemeInsideBox,SingleShare,ShareTitle,ShareContent} from "../component/style/Membership.styled";
-import { MemberDataRight,Askform } from "../component/style/Membership.styled";
+import { MemberDataRight,Askform,AskButton } from "../component/style/Membership.styled";
 import { ProjectBox,ProjectInsideBox, } from "../component/style/Membership.styled";
 import {Button} from "../component/style/Button.styled" ;
 import { Loading } from "../component/style/Loading.styled";
@@ -147,7 +147,7 @@ const Membership = () =>{
     }
 
     
-
+    let shareNumRef=useRef(0);
 
 
     return(
@@ -166,13 +166,13 @@ const Membership = () =>{
                             <BasicInfoText>{memberName? memberName : ""}</BasicInfoText>
                             <BasicInfoText>{title? title : ""}</BasicInfoText>
                             <LinkBox>
-                                <a href={fbLink? fbLink:""} className="link fb">
+                                <a href={fbLink? fbLink:""} className="link fb" target="_blank">
                                     <img className="icon fb" src={fb}></img>
                                 </a>
-                                <a href={linkedinLink? linkedinLink:""} className="link linkedin">
+                                <a href={linkedinLink? linkedinLink:""} className="link linkedin" target="_blank">
                                     <img className="icon linkedin" src={linkedin}></img>
                                 </a>
-                                <a href={blogLink? blogLink : ""} className="link blog">
+                                <a href={blogLink? blogLink : ""} className="link blog" target="_blank">
                                     <img className="icon blog" src={blog}></img>
                                 </a>
                             </LinkBox>
@@ -195,28 +195,33 @@ const Membership = () =>{
                         <ShareThemeBox>
                             <Title>你可以問我</Title>
                             <ShareThemeInsideBox>
-                                {shareList.map((share,index)=>{
-                                    if(share["title"] && share["content"]){
-                                        return <SingleShare>
-                                                    <ShareTitle>
-                                                        <span>{index+1}</span>
-                                                        <p >{share["title"]}</p>
-                                                    </ShareTitle>
-                                                    <ShareContent>{share["content"]}</ShareContent>
-                                                </SingleShare> 
-                                    }
-                                })}
+                               
+                                {
+                                    shareList.map((share,index)=>{
+                                        if(share["title"] && share["content"]){
+                                            return <SingleShare>
+                                                        <ShareTitle>
+                                                            <span>{index+1}</span>
+                                                            <p >{share["title"]}</p>
+                                                        </ShareTitle>
+                                                        <ShareContent>{share["content"]}</ShareContent>
+                                                    </SingleShare> 
+                                        }
+                                    })
+
+                                }
                             </ShareThemeInsideBox>
                         </ShareThemeBox>
                     </MemberDataLeft>
 
                     <MemberDataRight>
                         <Askform>
-                            <Button onClick={buildAsk}>Ask me!立即提問</Button>
+                            <AskButton onClick={buildAsk}>Ask me!立即提問</AskButton>
                             <div className="ask-rule-box">
                                 <p className="ask-rule-title">提問前請遵守：</p>
                                 <p className="ask-rule">不得詢問個人隱私之問題，若因提問不當分享者有權婉轉回覆。請盡量詢問分享者可分享領域，若因提問超出分享範圍，可能導致您收不到良好回覆。</p>
                             </div>
+
                         </Askform>
                 
                     </MemberDataRight>

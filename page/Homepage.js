@@ -14,7 +14,7 @@ const Homepage = () => {
     let bgRef = useRef("light");
     let [bgChange, setBgChange] = useState("light");
     let [fontColor, setFontColor] = useState(false);
-    //按 scrollbar 滑動改變背景色
+    //按 scrollbar 滑動改變背景 文字色
     window.onscroll = (e) => {
         if (window.scrollY > window.innerHeight * 0.7) {
             bgRef.current = "yellow";
@@ -24,6 +24,7 @@ const Homepage = () => {
         if (window.scrollY > window.innerHeight * 1.5) {
             bgRef.current = "light";
             setBgChange("light");
+            setFontColor(false);
         }
         if (window.scrollY < window.innerHeight * 0.7) {
             bgRef.current = "light";
@@ -31,7 +32,7 @@ const Homepage = () => {
             setFontColor(false);
         }
     }
-    
+     
     return(
         <Main bgColor={bgChange}>
             <Section1 fontColor={fontColor}/>

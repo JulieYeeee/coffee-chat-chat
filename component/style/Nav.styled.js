@@ -50,12 +50,17 @@ export const RightMenu=styled.ul`
         justify-content: flex-end;
         align-items: center;
         padding:10px;
-
         text-decoration: none;
 
         @media (max-width: 1199px){
             width: 60%;
         }
+
+        @media (max-width: 600px){
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+        }
+
 
 
 `
@@ -67,12 +72,38 @@ export const Item=styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
-    a{
-        color: ${({theme})=>theme.decoColor.decoOrange};
-        display: flex;
-        justify-content: center;
-        align-items: center;
+
+    img{
+        box-shadow:-3px -5px 8px rgb(255, 255, 255),
+        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
+        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
+        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
+        width: 40px;
+        border-radius: 10px;
+        background: ${({theme})=>theme.bgColor.mainBGColor};
+        cursor: pointer;
+        &:hover{
+            box-shadow:-3px -5px 8px rgb(255, 255, 255),
+            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);
+        }
+        
     }
+    @media (max-width: 600px){
+        img{
+            display: none;
+        }
+        
+    }
+
+`
+
+export const FunctionBox=styled(Link)`
+    color: ${({theme})=>theme.decoColor.decoOrange};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+
     
     img{
         box-shadow:-3px -5px 8px rgb(255, 255, 255),
@@ -90,16 +121,24 @@ export const Item=styled.li`
         
     }
 
+    @media (max-width: 600px){
+        display: none;
+        
+    }
 
 
 `
 
 export const SearchLink=styled(Link)`
     color: ${({theme})=>theme.decoColor.decoOrange};
-    border: ${({borderStyle})=>borderStyle && "1px solid #F27E63"};
+    border: 1px solid ${({theme})=>theme.decoColor.decoOrange};
     border-radius: 15px;
     padding: 5px;
     font-weight: 700;
+
+    @media (max-width: 600px){
+        padding: 10px ;
+    }
 
 `
 
@@ -114,7 +153,45 @@ export const Notification=styled.span`
     top: -5px;
     right: -5px;
     display: ${({closeCheck})=>closeCheck? "block":"none"};
-    font-size:2vmin;
+    font-size:16px;
+    @media (max-width: 600px){
+        display: none;
+    }
+`
+
+export const DownNavBox=styled.nav`
+    width: 100%;
+    background: ${({theme})=>theme.bgColor.mainBGColor};
+    display: none;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    box-shadow:-3px 0px 5px rgba(145, 145, 145, 0.3);
+
+    a,div{
+        position: relative;
+        img{
+            width: 40px;
+            height: 40px;
+            background: ${({theme})=>theme.bgColor.mainBGColor};
+            margin: 5px 0 ;
+        }
+    }
+
+    @media (max-width: 600px){
+        display: flex;
+    }
+
+`
+
+export const DownNotification=styled(Notification)`
+    top: 0px;
+    right: 0px;
+    @media (max-width: 600px){
+        display: ${({closeCheck})=>closeCheck? "block":"none"};
+    }
 
 
 `
+
+

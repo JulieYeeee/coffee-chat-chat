@@ -16,7 +16,7 @@ const Tags = ({tag,id,tags,setTags}) => {
     
     return(
         <Keyword>
-            {tag}
+            {tag?tag:""}
             <div onClick={deleteTag}><p>X</p></div>
         </Keyword>
     )

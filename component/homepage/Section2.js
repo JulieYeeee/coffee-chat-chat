@@ -6,10 +6,10 @@ import answer from "../../static/picture/answer.png";
 import { Section2section,S2Title,Userbox,Downtitle } from "../style/Homepage.styled";
 
 
-const Section2 = () =>{
+const Section2 = ({fontColor}) =>{
     return (
         <Section2section>
-            <S2Title>
+            <S2Title scrollColor={fontColor}>
                 <p>Share or Ask Anything!</p>
                 <p>有興趣就來問、不用是大神也能大方分享經驗</p>
             </S2Title>
@@ -25,7 +25,7 @@ const Section2 = () =>{
                     <p>建立專屬個人頁面<br/>大方分享你的所有經驗</p>    
                 </div>
             </Userbox>
-            <Downtitle>任何經驗都可能幫助他人!</Downtitle>
+            <Downtitle scrollColor={fontColor}>任何經驗都可能幫助他人!</Downtitle>
         </Section2section>
     )
 }

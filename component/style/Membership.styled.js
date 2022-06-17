@@ -1,5 +1,5 @@
 import styled from "styled-components";
-             
+import { Button } from "./Button.styled";
                
 
 
@@ -127,13 +127,11 @@ export  const IntroBox=styled.div`
     padding: 20px 0;
     div{
         background: ${({theme})=>theme.decoColor.opacityWhite};
-        /* border-radius: 20px; */
         box-shadow:-3px -5px 8px rgb(255, 255, 255),
         inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
         -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));
         filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));
         width: 100%;
-        /* background: white; */
         border-radius: 10px;
         padding: 10px;
         p{
@@ -288,8 +286,8 @@ export const Askform=styled.form`
         padding: 10px 0;
         p{
             color: ${({theme})=>theme.fontColor.lightBGfont};
-            font-size: 2.5vmin;
             font-weight: 700;
+            font-size: 2.25vmin;
         }
     }
 
@@ -303,6 +301,13 @@ export const Askform=styled.form`
     }
 
 `
+export const AskButton=styled(Button)`
+
+    font-size: 2.5vmin;
+    font-weight: 700;
+
+`
+
 
 
 export const ProjectBox=styled.div`
@@ -316,6 +321,7 @@ export const ProjectBox=styled.div`
 export const ProjectInsideBox=styled.div`
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     @media (max-width: 819px){
         width: 100%;
@@ -340,6 +346,7 @@ export const SingleProject=styled.div`
     flex-direction: column;
     align-items: center;
     background: ${({theme})=>theme.decoColor.opacityWhite};
+    margin-bottom: 10px;
 
     @media (max-width: 819px){
         width: 100%;
@@ -360,13 +367,6 @@ export const ProjectCover=styled.div`
     aspect-ratio: 3/2;
     overflow: hidden;
 
-    /* img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        
-    } */
-
     @media (max-width: 819px){
         width: 45%;
         margin-right: 2%;
@@ -384,14 +384,11 @@ export const ProjectCover=styled.div`
 `
 export const Coverimg=styled.img`
 
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-fit: ${({coverCheck})=>coverCheck? "cover":"none"};
-        opacity: ${({coverCheck})=>coverCheck? "1":"0.5"};
-
-
-
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-fit: ${({coverCheck})=>coverCheck? "cover":"none"};
+    opacity: ${({coverCheck})=>coverCheck? "1":"0.5"};
 
 `
 
@@ -457,6 +454,7 @@ export const ProejectText=styled.p `
   
         width: 95%;
         height: 80px;
+        font-size: 3vmin;
      
     }
 

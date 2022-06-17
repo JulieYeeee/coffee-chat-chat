@@ -87,16 +87,14 @@ export const InboxLeftList=styled.div`
 `
 
 export const SingleMsg=styled(Link)`
-                    
-    p{
-        padding: 30px 10px;
-        /* background: ${({theme})=>theme.bgColor.mainBGColor}; */
-        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
-        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
-        background: ${({select})=>select==="true"? "#f6d393" : "#F2F2F0"};
-    }
+                  
     .msgUnread{
         font-weight: 700;
+    }
+    .msgSelect{
+        background: #f6d393;
+        border-left: 4px solid ${({theme})=>theme.bgColor.yellowBGColor};
+
     }
 
 
@@ -107,8 +105,7 @@ export const SingleMsgP=styled.p`
     background: ${({theme})=>theme.bgColor.mainBGColor};
     -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
     filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
-    background: ${({select})=>select==="true" && "#f6d393"};
-
+    background: ${({className})=>className && "#f6d393"};
 
 `
 
@@ -192,6 +189,8 @@ export const ReceiveMsg=styled.div`
         padding: 10px;
         border-radius: 10px 10px 10px 0;
         max-width: 70%;
+        word-break: break-all;
+
 
 
 `
