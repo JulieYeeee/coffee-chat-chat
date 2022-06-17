@@ -118,6 +118,7 @@ const Inbox = ( {DOMref}) => {
     
     //取得正在回覆的訊息內容(input value)
     let preMsgRef = useRef();
+
     const getReplyContent = (e) => {
     	preMsgRef.current = e.target.value;
     }
@@ -141,6 +142,7 @@ const Inbox = ( {DOMref}) => {
                   .catch((error) => {
                    console.log("show error:",error);
                   });
+
     		};
     		if (msgRole === "consultant") {
     			set(newMsgRef, {
@@ -189,7 +191,6 @@ const Inbox = ( {DOMref}) => {
         });
     }, [id, msgRole,preMsgRef.current])
 
-
     //當訊息被選取時，標記色彩
     let [msgSelectElement, setMsgSelectElement] = useState(null);
     useEffect(() => {
@@ -199,13 +200,11 @@ const Inbox = ( {DOMref}) => {
     }, [])
     let [select, setSelect] = useState(null);
     const selectCss = (e) => {
-
         if (msgSelectElement != null) {
             msgSelectElement.classList.remove("msgSelect");
         }
         setMsgSelectElement(e.target);
         e.target.classList.add("msgSelect");
-
     }
     
     //當視窗大小在500px時，左側訊息列表收闔設定

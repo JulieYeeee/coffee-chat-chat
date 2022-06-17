@@ -27,6 +27,7 @@ import { AccountShareThemeBox,ShareThemeInsideBox,AccountProjectBox,AccountButto
 import { StoreNotification } from "../component/style/Account.styled"; 
 
 
+
 const Account = () =>{ 
     //useContext 取得共用 state
     const {
@@ -112,6 +113,7 @@ const Account = () =>{
 
           showMembershipLink();
 
+
     }
     let [membershipLink, setMembershipLink] = useState("");
     let [linkNotificationClose, setlinkNotificationClose] = useState(null);
@@ -132,6 +134,7 @@ const Account = () =>{
 
 
     //使用者輸入關鍵字區並enter後資料處理
+
     let [tags, setTags] = useState([]);
     const addTags = (e) => {
         if (e.key === "Enter") {
@@ -145,6 +148,7 @@ const Account = () =>{
     }
 
     //states for drag and drop function
+
     let [shareList, setShareList] = useState([{
         num: 1,
         title: "",
@@ -209,12 +213,14 @@ const Account = () =>{
             .then((url) => {
                 setHeadshot(url);
             }).catch((error) => {
+
                 alert("oops!something went wrong");
             });
         }
     }, [headshot]);
 
     //使用者上傳作品封面照後會觸發的函式，此函式會取得圖片網址
+
     const getImageURL = (imgElement, index) => {
         const storage = getStorage();
         let imageName = projects[index]["cover"];
@@ -236,6 +242,8 @@ const Account = () =>{
         } else {
             return;
         }
+
+
     }
         
          
@@ -245,6 +253,7 @@ const Account = () =>{
         let inputSource = e.target.id;
         let file = e.target.files[0];
         let imageType = /image.*/;
+
         if (!file.type.match(imageType)) {
             alert("請上傳圖像");
             return;
@@ -253,6 +262,7 @@ const Account = () =>{
         const storage = getStorage(firebase);
         const fileRef = ref(storage, file.name + uuidv4())
         let result = await uploadBytes(fileRef, file)
+
         //將圖片名稱存入 state 以便後續取得圖片網址
         if (inputSource === "headshot") {
             let newHeadshot = result["metadata"]["name"]
@@ -263,6 +273,7 @@ const Account = () =>{
             let newProjects = [...projects];
             setProjects(newProjects);
             getImageURL(imgElement, index);
+
         }
     }
 
@@ -292,6 +303,7 @@ const Account = () =>{
                     <Link to={membershipLink} target="_blank">前往頁面</Link>
                 </div>
             </StoreNotification>
+
             <Loading src={loading} closeCheck={userDatatRef.current}></Loading>
             <AccountForm closeCheck={userDatatRef.current}>
                 <AccountBasic>
@@ -312,6 +324,7 @@ const Account = () =>{
                         </label>
                         <label htmlFor="short-intro">短介紹
                         <input type="text" placeholder="用20字招呼語讓人認識你" value={welcome?welcome:""} maxLength="25" onChange={(e)=>{setWelcome(e.target.value)}}></input>
+
                         </label>
                     </BasicInfoBox>
                 </AccountBasic>
@@ -357,6 +370,7 @@ const Account = () =>{
                         ):undefined
                     }
                     <AddProjectButton onClick={addNewProject}>+</AddProjectButton>
+
                 </AccountProjectBox>   
                 <AccountButton type="submit" onClick={addUserData}>填寫完成，建立個人頁面</AccountButton> 
             </AccountForm>

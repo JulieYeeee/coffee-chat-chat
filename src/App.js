@@ -80,6 +80,7 @@ const App = () => {
     }, []);
 
 
+
     //全站監聽新訂單，若有新訂單，另起聊天室資料表
     const database = getDatabase(Firebase);
     const orderRef = query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
@@ -144,6 +145,7 @@ const App = () => {
                     
                 })
 
+
             }
         })
         set(ref(database, 'user/' + account), {
@@ -182,6 +184,7 @@ const App = () => {
                     <Route path="/signin" element={ <Signin />}/>
                 </Routes>
                 <DownNav/>
+
             </BrowserRouter>
             </ThemeProvider>
             

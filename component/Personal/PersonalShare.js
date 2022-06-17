@@ -1,5 +1,7 @@
 import React from "react";
+
 import dragicon from "../../static/picture/dragicon.png";
+
 //styled-component
 import { SingleTheme } from "../style/Account.styled";
 
@@ -44,6 +46,7 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
             exchange["drop"]["num"] = index + 1;
             exchange["drop"]["title"] = parent.children[1].children[1].value;
             exchange["drop"]["content"] = parent.children[2].value;
+
         }
     }
     //Drag and Drop-經過

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { Button } from "./Button.styled";
 
-   
-
 
 export const AccountForm=styled.form`
     padding: 50px 0;
@@ -153,6 +151,7 @@ export const AccountLinkBox=styled.div`
     }
     @media (max-width: 700px){
         width: 95%;
+
     }
 
 `
@@ -516,6 +515,7 @@ export const ProjectCover=styled.div`
         label{
             width: 10%;
         }
+
    }
     
 

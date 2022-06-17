@@ -221,6 +221,7 @@ const Membership = () =>{
                                 <p className="ask-rule-title">提問前請遵守：</p>
                                 <p className="ask-rule">不得詢問個人隱私之問題，若因提問不當分享者有權婉轉回覆。請盡量詢問分享者可分享領域，若因提問超出分享範圍，可能導致您收不到良好回覆。</p>
                             </div>
+
                         </Askform>
                 
                     </MemberDataRight>

@@ -55,10 +55,12 @@ export const RightMenu=styled.ul`
         @media (max-width: 1199px){
             width: 60%;
         }
+
         @media (max-width: 600px){
             flex-direction: row-reverse;
             justify-content: flex-start;
         }
+
 
 
 `
@@ -70,6 +72,7 @@ export const Item=styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
+
     img{
         box-shadow:-3px -5px 8px rgb(255, 255, 255),
         inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); 
@@ -100,6 +103,7 @@ export const FunctionBox=styled(Link)`
     justify-content: center;
     align-items: center;
   
+
     
     img{
         box-shadow:-3px -5px 8px rgb(255, 255, 255),
@@ -116,10 +120,12 @@ export const FunctionBox=styled(Link)`
         }
         
     }
+
     @media (max-width: 600px){
         display: none;
         
     }
+
 
 `
 
@@ -187,4 +193,5 @@ export const DownNotification=styled(Notification)`
 
 
 `
+
 
