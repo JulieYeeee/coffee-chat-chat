@@ -1,15 +1,15 @@
 // React module
-import React, { useState,useEffect, useRef} from "react";
-import { BrowserRouter , Routes , Route, Navigate } from "react-router-dom";
+import React, { useEffect} from "react";
+import { BrowserRouter , Routes , Route } from "react-router-dom";
 //components
 import Nav from "../component/Nav";
+import DownNav from "../component/DownNav";
 import Homepage from "../page/Homepage";
 import Account from "../page/Account";
 import Memberlist from "../page/Memberlist";
 import Membership from "../page/membership";
 import Signin from "../page/Signin";
 import Inbox from "../page/Inbox";
-import InboxDefault from "../page/Inbox-default";
 import Ask from "../page/Ask";
 import Thankyou from "../page/Thankyou";
 
@@ -18,16 +18,18 @@ import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "firebase/database";
 
-//context
+//usecontext
 import { GetGlobalContext } from "../component/context/GlobalContext";
-
+//styled-component - Global style & Theme
 import { GlobalStyle } from "../component/style/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 
 
 
-const App = () =>{
-    const  theme = {
+const App = () => {
+    
+    //styled-component 的 theme，全站共用主題色調
+    const theme = {
         fontColor:{
             lightBGfont:"rgb(70, 70, 70)",
             yellowBGfont:"#ffffff",
@@ -46,273 +48,144 @@ const App = () =>{
 
         }
       }
+      
+
+    //useContext 取得共用 state 或 ref
+    const {
+        account,
+        setAccount,
+        orderNum,
+        unreadCount,
+        setunreadCount,
+        askUnreadRef,
+        replyUnreadRef,
+        setnotificationCSS
+    } = GetGlobalContext();
+
+    //初始抓取 DOM 的 ref,inbox會使用此 ref 來完成聊天視窗維持最底部功能
+    const DOMref = React.createRef();
 
 
-    const {account,setAccount,username,setUsername,orderNum,setOrderNum,unreadCount,setunreadCount,askUnreadRef,replyUnreadRef,notificationCSS,setnotificationCSS}=GetGlobalContext();
-
-    const DOMref=React.createRef();
-
-
-
-
-    useEffect(()=>{
+    //確認使用者的登入狀態
+    useEffect(() => {
         const auth = getAuth(Firebase);
         onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setAccount(user.uid);
-            setnotificationCSS("menu-notification");
-        } else {
-            console.log("nobody");
-        }
-        }); 
+            if (user) {
+                setAccount(user.uid);
+                setnotificationCSS("menu-notification");
+            } else {
+                console.log("nobody");
+            }
+        });
+    }, []);
 
-    },[]);
 
-
-   
-        const database = getDatabase(Firebase);
-        const orderRef=query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
-        onValue(orderRef, (snapshot) => {
+    //全站監聽新訂單，若有新訂單，另起聊天室資料表
+    const database = getDatabase(Firebase);
+    const orderRef = query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
+    onValue(orderRef, (snapshot) => {
         const data = snapshot.val();
-        if(data){
+        if (data) {
             set(ref(database, 'inbox/' + orderNum), {
-              askAccount: data[orderNum]["askAccount"],
-              askName: data[orderNum]["askName"],
-              consultantAccount:data[orderNum]["consultantAccount"],
-              consultantName: data[orderNum]["consultantName"],
-              message:null,
-              askUnread:2,
-              replyUnread:0,
-              time:Date.now()
+                askAccount: data[orderNum]["askAccount"],
+                askName: data[orderNum]["askName"],
+                consultantAccount: data[orderNum]["consultantAccount"],
+                consultantName: data[orderNum]["consultantName"],
+                message: null,
+                askUnread: 2,
+                replyUnread: 0,
+                time: Date.now()
             });
             const msgListRef = ref(database, `inbox/${orderNum}/message`);
             const newMsgRef = push(msgListRef);
-            let time=new Date();
             set(newMsgRef, {
-                from:"ask",
+                from: "ask",
                 content: data[orderNum]["askInfo"],
-                time:Date.now(),
-                read:false
+                time: Date.now(),
+                read: false
             });
-            
-            let time2=new Date();
             const newMsgRef2 = push(msgListRef);
             set(newMsgRef2, {
-                from:"ask",
+                from: "ask",
                 content: data[orderNum]["askQuestion"],
-                time:Date.now(),
-                read:false
+                time: Date.now(),
+                read: false
             });
-          }
         }
-        
-    );
+    });
 
   
-
-    const inboxRef=query(ref(database, 'inbox/'));
+    //全站監聽新訊息更新，更新資料庫的未讀資料，並且確認是否與使用者有關，若是，更新資料庫中使用者的總未讀訊息
+    const inboxRef = query(ref(database, 'inbox/'));
     onValue(inboxRef, (snapshot) => {
-        askUnreadRef.current=0;
-        replyUnreadRef.current=0;
+        askUnreadRef.current = 0;
+        replyUnreadRef.current = 0;
         const data = snapshot.val();
-        let keys=Object.keys(data);
-        keys.forEach((item)=>{
-            if (data[item]["consultantAccount"] && data[item]["consultantAccount"]===account && data[item]["askUnread"]){
-                askUnreadRef.current=askUnreadRef.current+data[item]["askUnread"]; 
+        let keys = Object.keys(data);
+        keys.forEach((item) => {
+            if (data[item]["consultantAccount"] && data[item]["consultantAccount"] === account) {
+                let msgKeys = Object.keys(data[item]["message"]);
+                msgKeys.forEach((single)=>{
+                    
+                    if(data[item]["message"][single]["from"]==="ask" && data[item]["message"][single]["read"]===false){
+                        askUnreadRef.current = askUnreadRef.current + 1;
+                    
+                    }
+                    
+                })
+
             }
-            if (data[item]["askAccount"] && data[item]["askAccount"]===account && data[item]["replyUnread"]){
-                replyUnreadRef.current=replyUnreadRef.current+data[item]["replyUnread"]; 
+            if (data[item]["askAccount"] && data[item]["askAccount"] === account) {
+                let msgKeys = Object.keys(data[item]["message"]);
+                msgKeys.forEach((single)=>{
+                    if(data[item]["message"][single]["from"]==="reply" && data[item]["message"][single]["read"]===false){
+                        replyUnreadRef.current = replyUnreadRef.current + 1;
+                    }
+                    
+                })
+
             }
         })
         set(ref(database, 'user/' + account), {
-            unread:askUnreadRef.current+replyUnreadRef.current,
+            unread: askUnreadRef.current + replyUnreadRef.current,
         });
-        
     });
 
     
-   
-    const checkUnreadRef=query(ref(database, `user/${account}`)); 
-    onValue(checkUnreadRef, (snapshot) => {
-        const data = snapshot.val();
-        if(data){
-            if(unreadCount!==data["unread"]){
-                setunreadCount(data["unread"])
-            }else{
-                console.log("Nav check nothing change:",unreadCount,data["unread"]);
-            }
+   //資料庫中的總未讀數更新後，更新至網站右上角的訊息通知
+   const checkUnreadRef = query(ref(database, `user/${account}`));
+   onValue(checkUnreadRef, (snapshot) => {
+       const data = snapshot.val();
+       if (data) {
+           if (unreadCount !== data["unread"]) {
+               setunreadCount(data["unread"])
+           }
+       };
+   });
 
-        };
-        
-    });
-
-
-    // onValue(inboxRef, (snapshot) => {
-    //     const data = snapshot.val();
-    //     let keys=Object.keys(data);
-    //     unReadref.current=0;
-    //     keys.forEach((item)=>{
-    //         if (data[item]["consultantAccount"] && data[item]["consultantAccount"]===account){
-    //             if(data[item]["message"]){
-    //                 let msgKeys=Object.keys(data[item]["message"]);
-    //                 msgKeys.forEach((item2)=>{ 
-    //                     if(data[item]["message"][item2]["from"]==="ask" && data[item]["message"][item2]["read"]===false){
-    //                         unReadref.current=unReadref.current+1
-    //                         console.log("APP REF VALUE:",unReadref.current)
-    //                     }
-    //                 })
-    //             }
-    //         }
-            
-
-    //     })
-    //     countTrigger=unReadref.current
-        
-    // });
-
-    // useEffect(()=>{
-    //     console.log("trigger");
-    // },[])
-    // useEffect(()=>{
-    //     console.log("useEffect:",unReadref.current)
-    //     setunreadNum(unReadref.current);
-    // },[unReadref.current])
-
-   
-    // const database = getDatabase(Firebase);
-    // const orderRef=query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
-    // onValue(orderRef, (snapshot) => {
-    //     const data = snapshot.val();
-    //     console.log("realtimelisten:",data);
-    //     if(data){
-    //         set(ref(database, 'inbox/' + orderNum), {
-    //           askAccount: data[orderNum]["askAccount"],
-    //           consultantAccount:data[orderNum]["consultantAccount"],
-    //           message:null
-    //         });
-    //         const msgListRef = ref(database, `inbox/${orderNum}/message`);
-    //         const newMsgRef = push(msgListRef);
-    //         let time=new Date();
-    //         set(newMsgRef, {
-    //             from:"ask",
-    //             content: data[orderNum]["askInfo"],
-    //             time:time.toLocaleString(),
-    //             read:false
-    //         });
-            
-    //         let time2=new Date();
-    //         const newMsgRef2 = push(msgListRef);
-    //         set(newMsgRef2, {
-    //             from:"ask",
-    //             content: data[orderNum]["askQuestion"],
-    //             time:time2.toLocaleString(),
-    //             read:false
-    //         });
-    //       }
-    //     }
-        
-    // );
-
-  
-
-    // const inboxRef=query(ref(database, 'inbox/'));
-    // // const inboxRef=query(ref(database, 'inbox/'), where("orderNum.consultantAccount","==",account));
-    // const unReadref=useRef(0);
-    // let preUndreadCount=0;
-    // onValue(inboxRef, (snapshot) => {
-    //     const data = snapshot.val();
-    //     let keys=Object.keys(data);
-    //     keys.forEach((item)=>{
-    //         if (data[item]["consultantAccount"] && data[item]["consultantAccount"]===account){
-    //             if(data[item]["message"]){
-    //                 let msgKeys=Object.keys(data[item]["message"]);
-    //                 msgKeys.forEach((item2)=>{ 
-    //                     if(data[item]["message"][item2]["from"]==="ask" && data[item]["message"][item2]["read"]===false){
-    //                         console.log(data[item]["message"][item2]["content"])
-    //                         unReadref.current=unReadref.current+1
-    //                         console.log(unReadref.current)
-    //                     }
-    //                 })
-    //             }
-    //         }
-            
-
-    //     })
-        
-        
-
-    // });
-
-
-    // useEffect(()=>{
-    //     setUnread((preValue)=>{
-    //         preValue=undreadCount;
-    //         console.log(undreadCount,unread);
-    //         return preValue;
-    //     })
-
-    // },[undreadCount])
-    
-        
-
-  
-    
-  
-    // set(ref(database, 'order/' + docRef.id), {
-    //     payment: false,
-    //     askAcount: account,
-    //     consultantAccount:consultantAccount
-    // });
-
-    
-
-    // console.log(orderRef);
-    // function check (){
-    //     const auth = getAuth();
-    //     onAuthStateChanged(auth, (user) => {
-    //     if (user) {
-    //         setAccount(user.uid);
-    //         console.log(user.uid);
-    //     } else {
-    //         console.log("nobody");
-    //     }
-    //     });
-    // }
-
-    
-    
-    
-    
-    
 
 
     return(
-        
         <div>
+            <ThemeProvider theme={theme}>
             <GlobalStyle/>
-            <ThemeProvider theme = {theme}>
             <BrowserRouter>
-                
                 <Nav />
                 <Routes>
                     <Route path="/" element={<Homepage/>}/>
                     <Route path="/account" element={<Account/> }/>
                     <Route path="/memberlist" element={ <Memberlist /> }/>
                     <Route path= "/membership/:id" element={ <Membership />}/>
-                    {/* <Route path="/ask" element={account ? <Ask account={account} setAccount={setAccount} /> : <Navigate to='/signin' replace /> }/> */}
                     <Route path="/ask" element={ <Ask /> }/>
                     <Route path="/thankyou" element={ <Thankyou /> }/>
-                    {/* <Route path="/inbox" element={account ? <Inbox  account={account} setAccount={setAccount}/> : <Navigate to='/signin' replace />}/> */}
-                    {/* <Route path="/inbox" element={<InboxDefault  setunreadCount={setunreadCount} /> }/> */}
-                    <Route path="/inbox/:id" element={<Inbox  DOMref={DOMref}/> }/>
+                    <Route path="/inbox/:id" element={<Inbox DOMref={DOMref}/> }/>
                     <Route path="/signin" element={ <Signin />}/>
                 </Routes>
-                
+                <DownNav/>
             </BrowserRouter>
             </ThemeProvider>
             
         </div>
-       
     )
 }
 

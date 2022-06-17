@@ -7,8 +7,9 @@ export const GlobalStyle=createGlobalStyle`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-family: 'Signika Negative', sans-serif;
+    font-family: 'Signika Negative', 'Noto Sans TC', sans-serif ;
+    font-size: 2.5vmin;
+    
     
 }
 
@@ -24,7 +25,7 @@ main{
 
 a{
     text-decoration: none;
-    /* color: black; */
+    color: ${({theme})=>theme.fontColor.lightBGfont};
 }
 
 ::-webkit-scrollbar {

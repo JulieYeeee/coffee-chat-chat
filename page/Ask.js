@@ -1,54 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+//圖片
 import ask from "../static/picture/ask.png";
 import info from "../static/picture/info.png";
-
+//Firebase modules
 import firebase from "../src/Firebase";
-import { getFirestore,doc,setDoc,getDoc,collection,updateDoc, query, where, getDocs } from "firebase/firestore";
-import { getDatabase,get,ref,orderByChild,equalTo,set    } from "firebase/database";
-
+import { getFirestore,doc,getDoc,updateDoc } from "firebase/firestore";
+import { getDatabase,ref,set    } from "firebase/database";
+//useContext
 import { GetGlobalContext } from "../component/context/GlobalContext";
+//styled-component
+import { AskForm,AskConsultantBox,Bar,QuestionBox,Notification, SingleQuestion,PaymentBox,PaymentInputBox, InputLabel,InputTitle,Input,TestNumCopy} from "../component/style/Ask.styled";
+import { Button } from "../component/style/Button.styled";
 
-const Ask = () =>{
-    const {account,setAccount,username,setUsername,orderNum}=GetGlobalContext();
+const Ask = () => {
+    //useContext取得共用state
+    const {
+        account,
+        username,
+        orderNum
+    } = GetGlobalContext();
+    //儲存使用者輸入的提問資訊
+    let [consultantName, setConsultant] = useState(null);
+    let [headshot, setHeadshot] = useState(null);
+    let [userInfo, setUserInfo] = useState(null);
+    let [question, setQuestion] = useState(null);
+    let [consultantAccount, setConsultantAccount] = useState(null);
 
-    let [ consultantName,setConsultant ]=useState(null);
-    let [ headshot,setHeadshot]=useState(null);
-    let [ userInfo,setUserInfo]=useState(null);
-    let [ question,setQuestion]=useState(null);
-    let [ consultantAccount,setConsultantAccount]=useState(null);
-
-    //取得訂單資訊
-    useEffect(()=>{
-        setInitialOrder();
-    },[])
-
-    const setInitialOrder =async()=>{
-        const db = getFirestore(firebase);
-        const docRef = doc(db, `pre-order`, orderNum);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            let orderData=docSnap.data();
-            setConsultant(orderData["consultantName"]);
-            setHeadshot(orderData["headshot"]);
-            setConsultantAccount(orderData["consultantAccount"]);
-        } else {
-        // doc.data() will be undefined in this case
-            console.log("No such document!");
+    //取得上一階段的預先訂單資訊
+    useEffect(() => {
+        const setInitialOrder = async () => {
+            const db = getFirestore(firebase);
+            const docRef = doc(db, `pre-order`, orderNum);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                let orderData = docSnap.data();
+                setConsultant(orderData["consultantName"]);
+                setHeadshot(orderData["headshot"]);
+                setConsultantAccount(orderData["consultantAccount"]);
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
         }
-        
-    }
-  
+        setInitialOrder();
+    }, [])
 
-    let tapStatusss=true;
-    useEffect(()=>{
-        if(tapStatusss===true){
-            tapStatusss=false;
-            const appKey ="app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
+    
+  
+    //串接Tappay資料
+    let tapStatusss = true;
+    useEffect(() => {
+        if (tapStatusss === true) {
+            tapStatusss = false;
+            const appKey = "app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
             const appId = 123999;
             TPDirect.setupSDK(appId, appKey, 'sandbox');
-        
             const fields = {
                 number: {
                     element: '#card-number',
@@ -57,36 +64,19 @@ const Ask = () =>{
                 expirationDate: {
                     element: '#card-expiration-date',
                     placeholder: 'MM / YY'
-
                 },
                 ccv: {
                     element: '#card-ccv',
                     placeholder: 'ccv'
                 }
             }
-        
             TPDirect.card.setup({
                 fields: fields,
                 styles: {
                     // Style all elements
                     'input': {
-                        'color': 'gray'
-                    },
-                    // Styling ccv field
-                    'input.ccv': {
-                        // 'font-size': '16px'
-                    },
-                    // Styling expiration-date field
-                    'input.expiration-date': {
-                        // 'font-size': '16px'
-                    },
-                    // Styling card-number field
-                    'input.card-number': {
-                        // 'font-size': '16px'
-                    },
-                    // style focus state
-                    ':focus': {
-                        // 'color': 'black'
+                        'color': 'gray',
+                        'font-size': '24px',
                     },
                     // style valid state
                     '.valid': {
@@ -105,66 +95,35 @@ const Ask = () =>{
                     }
                 }
             })
-            }
-        
-    },[])
+        }
+    }, [])
     
-   TPDirect.card.onUpdate(function (update) {
-    if (update.canGetPrime) {
-        checkPrime();
-    } else {
-        // console.log("2",update.canGetPrime);
-        // Disable submit Button to get prime.
-        // submitButton.setAttribute('disabled', true)
-    }
-
-    // number 欄位是錯誤的
-    if (update.status.number === 2) {
-        // setNumberFormGroupToError()
-    } else if (update.status.number === 0) {
-        // setNumberFormGroupToSuccess()
-    } else {
-        // setNumberFormGroupToNormal()
-    }
-
-    if (update.status.expiry === 2) {
-        // setNumberFormGroupToError()
-    } else if (update.status.expiry === 0) {
-        // setNumberFormGroupToSuccess()
-    } else {
-        // setNumberFormGroupToNormal()
-    }
-
-    if (update.status.ccv === 2) {
-        // setNumberFormGroupToError()
-    } else if (update.status.ccv === 0) {
-        // setNumberFormGroupToSuccess()
-    } else {
-        // setNumberFormGroupToNormal()
-    }
-    
-})
-
-    const checkPrime = () =>{
+    //動態確認使用者輸入付款資料是否正確
+    TPDirect.card.onUpdate(function(update) {
+        if (update.canGetPrime) {
+            checkPrime();
+        } else {
+            return
+        }
+    })
+    const checkPrime = () => {
         const tappayStatus = TPDirect.card.getTappayFieldsStatus();
         // Check TapPay Fields Status is can get prime
         if (tappayStatus.canGetPrime === false) {
-            alert('can not get prime');
+            alert("付款出現錯誤");
             return
         }
     }
     
-
+    //提問及付款資料送出
     function submitPay(e) {
         e.preventDefault();
         TPDirect.card.getPrime(function(result) {
             if (result.status !== 0) {
-            // console.err('getPrime error')
-            return 
+                return 
             }
             let prime = result.card.prime;
-            console.log('getPrime success: ' + prime);
-
+            // fetch("https://us-central1-coffee-chat-together.cloudfunctions.net/testRandom",{
             fetch("https://cors-anywhere.herokuapp.com/https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime",{
                 method: 'POST',
                 headers:{
@@ -189,6 +148,7 @@ const Ask = () =>{
             })
             .then(response=>{
                 let res=response.json();
+                //付款成功，更新訂單狀態
                 if(response.ok){
                     res.then(data=>{
                         updateOrder();
@@ -202,81 +162,96 @@ const Ask = () =>{
     }
 
 
-
-    const navigate=useNavigate();
-    const updateOrder = async() =>{
-        const db = getFirestore(firebase);
-        
-        await updateDoc(doc(db, "pre-order", orderNum), {
-            askInfo: userInfo,
-            askName:username,
-            askQuestion: question,
-            payment:true
-        })
-        const database = getDatabase(firebase);
-        set(ref(database, 'order/' + orderNum), {
-            orderNum:orderNum,
-            payment: true,
-            askAccount: account,
-            askName:username,
-            askInfo: userInfo,
-            askQuestion: question,
-            consultantAccount:consultantAccount,
-            consultantName:consultantName
-        });
-        navigate("/thankyou");
+    //更新訂單資料，並且導至感謝頁面
+    const navigate = useNavigate();
+    const updateOrder = async () => {
+    	const db = getFirestore(firebase);
+    	await updateDoc(doc(db, "pre-order", orderNum), {
+    		askInfo: userInfo,
+    		askName: username,
+    		askQuestion: question,
+    		payment: true
+    	})
+    	const database = getDatabase(firebase);
+    	set(ref(database, 'order/' + orderNum), {
+    		orderNum: orderNum,
+    		payment: true,
+    		askAccount: account,
+    		askName: username,
+    		askInfo: userInfo,
+    		askQuestion: question,
+    		consultantAccount: consultantAccount,
+    		consultantName: consultantName
+    	});
+    	navigate("/thankyou");
     }
 
 
+    //複製測試號碼
+    const copyNum = (e) => {
+    	let content = e.target.parentElement.children[0];
+    	content.select();
+    	document.execCommand('copy', false, content.select());
+    }
 
 
     return (
-        <main className="ask-main">
-            <form>
-            <div className="ask-consultant-box">
-                <img className="ask-headshot" src={headshot}></img>
-                <div className="ask-welcome">Hi, 我是 {consultantName} <br/>很高興與你分享我的經驗!</div>
-            </div>
-            <div className="bar"></div>
-            <div className="ask-consultation-box">
-                <p className="ask-notification">提問前可以提供您認為有助分享者回覆您問題的相關個人資訊。讓 {consultantName} 能更準確地回覆您的提問。</p>
-                <div className="ask-information-box">
-                    <div>
-                        <img className="ask-icon" src={info}></img>
-                        <p>你的資訊：</p>
-                    </div>
-                    <textarea className="ask-information" rows="10" onChange={(e)=>{setUserInfo(e.target.value)}}></textarea>
-                </div>
-                <div className="ask-question-box">
-                    <div>
-                        <img className="ask-icon" src={ask}></img>
-                        <p>你的提問：</p>
-                    </div>
-                    <textarea className="ask-question" rows="10" onChange={(e)=>{setQuestion(e.target.value)}}></textarea>
-                </div>
-            </div>
-            <div className="bar"></div>
-            <div className="ask-payment-box">
-                <p className="ask-notification">Buy me a coffee!<br/>填寫付款資訊，您將請 {consultantName} 喝一杯 95 元咖啡。</p>
-                <div className="ask-payment">
-                <label>
-                    <div className="item">信用卡號</div>
-                    <div className="tpfield" id="card-number" ></div>
-                </label>
+        <main>
+            <AskForm>
+                <AskConsultantBox>
+                    <img  src={headshot}></img>
+                    <div >Hi, 我是 {consultantName} <br/>很高興與你分享我的經驗!</div>
+                </AskConsultantBox>
+                <Bar></Bar>
+                <QuestionBox>
+                    <Notification>提問前可以提供您認為有助分享者回覆您問題的相關個人資訊。讓 {consultantName} 能更準確地回覆您的提問。</Notification>
+                    <SingleQuestion>
+                        <div>
+                            <img className="ask-icon" src={info}></img>
+                            <p>你的資訊：</p>
+                        </div>
+                        <textarea className="ask-information" rows="10" onChange={(e)=>{setUserInfo(e.target.value)}}></textarea>
+                    </SingleQuestion>
+                    <SingleQuestion>
+                        <div>
+                            <img className="ask-icon" src={ask}></img>
+                            <p>你的提問：</p>
+                        </div>
+                        <textarea className="ask-question" rows="10" onChange={(e)=>{setQuestion(e.target.value)}}></textarea>
+                    </SingleQuestion>
+                </QuestionBox>
+                <Bar></Bar>
+                <PaymentBox>
+                    <Notification>Buy me a coffee!<br/>填寫付款資訊，您將請 {consultantName} 喝一杯 95 元咖啡。</Notification>
+                    <PaymentInputBox>
+                        <InputLabel>
+                            <InputTitle>信用卡號</InputTitle>
+                            <Input className="tpfield" id="card-number"></Input>
+                        </InputLabel>
+                        <TestNumCopy>
+                            測試卡號<textarea rows="1" readOnly value={"4242424242424242"}></textarea><div onClick={copyNum}>Copy</div>
+                        </TestNumCopy>
 
-                <label>
-                    <div className="item">有效日期</div>
-                    <div className="tpfield" id="card-expiration-date" ></div>
-                </label>
+                        <InputLabel>
+                            <InputTitle>有效日期</InputTitle>
+                            <Input className="tpfield" id="card-expiration-date" ></Input>
+                        </InputLabel>
+                        <TestNumCopy>
+                            測試日期<textarea rows="1" readOnly value={"0123"}></textarea><div onClick={copyNum}>Copy</div>
+                        </TestNumCopy>
 
-                <label>
-                    <div className="item">安全碼</div>
-                    <div className="tpfield" id="card-ccv" ></div>
-                </label>
-                </div>
-            </div>
-            <button type="submit" onClick={submitPay}>提交諮詢</button>
-            </form>
+                        <InputLabel>
+                            <InputTitle>安全碼</InputTitle>
+                            <Input className="tpfield" id="card-ccv"></Input>
+                        </InputLabel>
+                        <TestNumCopy>
+                            測試安全碼<textarea rows="1" readOnly value={"123"}></textarea><div onClick={copyNum}>Copy</div>
+                        </TestNumCopy>
+                    </PaymentInputBox>
+            
+                </PaymentBox>
+                <Button type="submit" onClick={submitPay}>提交諮詢</Button>
+            </AskForm>
         </main>
 
     )

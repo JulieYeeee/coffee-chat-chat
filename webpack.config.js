@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
 
 module.exports = {
+    // devtool: 'source-map',
     mode: "development",
     entry: "./src/index.js",
     output: {
@@ -18,7 +19,8 @@ module.exports = {
       },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./static/base.html",      
+            template: "./static/base.html",
+            favicon: "./static/picture/minilogofavi.ico",      
         }),
         new MiniCssExtractPlugin({
             filename: "style.[hash].css",
@@ -42,33 +44,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg|mp4)$/,
-        type: 'asset/resource',
-        // generator: {
-        //   filename: 'images/[name][ext]'
-        // }
-        //     loader: 'file-loader',
-        // options: {
-        //   outputPath: '/',
-        // },
-      //  options:{
-      //     context: path.resolve(__dirname, "static/"),
-      //     outputPath: 'public/',
-      //     publicPath: '../',
-
-      //   } 
-    
-        // use: ['file-loader'],
-        // options:{
-        //   context: path.resolve(__dirname, "static/"),
-        //   outputPath: 'public/',
-        //   publicPath: '../',
-
-        // }        
-        // options: {
-        //   name: '[name].[ext]',
-        //   outputPath: 'assets/',
-        //   publicPath: 'images/'
-        // }
+        type: 'asset/resource',    
 
       } 
 		],

@@ -1,66 +1,62 @@
 import React from "react";
+//圖片
 import coverdefault from "../../static/picture/coverdefault.png";
-import { SingleProject,LayoutBox,ProjectCover,ReaclCover,DefaultCover,ProjectContent,ProjectLink } from "../style/Account.styled";
+//styled-component
+import { SingleProject,LayoutBox,ProjectCover,ReaclCover,DefaultCover,ProjectContent,ProjectLink,DeleteProjectButton } from "../style/Account.styled";
 
-
-const PersonalProject = ({project,index,getFile,setProjects}) =>{
-    const getSelectValue =(e)=>{
-        setProjects(prev=>{
-            prev[index]["type"]=e.target.value;
+ 
+const PersonalProject = ({project,projects,index,getFile,setProjects}) => {
+    //取得使用者選擇的作品類型
+    const getSelectValue = (e) => {
+        setProjects(prev => {
+            prev[index]["type"] = e.target.value;
             return [...prev];
         })
     }
-
-    const getLink =(e)=>{
-        setProjects(prev=>{
-            prev[index]["link"]=e.target.value;
+    //取得使用者輸入的作品集或文章連結
+    const getLink = (e) => {
+        setProjects(prev => {
+            prev[index]["link"] = e.target.value;
             return [...prev];
         })
     }
-
-    const getContent =(e)=>{
-        setProjects(prev=>{
-            prev[index]["content"]=e.target.value;
+    //取得使用者輸入的作品或文章的說明
+    const getContent = (e) => {
+        setProjects(prev => {
+            prev[index]["content"] = e.target.value;
             return [...prev];
         })
-
     }
-
+    //移除指定 Project
+    const deleteProject = () => {
+        let newProjectsArr = projects.filter(singleProject => singleProject != projects[index]);
+        setProjects(newProjectsArr);
+    }
+    
     return(
         <SingleProject>
-        {/* <div className="project"> */}
-          <LayoutBox>
-            {/* <div className="image-type-box"> */}
+            <DeleteProjectButton><div onClick={deleteProject}>X</div></DeleteProjectButton>
+            <LayoutBox>
                 <ProjectCover>
-                {/* <div className="pj-image-upload"> */}
-                <div>
-                    { project["cover"] && <ReaclCover src={project["cover"]}/> }
-                    { !project["cover"] && <DefaultCover src={coverdefault}/>}
-                </div>
-                    {/* { project["cover"] && <img className="realcover" src={project["cover"]}></img> }
-                    { !project["cover"] && <img className="coverdefault" src={coverdefault}></img>} */}
-                {/* <img src={project["cover"]? project["cover"] : coverdefault}></img> */}
-                <label><p>+</p>
-                <input type="file"  onChange={getFile(index)}></input>
-                    {/* <input type="file" className="project-image" onChange={getFile(index)}></input> */}
-                </label>
-                {/* </div> */}
+                    <div>
+                        { project["cover"] && <ReaclCover src={project["cover"]}/> }
+                        { !project["cover"] && <DefaultCover src={coverdefault}/>}
+                    </div>
+                    <label>
+                        <p>+</p>
+                        <input type="file" onChange={getFile(index)} id="project-image"/>
+                    </label>
                 </ProjectCover>
                 <ProjectContent>
-                {/* <div className="type-discript-box"> */}
-                    <select value={project["type"]} onChange={getSelectValue}>
+                    <select value={project["type"]? project["type"]: "" } onChange={getSelectValue}>
                         <option>請選擇</option>
                         <option>文章</option>
                         <option>作品</option>
                     </select>
-                    <textarea placeholder="連結說明" value={project["content"]} onChange={getContent}></textarea>
-                {/* </div> */}
+                    <textarea placeholder="連結說明" value={project["content"]? project["content"]:""} onChange={getContent}></textarea>
                 </ProjectContent>
-            {/* </div> */}
             </LayoutBox>
-            <ProjectLink type="text" value={project["link"]} placeholder="在此貼上作品/文章連結" onChange={getLink}></ProjectLink>
-            {/* <input className="project-link" type="text" value={project["link"]} placeholder="在此貼上作品/文章連結" onChange={getLink} ></input> */}
-        {/* </div> */}
+            <ProjectLink type="text" value={project["link"]? project["link"]:""} placeholder="在此貼上作品/文章連結" onChange={getLink}></ProjectLink>
         </SingleProject>
     )
 }

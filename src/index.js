@@ -15,6 +15,7 @@ root.render(
   //     </div>
   //     <App />
   // </React.StrictMode>
+  
     <GlobalContextProvider > 
       <App />
     </GlobalContextProvider>

@@ -1,17 +1,25 @@
 import styled from "styled-components";
 import { Button } from "./Button.styled";
 
+   
 
 
 export const AccountForm=styled.form`
     padding: 50px 0;
     width: 1200px;
-    display: flex;
+    display: ${({closeCheck})=>closeCheck? "flex":"none"};
     flex-direction: column;
     align-items: center;
     border-radius: 80px;
     margin: 50px 0;
     color: ${({theme})=>theme.fontColor.lightBGfont};
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+
+    @media (max-width: 700px){
+        width: 100%;
+    }
 
 
 
@@ -28,7 +36,15 @@ export const AccountBasic=styled.div`
     border-radius: 20px;
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
-    
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 95%;
+    }
+    @media (max-width: 600px){
+        flex-direction: column;
+    }
 
 `
 
@@ -39,9 +55,13 @@ export const Headshot=styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    @media (max-width:600px){
+        width: 50%;
+    }
+   
 
 `
+
 
 export const Headshotimg=styled.img`
     width: 90%;
@@ -78,6 +98,12 @@ export const HeadshotLabel=styled.label`
     input{
         display: none;
     }
+    @media (max-width:950px) {
+        width: 20%;
+    
+    }
+    
+
 `
 
 export const BasicInfoBox=styled.div`
@@ -106,7 +132,9 @@ export const BasicInfoBox=styled.div`
             outline: none;
         }
     }
-
+    @media (max-width: 600px){
+        width: 100%;
+    }
 
 
 `
@@ -120,7 +148,12 @@ export const AccountLinkBox=styled.div`
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
 
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 95%;
+    }
 
 `
 
@@ -152,7 +185,14 @@ export const SingleLink=styled.div`
         input:focus{
             border: 1px solid ${({theme})=>theme.bgColor.yellowBGColor};
             outline: none;
-        }     
+        }  
+        
+        @media (max-width: 600px){
+            img{
+                width: 40px;
+                height: 40px;
+            }
+        }
 
 `
 
@@ -187,6 +227,12 @@ export const AccountIntroBox=styled.div`
             border: 1px solid ${({theme})=>theme.bgColor.yellowBGColor};
             outline: none;
         }
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 95%;
+    }
 
 `
 
@@ -201,7 +247,12 @@ export const AccountKeywordBox=styled.div`
     border-radius: 20px;
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 95%;
+    }
 
 `
 
@@ -233,6 +284,11 @@ export const KeywordInsideBox=styled.div`
     input:focus{
         outline: none;
     }
+    @media (max-width: 700px){
+        input{
+            width:50%;
+        }
+    }
 
 `
 
@@ -255,13 +311,16 @@ export const Keyword=styled.span`
             font-size: small;
             width: 20px;
             aspect-ratio: 1/1;
-            padding:2px;
             margin-left:4px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            p{
+                font-size: 2vmin;
+            }
+            
         }
 
 
@@ -281,15 +340,29 @@ export const AccountShareThemeBox=styled.div`
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
 
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 95%;
+    }
 
 `
+
+
 
 export const ShareThemeInsideBox=styled.div`
 
     display: flex;
     justify-content: space-between;
     margin: 5px 0;
+
+    @media (max-width:700px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+    }
 
 
 
@@ -300,9 +373,17 @@ export const SingleTheme=styled.div`
     background: ${({theme})=>theme.decoColor.opacityWhite};
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
-    padding: 20px 10px;
+    padding: 10px 10px 20px 10px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img{
+        height: 15px;
+        opacity: 0.8;
+        margin: 5px 0;
 
+    }
     .share-title-box{
             width: 100%;
             display: flex;
@@ -345,7 +426,13 @@ export const SingleTheme=styled.div`
             outline: none;
         }
     
-
+        @media (max-width:700px){
+            width: 100%;
+            margin: 10px 0;
+            textarea{
+                aspect-ratio: 4/1;
+            }
+        }
 
 
 `
@@ -362,7 +449,12 @@ export const AccountProjectBox=styled.div`
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
 
-
+    @media (max-width: 1199px){
+        width: 90%;
+    }
+    @media (max-width: 700px){
+        width: 95%;
+    }
 `
 
 export const SingleProject=styled.div`
@@ -374,7 +466,9 @@ export const SingleProject=styled.div`
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53)); 
     padding: 20px 10px;
     border-radius: 20px;
-
+    @media (max-width:700px){
+        width: 100%;
+    }
 
 `
 
@@ -412,6 +506,17 @@ export const ProjectCover=styled.div`
 
         }
     }
+
+    @media (max-width: 700px){
+        width: 40%;
+    }
+   @media (max-width:600px){
+        width: 100%;
+        margin-bottom: 10px;
+        label{
+            width: 10%;
+        }
+   }
     
 
 
@@ -420,6 +525,9 @@ export const ProjectCover=styled.div`
 export const LayoutBox=styled.div`
     display: flex;
     width: 100%;
+    @media (max-width: 600px){
+        flex-direction: column;
+    }
 
 `
 
@@ -481,6 +589,12 @@ export const ProjectContent=styled.div`
         border: 1px solid ${({theme})=>theme.bgColor.yellowBGColor};
         outline: none;
     }
+    @media (max-width: 600px){
+        /* flex-direction: column; */
+        width: 100%;
+        padding:0;
+    }
+    
 
 `
 
@@ -504,6 +618,118 @@ export const ProjectLink=styled.input`
 export const AccountButton=styled(Button)`
     width: fit-content;
     padding: 10px;
+
+
+`
+
+export const AddProjectButton=styled.div`
+    width: 100%;
+    padding: 0px;
+    background-color: ${({theme})=>theme.decoColor.decoYellow};
+    font-size: 3.5vmin;
+    font-weight: 700;
+    color: ${({theme})=>theme.fontColor.yellowBGfont};
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
+    filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53)); 
+    &:hover{
+        box-shadow:-3px -5px 8px rgb(255, 255, 255),
+        inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);  
+    }
+
+    @media (max-width: 600px){
+        padding: 10px;
+        font-size: 4vmin;
+    }
+`
+
+export const DeleteProjectButton=styled.div`
+    display: flex;
+    justify-content: end;
+    div{
+        font-size: 3vmin;
+        font-weight: 700;
+        cursor: pointer;
+        text-align: center;
+        padding: 10px;
+    }
+   
+
+`
+
+export const StoreNotification=styled.div`
+    display: ${({closeCheck})=>closeCheck? "flex" : "none"};
+    flex-direction: column;
+    align-items: center;
+    background: ${({theme})=>theme.bgColor.mainBGColor};
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 10;
+    width: 50%;
+    padding: 50px 0;
+    border-top: 6px solid ${({theme})=>theme.bgColor.yellowBGColor};
+    animation: showup 0.5s;
+    span{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: ${({theme})=>theme.bgColor.yellowBGColor};
+        font-size: 2.5vmin;
+        cursor: pointer;
+    }
+    p{
+        font-weight: 700;
+        font-size: 3vmin;
+    }
+    input{
+        width: 80%;
+        margin: 20px 0;
+        padding: 10px;
+        border-style: none;
+    }
+
+    div{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        span{
+            position: static;
+            background: ${({theme})=>theme.bgColor.yellowBGColor};
+            border-radius: 10px;
+            color: ${({theme})=>theme.fontColor.yellowBGfont};
+            cursor: pointer;
+            padding: 5px;
+            width: fit-content;
+            height: fit-content;
+        }
+        a{
+            background: ${({theme})=>theme.bgColor.yellowBGColor};
+            border-radius: 10px;
+            color: ${({theme})=>theme.fontColor.yellowBGfont};
+            padding: 5px;
+        }
+    }
+    @keyframes showup {
+        0%{
+            top: 49%;
+            opacity: 0;
+
+        }
+        100%{
+            top: 50%;
+            opacity: 1;
+        }
+        
+    }
+    @media (max-width: 700px){
+        width: 80%;
+    }
 
 
 `
