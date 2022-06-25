@@ -5,15 +5,16 @@ import { SingleTheme,DragOverlayout } from "../style/Account.styled";
 
 const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragIndex,exchange,setExchange}) =>{
 
-    //當物件被drag
+    //當物件被drag 
     const dragStartHandler2 = (e) => {
+        // e.stopPropagation();
+        e.target.classList.add("dragging");
         let newShareList = shareList.map((item, order) => {
             if (order == index) {
                 item.dragging = true
             }
             return item;
         })
-        e.target.classList.add("dragging");
         setShareList(newShareList)
     }
     //當物件被放開
@@ -104,7 +105,8 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
     // }
     
     return(
-        <DragOverlayout onDragOver={addStyle} onDragExit={removeStyle} onDrop={removeStyle}>
+        <DragOverlayout onDragOver={addStyle}  onDragLeave={removeStyle} onDrop={removeStyle} >
+         {/* <DragOverlayout > */}
             <SingleTheme draggable="true" onDragStart={dragStartHandler2} onDragEnd={dropHandler2}>
                 <img src={dragicon}></img>
                 <div className="share-title-box">

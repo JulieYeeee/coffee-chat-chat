@@ -277,6 +277,7 @@ const Account = () =>{
 
    
     const dragOverHandler2 = (e) => {
+        // e.stopPropagation();
         e.preventDefault();
         const childrenNodeArray = Array.from(e.currentTarget.children);
         const afterElement = getAfterElement(childrenNodeArray, e.clientX);
@@ -289,7 +290,7 @@ const Account = () =>{
             const draggingIndex = shareList.findIndex(share => {
                 return share["dragging"];
             });
-            let newShareList = shareList.map((share, index) => {
+            const newShareList = shareList.map((share, index) => {
                 if (index == draggingIndex && draggingIndex != -1) {
                     share = shiftElement;
                 }
@@ -314,22 +315,21 @@ const Account = () =>{
         //         return null;
         //     }
         // }, { offset: Number.NEGATIVE_INFINITY })
-        const newDraggableElements = childrenNodeArray.filter(child => child.className.indexOf("dragging") == -1);
+       
+        const newDraggableElements = childrenNodeArray.filter(child => child.children[0].className.indexOf("dragging") == -1);
         return newDraggableElements.reduce((start, afterElement, index) => {
             const afterElementInfo = afterElement.getBoundingClientRect()
-            const offset = cursorX - afterElementInfo.left - afterElementInfo.width / 2;
-            if (offset < 0 && offset > start.offset) {
-                return {
-                    offset: offset,
-                    element: afterElement,
-                    index: index
-                }
-            } else {
-                return start
+            const offset = cursorX - afterElementInfo.left - afterElementInfo.width/2;
+            if (offset < 0 && offset > start.offset ) {
+            return {
+                offset: offset,
+                element: afterElement,
+                index: index
             }
-        }, {
-            offset: Number.NEGATIVE_INFINITY
-        })
+            }else {
+            return start
+            }
+        }, { offset: Number.NEGATIVE_INFINITY })
     }
 
 
