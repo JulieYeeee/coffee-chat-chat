@@ -13,7 +13,8 @@ import Inbox from "../page/Inbox";
 import Ask from "../page/Ask";
 import Thankyou from "../page/Thankyou";
 
-import Firebase from "./Firebase";
+import firebase from "./Firebase";
+// import Firebase from "./Firebase";
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref ,onValue,query,orderByChild,equalTo,set,push } from "firebase/database";
@@ -68,7 +69,7 @@ const App = () => {
 
     //確認使用者的登入狀態
     useEffect(() => {
-        const auth = getAuth(Firebase);
+        const auth = getAuth(firebase);
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAccount(user.uid);
@@ -79,10 +80,11 @@ const App = () => {
         });
     }, []);
 
+    
 
 
     //全站監聽新訂單，若有新訂單，另起聊天室資料表
-    const database = getDatabase(Firebase);
+    const database = getDatabase(firebase);
     const orderRef = query(ref(database, 'order/'), orderByChild("orderNum"), equalTo(orderNum));
     onValue(orderRef, (snapshot) => {
         const data = snapshot.val();

@@ -2,7 +2,8 @@ import React,{useEffect, useRef,useState } from "react";
 import { useNavigate,useParams} from "react-router-dom";
 //Firebase modules
 import { getAuth ,onAuthStateChanged} from "firebase/auth";
-import Firebase from "../src/Firebase";
+import firebase from "../src/Firebase";
+// import Firebase from "../src/Firebase";
 import { getDatabase,query,ref,onValue,child, get,push,set,update} from "firebase/database";
 //圖片
 import defaultmessage from "../static/picture/defaultmessage.png";
@@ -47,7 +48,7 @@ const Inbox = ( {DOMref}) => {
     useEffect(() => {
         if (id !== "default") {
             msgContentRef.current = [];
-            const dbRef = ref(getDatabase(Firebase));
+            const dbRef = ref(getDatabase(firebase));
             get(child(dbRef, `inbox/${id}`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     let data = snapshot.val();
@@ -68,7 +69,7 @@ const Inbox = ( {DOMref}) => {
 
     //存放從資料庫取得的訊息內容
     let [msgList, setMsgList] = useState([]);
-    const database = getDatabase(Firebase);
+    const database = getDatabase(firebase);
     const inboxRef = query(ref(database, 'inbox/'));
     let msgRef = useRef(); //儲存 state 前，先使用 Ref 保存避免過度渲染
     onValue(inboxRef, (snapshot) => {
@@ -125,10 +126,51 @@ const Inbox = ( {DOMref}) => {
     //傳送訊息後，保存至資料庫
     const submitReply = (e) => {
     	e.preventDefault();
+
+
     	if (e.target.parentElement.children[0].value != "") {
+        //     const dbRef=getDatabase(firebase);
+        //     let msgdata={};
+        //     // A post entry.
+        //     if(msgRole === "ask"){
+        //         msgdata = {
+        //             from: "ask",
+        //             content: preMsgRef.current,
+        //             time: Date.now(),
+        //             read: false
+        //         };
+    
+        //     }
+        //     if(msgRole === "consultant"){
+        //         msgdata = {
+        //             from: "reply",
+        //             content: preMsgRef.current,
+        //             time: Date.now(),
+        //             read: false
+        //         }
+        //     }
+            
+        // // Get a key for a new Post.
+        // const newMsgtKey = push(child(ref(dbRef), `inbox/${id}/message`)).key;
+        // console.log(newMsgtKey);
+
+        // // Write the new post's data simultaneously in the posts list and the user's post list.
+        // const updates = {};
+        // updates[`inbox/${id}/message/` + newMsgtKey] = msgdata;
+
+        // return update(ref(dbRef), updates)
+        // .then(()=>{
+        //     console.log("成功")
+        //     preMsgRef.current = "";
+    	// 	e.target.parentElement.children[0].value = "";
+        // })
+        // .catch(error=>{
+        //     console.log(error)
+        // });
     		const msgListRef = ref(database, `inbox/${id}/message`);
     		const newMsgRef = push(msgListRef);
     		if (msgRole === "ask") {
+                console.log("ask set")
     			set(newMsgRef, {
     				from: "ask",
     				content: preMsgRef.current,
@@ -136,7 +178,7 @@ const Inbox = ( {DOMref}) => {
     				read: false
     			})
                 .then((data) => {
-                    console.log("show error:",data);
+                    console.log("show success:",data);
                     // Data saved successfully!
                   })
                   .catch((error) => {
@@ -145,6 +187,7 @@ const Inbox = ( {DOMref}) => {
 
     		};
     		if (msgRole === "consultant") {
+                console.log("consult set")
     			set(newMsgRef, {
     				from: "reply",
     				content: preMsgRef.current,
@@ -152,7 +195,7 @@ const Inbox = ( {DOMref}) => {
     				read: false
     			})
                 .then((data) => {
-                    console.log("show error:",data);
+                    console.log("show success:",data);
                     // Data saved successfully!
                   })
                   .catch((error) => {
@@ -172,7 +215,6 @@ const Inbox = ( {DOMref}) => {
         }
     }, [msgContent])
     useEffect(() => {
-        console.log("確認會一職觸發嗎")
         const singleMsgRef = query(ref(database, `inbox/${id}/message`));
         if (id === "default" || account === null || msgRole === null) {
             return;
@@ -219,7 +261,7 @@ const Inbox = ( {DOMref}) => {
 
     //當使用者點擊回覆區或點左方訊息列表展開始，更新訊息已讀、未讀狀態
     const readMsg = () => {
-        const dbRef = ref(getDatabase(Firebase));
+        const dbRef = ref(getDatabase(firebase));
         get(child(dbRef, `inbox/${id}/message`)).then((snapshot) => {
             if (snapshot.exists()) {
                 let keys = Object.keys(snapshot.val());

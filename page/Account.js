@@ -6,7 +6,6 @@ import fb from "../static/picture/fb.png";
 import linkedin from "../static/picture/linkedin.png";
 import blog from "../static/picture/blog.png";
 import defaultHeadshot from "../static/picture/headshot.png";
-import coverdefault from "../static/picture/coverdefault.png";
 import loading from "../static/picture/loading.gif";
 //components
 import Tags from "../component/Personal/PersonalTags";
@@ -287,10 +286,65 @@ const Account = () =>{
         }]);
     }
 
-    
-
    
+    const dragOverHandler2 = (e) => {
+        e.preventDefault();
+        const childrenNodeArray = Array.from(e.currentTarget.children);
+        const afterElement = getAfterElement(childrenNodeArray, e.clientX);
+        const draggingElement = shareList.filter(share => share["dragging"]);
+        if (afterElement.element == null) {
+            const newShareList = shareList.filter(share => !share["dragging"]);
+            setShareList([...newShareList, draggingElement[0]]);
+        } else {
+            const shiftElement = shareList[afterElement.index];
+            const draggingIndex = shareList.findIndex(share => {
+                return share["dragging"];
+            });
+            let newShareList = shareList.map((share, index) => {
+                if (index == draggingIndex && draggingIndex != -1) {
+                    share = shiftElement;
+                }
+                if (index == afterElement.index) {
+                    share = draggingElement[0];
+                }
+                return share;
+            })
+            setShareList(newShareList);
+        }
+    }
 
+    const getAfterElement = (childrenNodeArray, cursorX) => {
+        // const newDraggableElements=childrenNodeArray.filter(child=>child.className.indexOf("dragging")==-1);
+        // return newDraggableElements.reduce((initValue,afterElement)=>{
+        // const afterElementInfo=afterElement.getBoundingClientRect();
+        // const offset = cursorX - afterElementInfo.left - afterElementInfo.width/2;
+        // console.log("cursor:",cursorX,"left:",afterElementInfo.left,"width:",afterElementInfo.width,"offset:",offset)
+        //     if(offset<0 && offset> initValue.offset){
+        //         return afterElement;
+        //     }else{
+        //         return null;
+        //     }
+        // }, { offset: Number.NEGATIVE_INFINITY })
+        const newDraggableElements = childrenNodeArray.filter(child => child.className.indexOf("dragging") == -1);
+        return newDraggableElements.reduce((start, afterElement, index) => {
+            const afterElementInfo = afterElement.getBoundingClientRect()
+            const offset = cursorX - afterElementInfo.left - afterElementInfo.width / 2;
+            if (offset < 0 && offset > start.offset) {
+                return {
+                    offset: offset,
+                    element: afterElement,
+                    index: index
+                }
+            } else {
+                return start
+            }
+        }, {
+            offset: Number.NEGATIVE_INFINITY
+        })
+    }
+
+
+       
 
     return(
         <main >
@@ -357,7 +411,7 @@ const Account = () =>{
                 </AccountKeywordBox>
                 <AccountShareThemeBox>
                     <p>告訴別人你的可分享領域</p>
-                    <ShareThemeInsideBox>
+                    <ShareThemeInsideBox onDragOver={dragOverHandler2}>
                         {shareList?shareList.map((share,index)=>
                             <PersonalShare shareList={shareList} setShareList={setShareList} index={index} share={share} dragIndex={dragIndex} setDragIndex={setDragIndex} exchange={exchange} setExchange={setExchange}/>
                         ):undefined}
