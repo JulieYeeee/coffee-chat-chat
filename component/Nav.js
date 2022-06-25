@@ -12,7 +12,9 @@ import { signOut } from "firebase/auth";
 //useContext
 import { GetGlobalContext } from "./context/GlobalContext";
 //styled component
+
 import { NavContainer,NavSelf,LogoLink,RightMenu,FunctionBox,SearchLink, Item,Notification} from "./style/Nav.styled";
+
 
 
 
@@ -53,11 +55,14 @@ const Nav = () =>{
                     </Item>
                     <Item>
                     <FunctionBox to="/account"><img src={user}></img></FunctionBox>
+
                     </Item>
                     { account? <Item onClick={signoutHandler}><img src={signout}></img></Item> :null }
                 </RightMenu>
             </NavSelf>
+
         </NavContainer>  
+
     )
 }
 

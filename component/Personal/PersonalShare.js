@@ -1,5 +1,7 @@
 import React from "react";
+
 import dragicon from "../../static/picture/dragicon.png";
+
 //styled-component
 import { SingleTheme,DragOverlayout } from "../style/Account.styled";
 
@@ -47,6 +49,7 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
         setShareList(newShareList);
     }
 
+    
     // //Drag and Drop-抓取
     // const dragStartHandler = (e) => {
     //     setDragIndex(index);
@@ -90,6 +93,7 @@ const PersonalShare = ({shareList,setShareList,index,share,dragIndex,setDragInde
     //     }
     //     parent.classList.add("borderPlus");
     // }
+
 
     // //Drag and Drop-放下
     // const dropHandler = (e) => {

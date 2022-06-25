@@ -1,8 +1,10 @@
 import React from "react";
+
 ///影片
 import demoaccount from "../../static/video/account.mp4";
 import demosearch from "../../static/video/searchandask.mp4";
 import demochatroom from "../../static/video/chatroom.mp4";
+
 
 //styled-component
 import { Section3section,DescriptionBox,FeatureBox,SingleFeatureBox,DemoBox } from "../style/Homepage.styled";
@@ -47,6 +49,7 @@ const Section3 = () => {
                     </SingleFeatureBox>
                 
             })}
+
         </Section3section>
     )
 }

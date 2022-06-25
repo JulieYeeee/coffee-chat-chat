@@ -2,10 +2,12 @@ import React from "react";
 //圖片
 import coverdefault from "../../static/picture/coverdefault.png";
 //styled-component
+
 import { SingleProject,LayoutBox,ProjectCover,ReaclCover,DefaultCover,ProjectContent,ProjectLink,DeleteProjectButton } from "../style/Account.styled";
 
  
 const PersonalProject = ({project,projects,index,getFile,setProjects}) => {
+  
     //取得使用者選擇的作品類型
     const getSelectValue = (e) => {
         setProjects(prev => {
@@ -35,7 +37,9 @@ const PersonalProject = ({project,projects,index,getFile,setProjects}) => {
     
     return(
         <SingleProject>
+
             <DeleteProjectButton><div onClick={deleteProject}>X</div></DeleteProjectButton>
+
             <LayoutBox>
                 <ProjectCover>
                     <div>
@@ -57,6 +61,7 @@ const PersonalProject = ({project,projects,index,getFile,setProjects}) => {
                 </ProjectContent>
             </LayoutBox>
             <ProjectLink type="text" value={project["link"]? project["link"]:""} placeholder="在此貼上作品/文章連結" onChange={getLink}></ProjectLink>
+
         </SingleProject>
     )
 }
