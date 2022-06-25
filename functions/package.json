@@ -19,13 +19,6 @@
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
   },
-  "private": false,
-  
-  "emulators": {
-    "hosting": {
-      "host": "localhost",
-      "port": "5000"
-    }
-  }
+  "private": false
   
 }

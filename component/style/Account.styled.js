@@ -363,13 +363,16 @@ export const ShareThemeInsideBox=styled.div`
         justify-content: space-between;
         
     }
-
+    .draggingOver{
+        border: 2px dashed grey;
+        border-radius: 20px;
+    }
 
 
 `
 
 export const SingleTheme=styled.div`
-    width: 32%;
+    width: 100%;
     background: ${({theme})=>theme.decoColor.opacityWhite};
     -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
     filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));
@@ -426,14 +429,26 @@ export const SingleTheme=styled.div`
             outline: none;
         }
     
-        @media (max-width:700px){
+        /* @media (max-width:700px){
+            width: 100%;
+            margin: 10px 0;
+            textarea{
+                aspect-ratio: 4/1;
+            }
+        } */
+
+
+`
+export const DragOverlayout =styled.div`
+ width: 32%;
+
+ @media (max-width:700px){
             width: 100%;
             margin: 10px 0;
             textarea{
                 aspect-ratio: 4/1;
             }
         }
-
 
 `
 
