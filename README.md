@@ -66,7 +66,7 @@
   + 使用 onKeyPress 監聽 Enter 動作。
   + 當 Enter 一觸發，即更新 state 資料，重新渲染標籤區組件。
   
-+  拖曳改變資料順序
++ 拖曳改變資料順序
   + 使用 HTML Drag and Drop API 實現，無使用套件。
   + 以游標位置與拖曳區物件寬度相減，尋找執行交換資料的規律條件，符合條件的情形下將進行交換資料。
   + 透過 clientX 取得拖曳時的游標 X 值，再以 getBoundingClientX() 取的物件 left 與 width值。
