@@ -8,37 +8,53 @@
 測試帳號: test@gmail.com  
 測試密碼: testtest  
 ****  
-## 主要功能  
-+ 會員登入/註冊功能  
-單頁切換登入/註冊介面  
-![](https://github.com/JulieYeeee/git-work/blob/main/%E7%99%BB%E5%85%A5.gif)   
 
-
+## 主要功能與操作展示  
 + 個人頁面建立  
-上傳圖片、Enter生成標籤、分享區拖曳功能  
-  + 上傳圖片、即時預覽  
-  ![](https://github.com/JulieYeeee/git-work/blob/main/1655058502484.jpg)  
   + Enter 生成標籤  
-  ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%A8%99%E7%B1%A4.gif)  
-  + 分享區拖曳改變資料順序  
-  ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%8B%96%E6%9B%B3.gif)  
+  + 說明: 為自己建立幾個獨特關鍵字，按下 Enter 即可生成，也可刪除指定關鍵字。  
+  ![](https://github.com/JulieYeeee/git-work/blob/main/keyword.gif) 
+  
+  + 拖曳改變資料順序 
+  + 說明: 透過拖曳可以改變資料順序，再也不必刪除內文重新手打。  
+  ![](https://github.com/JulieYeeee/git-work/blob/main/drag.gif) 
+  
+  + 新增/刪減作品數量  
+  + 說明: 初始預設為 3 個編輯欄位。若想分享更多作品，可以即時新增、編輯，亦可以刪減。若新增數量後忘記填寫資料也沒關係，咖啡圈圈會為您把關資料，若有不完整的資料將不會顯示在個人頁面上。 
+  ![](https://github.com/JulieYeeee/git-work/blob/main/addpj.gif)  
+  
+  + 上傳圖片即時預覽 
+  + 說明: 從本地資料夾選取圖片後，將會立即顯示於編輯介面中，即時預覽照片樣貌。  
+  ![](https://github.com/JulieYeeee/git-work/blob/main/upload.gif)  
+  
+  +立即產出個人網址
+  
+
++ 會員資料瀏覽與付費諮詢  
+  + 會員資料瀏覽
+  + 說明: 在會員列表中可以找到感興趣的人選並瀏覽詳細個人資料
+  ![](https://github.com/JulieYeeee/git-work/blob/main/search.gif) 
+
+  + 付費諮詢
+  + 說明: 只要付費一杯咖啡的價格，即可向對象提問，並且開通雙方的聊天室。 
+  ![](https://github.com/JulieYeeee/git-work/blob/main/ask.gif)  
 
 
++ 即時聊天室與未讀通知
+  + 即時聊天
+  + 說明: 付款成功後系統會開啟雙方的聊天室。可以即時聊天諮詢。
+  ![](https://github.com/JulieYeeee/git-work/blob/main/chatroom.gif)  
+  
+  + 未讀訊息通知
+  + 說明: 當有新訊息傳而未讀取時，頁面右上角將會顯示未讀訊息數量。進入聊天室點擊回覆欄位時，將更新未讀數量。
+  ![](https://github.com/JulieYeeee/git-work/blob/main/notification.gif) 
+  
 
-+ 會員資料瀏覽  
-  + ![](https://github.com/JulieYeeee/git-work/blob/main/%E7%80%8F%E8%A6%BD%E6%9C%83%E5%93%A1.gif) 
++ 會員登入/註冊功能  
+  + 單頁切換登入/註冊介面  
+  ![](https://github.com/JulieYeeee/git-work/blob/main/signin.gif)   
+  
 
-
-
-+ 付款諮詢  
-  + ![](https://github.com/JulieYeeee/git-work/blob/main/%E6%8F%90%E5%95%8F.gif) 
-
-
-+ 開通即時聊天室
-  + ![](https://github.com/JulieYeeee/git-work/blob/main/%E5%9B%9E%E8%A6%86.gif) 
-
-
-+ 右上未讀訊息通知
 ****  
 ## 組件架構
 ![](https://github.com/JulieYeeee/git-work/blob/main/1655057317355.jpg)   
