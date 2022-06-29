@@ -46,7 +46,7 @@
   ![](https://github.com/JulieYeeee/git-work/blob/main/chatroom.gif)  
   
   + 未讀訊息通知
-  + 說明: 當有新訊息傳而未讀取時，頁面右上角將會顯示未讀訊息數量。進入聊天室點擊回覆欄位時，將更新未讀數量。
+  + 說明: 當有新訊息未讀取時，頁面右上角將會顯示未讀數量。進入聊天室點擊回覆欄位時，將更新未讀數量。
   ![](https://github.com/JulieYeeee/git-work/blob/main/notification.gif) 
   
 
@@ -61,7 +61,19 @@
 + Nav為共用組件
 
 ****  
-## 使用技術  
+## 關於主要功能的技術實踐
++ Enter 生成標籤
+  + 使用 onKeyPress 監聽 Enter 動作。
+  + 當 Enter 一觸發，即更新 state 資料，重新渲染標籤區組件。
+  
++  拖曳改變資料順序
+  + 使用 HTML Drag and Drop API 實現，無使用套件。
+  + 以游標位置與拖曳區物件寬度相減，尋找執行交換資料的規律條件，符合條件的情形下將進行交換資料。
+  + 透過 clientX 取得拖曳時的游標 X 值，再以 getBoundingClientX() 取的物件 left 與 width值。
+  + 當游標滑過第一及第二個物件時，會符合 X 值減去物件 left 與 width 小於零，此時執行 state 資料順序交換。
+  + 當游標滑到第三個物件時，會符合 X 值減去物件 left 與 width 大於零，此時執行 state 刪除拖曳原位置資料，並新增到 state 最後位置。
+  + 
+## 專案使用技術  
 + React
   + React Router : 建立 SPA 頁面、實現跳轉
   + React useContext : 管理共用 state、ref
