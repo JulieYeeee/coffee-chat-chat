@@ -49,7 +49,10 @@
   + 說明: 當有新訊息未讀取時，頁面右上角將會顯示未讀數量。進入聊天室點擊回覆欄位時，將更新未讀數量。
   ![](https://github.com/JulieYeeee/git-work/blob/main/notification.gif) 
   
-
++ 首頁滾動特效
+  + 滑動頁面背景顏色改變
+  ![](https://github.com/JulieYeeee/git-work/blob/main/homepage.gif)  
+  
 + 會員登入/註冊功能  
   + 單頁切換登入/註冊介面  
   ![](https://github.com/JulieYeeee/git-work/blob/main/signin.gif)   
@@ -87,6 +90,10 @@
   + 資料表結構會記錄每一則訊息的已讀情形、發訊角色。
   + 根據發訊角色套用對應的組件與 CSS 樣式。
   + 根據已讀情形更新未讀通知數量。
+
++ 首頁滾動特效
+  + 使用 scrollY 與 innerHeight 偵測卷軸位置與整體頁面高度。
+  + 當卷軸位置大於整頁高度 * 0.7 時，更新 styled-components props ，將背景改為黃色。
 
 
 ## 整體專案使用技術  
