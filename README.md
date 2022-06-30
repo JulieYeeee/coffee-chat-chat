@@ -1,6 +1,6 @@
 # 咖啡圈圈 Coffee Chat Chat
 ![](https://raw.githubusercontent.com/JulieYeeee/coffee-chat-chat/main/static/picture/logo2.png)  
-咖啡圈圈 Coffee Chat Chat 是一個個人經驗資訊交流平台。所有使用者在此平台都可以建立個人資訊頁面，並且與他人開啟資訊交流的聊天室。  
+咖啡圈圈 Coffee Chat Chat 是一個個人經驗資訊交流平台。所有使用者在此平台都可以建立個人資訊頁面，並且開啟雙方資訊交流的聊天室。  
 ![](https://github.com/JulieYeeee/git-work/blob/main/coffee-rwd.png)  
 
 ****  
@@ -115,11 +115,11 @@
   +  Database: 儲存會員資料、訊息、實時監聽訂單、訊息異動
   +  Functions: 建立 API ，向第三方金流服務取得回應
 
-+ BABEL : 編譯 JSX 
-+ Webpack : 模組打包 
-+ Tappay : 金流串接 (測試版)
++ Babel : 編譯 JSX 
++ webpack : 模組打包 
++ TapPay : 金流串接 (測試版)
 
-****  
+  
 ## 開發者資訊
 葉怡君 Julie Ye  
 Email : oopsyeh056@gmail.com  
