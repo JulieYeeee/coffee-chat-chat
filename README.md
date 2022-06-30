@@ -55,12 +55,6 @@
   ![](https://github.com/JulieYeeee/git-work/blob/main/signin.gif)   
   
 
-****  
-## 組件架構
-![](https://github.com/JulieYeeee/git-work/blob/main/1655057317355.jpg)   
-+ Nav為共用組件
-
-****  
 ## 關於主要功能的技術實踐
 + Enter 生成標籤
   + 使用 onKeyPress 監聽 Enter 動作。
@@ -95,27 +89,31 @@
   + 根據已讀情形更新未讀通知數量。
 
 
-## 專案使用技術  
+## 整體專案使用技術  
 + React
-  + React Router : 建立 SPA 頁面、實現跳轉
-  + React useContext : 管理共用 state、ref
-  + React useState、useRef : 兩者搭配處理資料、適時使用 useRef 避免過度渲染頁面
-  + React useEffect : 透過 dependency 觸發相關程式
-+ css
+  + React Router: 建立 SPA 頁面、實現跳轉
+  + React Context: 管理共用 state、ref
+  + React useState、useRef: 兩者搭配處理資料、適時使用 useRef 避免過度渲染頁面
+  + React useEffect: 透過 dependency 改變，觸發相關程式
+  
++ CSS
   + styled-components
-    + CreateGlobalStyle : 全局共通 CSS 設定
-    + Theme : 建立網站共同主題色彩 
+    + CreateGlobalStyle: 全局共通 CSS 設定
+    + Theme: 建立網站共同主題色彩 
     + Adapting based on props
+    
 + Firebase  
-  +  Hosting : 部屬網站
-  +  Authentication : 實現會員登入、註冊
-  +  Database : 儲存會員資料、訊息、實時監聽訂單、訊息異動
-+ BABEL : 編譯器
+  +  Hosting: 部屬網站
+  +  Authentication: 實現會員登入、註冊
+  +  Database: 儲存會員資料、訊息、實時監聽訂單、訊息異動
+  +  Functions: 建立 API ，向第三方金流服務取得回應
+
++ BABEL : 編譯 JSX 
 + Webpack : 模組打包 
 + Tappay : 金流串接 (測試版)
 
 ****  
-## Contact Info
+## 開發者資訊
 葉怡君 Julie Ye  
 Email : oopsyeh056@gmail.com  
 Linkedin : www.linkedin.com/in/julieyeeee   
