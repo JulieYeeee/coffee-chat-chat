@@ -99,8 +99,8 @@
 ## 整體專案使用技術  
 + React
   + React Router: 建立 SPA 頁面、實現跳轉
-  + React Context: 管理共用 state、ref
-  + React useState、useRef: 兩者搭配處理資料、適時使用 useRef 避免過度渲染頁面
+  + React Context: 管理共用 state、props
+  + React useState: 處理資料狀態
   + React useEffect: 透過 dependency 改變，觸發相關程式
   
 + CSS
