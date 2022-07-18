@@ -1,5 +1,6 @@
 import React from "react";
 import coverdefault from "../../static/picture/coverdefault.png";
+
 import {
   SingleProject,
   LayoutBox,
@@ -46,6 +47,7 @@ const PersonalProject = ({
     );
     setProjects(newProjectsArr);
   };
+
 
   return (
     <SingleProject>
