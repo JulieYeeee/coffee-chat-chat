@@ -1,11 +1,8 @@
 import React from "react";
-//圖片
 import coverwarn from "../../static/picture/coverwarn.png";
-//styled-component
 import {SingleProject,ProjectCover,ProjectContentBox,ProjectType,ProejectText,Outlink,Coverimg} from "../style/Membership.styled";
 
 const MembershipProjects = ({project}) =>{
-
     let cover = project["cover"];
     return(
         <SingleProject>
