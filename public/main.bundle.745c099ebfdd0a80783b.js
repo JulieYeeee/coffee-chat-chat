@@ -50331,8 +50331,10 @@ var PersonalShare = function PersonalShare(_ref) {
       exchange = _ref.exchange,
       setExchange = _ref.setExchange;
 
-  //當物件被drag
+  //當物件被drag 
   var dragStartHandler2 = function dragStartHandler2(e) {
+    // e.stopPropagation();
+    e.target.classList.add("dragging");
     var newShareList = shareList.map(function (item, order) {
       if (order == index) {
         item.dragging = true;
@@ -50340,7 +50342,6 @@ var PersonalShare = function PersonalShare(_ref) {
 
       return item;
     });
-    e.target.classList.add("dragging");
     setShareList(newShareList);
   }; //當物件被放開
 
@@ -50435,7 +50436,7 @@ var PersonalShare = function PersonalShare(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_style_Account_styled__WEBPACK_IMPORTED_MODULE_2__.DragOverlayout, {
     onDragOver: addStyle,
-    onDragExit: removeStyle,
+    onDragLeave: removeStyle,
     onDrop: removeStyle
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_style_Account_styled__WEBPACK_IMPORTED_MODULE_2__.SingleTheme, {
     draggable: "true",
@@ -52149,6 +52150,7 @@ var Account = function Account() {
   };
 
   var dragOverHandler2 = function dragOverHandler2(e) {
+    // e.stopPropagation();
     e.preventDefault();
     var childrenNodeArray = Array.from(e.currentTarget.children);
     var afterElement = getAfterElement(childrenNodeArray, e.clientX);
@@ -52196,7 +52198,7 @@ var Account = function Account() {
     //     }
     // }, { offset: Number.NEGATIVE_INFINITY })
     var newDraggableElements = childrenNodeArray.filter(function (child) {
-      return child.className.indexOf("dragging") == -1;
+      return child.children[0].className.indexOf("dragging") == -1;
     });
     return newDraggableElements.reduce(function (start, afterElement, index) {
       var afterElementInfo = afterElement.getBoundingClientRect();
@@ -93898,4 +93900,4 @@ react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_context_Gl
 
 /******/ })()
 ;
-//# sourceMappingURL=main.bundle.33dabbb46c77af9f67ef.js.map
+//# sourceMappingURL=main.bundle.745c099ebfdd0a80783b.js.map
