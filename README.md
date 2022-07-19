@@ -19,16 +19,30 @@
     + 當 Enter 一觸發，即更新 state 資料，重新渲染標籤區組件。
   ![](https://github.com/JulieYeeee/git-work/blob/main/keyword.gif) 
   
-  + 拖曳改變資料順序 
-  + 說明: 透過拖曳可以改變資料順序，再也不必刪除內文重新手打。  
+  + 拖曳改變資料順序  
+  + 功能說明:  
+    + 透過拖曳可以改變資料順序，再也不必刪除內文重新手打。  
+  + 技術實踐: 
+    + 使用 HTML Drag and Drop API 實現，無使用套件。
+    + 以游標位置與拖曳區物件寬度相減，尋找執行交換資料的規律條件，符合條件的情形下將進行交換資料。
+    + 透過 clientX 取得拖曳時的游標 X 值，再以 getBoundingClientX() 取的物件 left 與 width值。
+    + 當游標滑過第一及第二個物件時，會符合 X 值減去物件 left 與 width 小於零，此時執行 state 資料順序交換。
+    + 當游標滑到第三個物件時，會符合 X 值減去物件 left 與 width 大於零，此時執行 state 刪除拖曳原位置資料，並新增到 state 最後位置。 
   ![](https://github.com/JulieYeeee/git-work/blob/main/drag.gif) 
   
   + 新增/刪減作品數量  
-  + 說明: 初始預設為 3 個編輯欄位。若想分享更多作品，可以即時新增、編輯，亦可以刪減。若新增數量後忘記填寫資料也沒關係，咖啡圈圈會為您把關資料，若有不完整的資料將不會顯示在個人頁面上。 
+  + 功能說明: 
+    + 初始預設為 3 個編輯欄位。若想分享更多作品，可以即時新增、編輯，亦可以刪減。若新增數量後忘記填寫資料也沒關係，咖啡圈圈會為您把關資料，若有不完整的資料將不會顯示在個人頁面上。  
+  + 技術實踐:
+    + 將作品集資料以 array 的型態儲存於 state 。
+    + 透過 filter()、map() 達成新增刪減。 
   ![](https://github.com/JulieYeeee/git-work/blob/main/addpj.gif)  
   
   + 上傳圖片即時預覽 
-  + 說明: 從本地資料夾選取圖片後，將會立即顯示於編輯介面中，即時預覽照片樣貌。  
+  + 功能說明: 
+    + 從本地資料夾選取圖片後，將會立即顯示於編輯介面中，即時預覽照片樣貌。  
+  + 技術實踐: 
+    + 
   ![](https://github.com/JulieYeeee/git-work/blob/main/upload.gif)  
   
   +立即產出個人網址
@@ -36,68 +50,48 @@
 
 + 會員資料瀏覽與付費諮詢  
   + 會員資料瀏覽
-  + 說明: 在會員列表中可以找到感興趣的人選並瀏覽詳細個人資料
+  + 功能說明: 在會員列表中可以找到感興趣的人選並瀏覽詳細個人資料。
+  + 技術實踐: 
+    + 為提升網站使用者的瀏覽體驗。在個人頁面及會員列表中，都有資料篩選機制。
+    + 當個人資料僅分享區、作品集缺漏，個人展示頁內不會顯示那些為完整資料。
+    + 當個人資料連最基礎資料區都缺漏，會員列表將不會顯示該會員帳戶。 
   ![](https://github.com/JulieYeeee/git-work/blob/main/search.gif) 
 
   + 付費諮詢
-  + 說明: 只要付費一杯咖啡的價格，即可向對象提問，並且開通雙方的聊天室。 
+  + 功能說明: 
+    + 只要付費一杯咖啡的價格，即可向對象提問，並且開通雙方的聊天室。 
+  + 技術實踐:
+    + 串接第三方金流套件 TapPay。
+    + 在 Firebase Functions 建立付款 API。
+    + API 將處理前端 request 附帶資料，並 POST fetch TapPay 後端。
+    + 取得 response 、回傳前端。 
   ![](https://github.com/JulieYeeee/git-work/blob/main/ask.gif)  
-
 
 + 即時聊天室與未讀通知
   + 即時聊天
-  + 說明: 付款成功後系統會開啟雙方的聊天室。可以即時聊天諮詢。
+  + 功能說明: 
+    + 付款成功後系統會開啟雙方的聊天室。可以即時聊天諮詢。
+    + 當有新訊息未讀取時，頁面右上角將會顯示未讀數量。進入聊天室點擊回覆欄位時，將更新未讀數量。
+  + 技術實踐: 
+    + 使用 Firebase 實時監聽功能，監聽訊息變化。
+    + 資料表結構會記錄每一則訊息的已讀情形、發訊角色。
+    + 根據發訊角色套用對應的組件與 CSS 樣式。
+    + 根據已讀情形更新未讀通知數量。 
   ![](https://github.com/JulieYeeee/git-work/blob/main/chatroom.gif)  
-  
-  + 未讀訊息通知
-  + 說明: 當有新訊息未讀取時，頁面右上角將會顯示未讀數量。進入聊天室點擊回覆欄位時，將更新未讀數量。
   ![](https://github.com/JulieYeeee/git-work/blob/main/notification.gif) 
   
 + 首頁滾動特效
-  + 滑動頁面背景顏色改變
+  + 功能說明:
+    + 滑動頁面背景顏色改變
+  + 技術實踐:
+    + 使用 scrollY 與 innerHeight 偵測卷軸位置與整體頁面高度。
+    + 當卷軸位置大於整頁高度 * 0.7 時，更新 styled-components props ，將背景改為黃色。 
   ![](https://github.com/JulieYeeee/git-work/blob/main/homepage.gif)  
   
 + 會員登入/註冊功能  
   + 單頁切換登入/註冊介面  
   ![](https://github.com/JulieYeeee/git-work/blob/main/signin.gif)   
   
-
-## 關於主要功能的技術實踐
-+ Enter 生成標籤
-  + 使用 onKeyPress 監聽 Enter 動作。
-  + 當 Enter 一觸發，即更新 state 資料，重新渲染標籤區組件。
-  
-+ 拖曳改變資料順序
-  + 使用 HTML Drag and Drop API 實現，無使用套件。
-  + 以游標位置與拖曳區物件寬度相減，尋找執行交換資料的規律條件，符合條件的情形下將進行交換資料。
-  + 透過 clientX 取得拖曳時的游標 X 值，再以 getBoundingClientX() 取的物件 left 與 width值。
-  + 當游標滑過第一及第二個物件時，會符合 X 值減去物件 left 與 width 小於零，此時執行 state 資料順序交換。
-  + 當游標滑到第三個物件時，會符合 X 值減去物件 left 與 width 大於零，此時執行 state 刪除拖曳原位置資料，並新增到 state 最後位置。
-
-+ 作品數量新增刪減  
-  + 將作品集資料以 array 的型態儲存於 state 。
-  + 透過 filter()、map() 達成新增刪減。
-
-+ 資料篩選處理
-  + 為提升網站使用者的瀏覽體驗。在個人頁面及會員列表中，都有資料篩選機制。
-  + 當個人資料僅分享區、作品集缺漏，個人展示頁內不會顯示那些為完整資料。
-  + 當個人資料連最基礎資料區都缺漏，會員列表將不會顯示該會員帳戶。
-
-+ 付費諮詢功能
-  + 串接第三方金流套件 TapPay。
-  + 在 Firebase Functions 建立付款 API。
-  + API 將處理前端 request 附帶資料，並 POST fetch TapPay 後端。
-  + 取得 response 、回傳前端。
-
-+ 即時聊天功能、未讀數量更新
-  + 使用 Firebase 實時監聽功能，監聽訊息變化。
-  + 資料表結構會記錄每一則訊息的已讀情形、發訊角色。
-  + 根據發訊角色套用對應的組件與 CSS 樣式。
-  + 根據已讀情形更新未讀通知數量。
-
-+ 首頁滾動特效
-  + 使用 scrollY 與 innerHeight 偵測卷軸位置與整體頁面高度。
-  + 當卷軸位置大於整頁高度 * 0.7 時，更新 styled-components props ，將背景改為黃色。
 
 
 ## 整體專案使用技術  
