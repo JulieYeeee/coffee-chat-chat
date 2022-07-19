@@ -9,10 +9,13 @@
 測試密碼: testtest  
 ****  
 
-## 主要功能與操作展示  
+## 主要功能展示與技術實踐  
 + 個人頁面建立  
   + Enter 生成標籤  
-  + 說明: 為自己建立獨特關鍵字，按下 Enter 即可生成，也可刪除指定關鍵字。  
+  + 說明: 為自己建立獨特關鍵字，按下 Enter 即可生成，也可刪除指定關鍵字。 
+  + 技術實踐: 
+    + 使用 onKeyPress 監聽 Enter 動作。
+    + 當 Enter 一觸發，即更新 state 資料，重新渲染標籤區組件。
   ![](https://github.com/JulieYeeee/git-work/blob/main/keyword.gif) 
   
   + 拖曳改變資料順序 
