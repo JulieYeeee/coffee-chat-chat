@@ -42,7 +42,9 @@
   + 功能說明: 
     + 從本地資料夾選取圖片後，將會立即顯示於編輯介面中，即時預覽照片樣貌。  
   + 技術實踐: 
-    + 
+    + input type 設置為 file，並限制只能上傳圖片類型。
+    + 上傳至 Firebase storage 取得圖片 url 網址。
+    + 將 url 放入 img src 即時顯示圖片。
   ![](https://github.com/JulieYeeee/git-work/blob/main/upload.gif)  
   
   +立即產出個人網址
