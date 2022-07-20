@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Nav from "../component/Nav";
-import DownNav from "../component/DownNav";
-import Homepage from "../page/Homepage";
-import Account from "../page/Account";
-import Memberlist from "../page/Memberlist";
-import Membership from "../page/membership";
-import Signin from "../page/Signin";
-import Inbox from "../page/Inbox";
-import Ask from "../page/Ask";
-import Thankyou from "../page/Thankyou";
+import Nav from "../src/component/Nav";
+import DownNav from "../src/component/DownNav";
+import Homepage from "../src/page/Homepage";
+import Account from "../src/page/Account";
+import Memberlist from "../src/page/Memberlist";
+import Membership from "../src/page/Membership";
+import Signin from "../src/page/Signin";
+import Inbox from "../src/page/Inbox";
+import Ask from "../src/page/Ask";
+import Thankyou from "../src/page/Thankyou";
 
 import firebase from "./Firebase";
 import { getAuth } from "firebase/auth";
@@ -25,8 +25,8 @@ import {
   push,
 } from "firebase/database";
 
-import { GetGlobalContext } from "../component/context/GlobalContext";
-import { GlobalStyle } from "../component/style/GlobalStyle";
+import { GetGlobalContext } from "../src/component/context/GlobalContext";
+import { GlobalStyle } from "../src/component/style/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 
 const App = () => {
