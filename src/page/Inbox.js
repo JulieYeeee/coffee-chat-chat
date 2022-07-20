@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import defaultmessage from "../static/picture/defaultmessage.png";
-import talk from "../static/picture/talk.png";
+import defaultmessage from "../../static/picture/defaultmessage.png";
+import talk from "../../static/picture/talk.png";
 import { GetGlobalContext } from "../component/context/GlobalContext";
 import {
   InboxBox,
@@ -29,7 +29,7 @@ import {
 } from "../component/style/Inbox.styled";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import firebase from "../src/Firebase";
+import firebase from "../../src/Firebase";
 import {
   getDatabase,
   query,

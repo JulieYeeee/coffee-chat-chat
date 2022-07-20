@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import coffee2 from "../static/picture/coffee2.png";
+import coffee2 from "../../static/picture/coffee2.png";
 import {
   ThankyouBox,
   ThankyouRight,

@@ -1,6 +1,6 @@
 import React from "react";
-import asker from "../../static/picture/asker.png";
-import answer from "../../static/picture/answer.png";
+import asker from "../../../static/picture/asker.png";
+import answer from "../../../static/picture/answer.png";
 import {
   Section2section,
   S2Title,

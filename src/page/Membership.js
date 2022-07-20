@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import fb from "../static/picture/fb.png";
-import linkedin from "../static/picture/linkedin.png";
-import blog from "../static/picture/blog.png";
-import loading from "../static/picture/loading.gif";
+import fb from "../../static/picture/fb.png";
+import linkedin from "../../static/picture/linkedin.png";
+import blog from "../../static/picture/blog.png";
+import loading from "../../static/picture/loading.gif";
 import MembershipProjects from "../component/membership/MembershipProjects";
 import { GetGlobalContext } from "../component/context/GlobalContext";
 import {
@@ -36,7 +36,7 @@ import {
 } from "../component/style/Membership.styled";
 import { Loading } from "../component/style/Loading.styled";
 //firebase modules
-import firebase from "../src/Firebase"; //initializtion
+import firebase from "../../src/Firebase"; //initializtion
 import {
   getFirestore,
   doc,

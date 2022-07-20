@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import people1 from "../../static/picture/people1.png";
-import people2 from "../../static/picture/people2.png";
-import people3 from "../../static/picture/people3.png";
-import people4 from "../../static/picture/people4.png";
-import people5 from "../../static/picture/people5.png";
-import people6 from "../../static/picture/people6.png";
+import people1 from "../../../static/picture/people1.png";
+import people2 from "../../../static/picture/people2.png";
+import people3 from "../../../static/picture/people3.png";
+import people4 from "../../../static/picture/people4.png";
+import people5 from "../../../static/picture/people5.png";
+import people6 from "../../../static/picture/people6.png";
 import {
   Section,
   LeftDiv,

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ask from "../static/picture/ask.png";
-import info from "../static/picture/info.png";
+import ask from "../../static/picture/ask.png";
+import info from "../../static/picture/info.png";
 
-import firebase from "../src/Firebase";
+import firebase from "../../src/Firebase";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database";
 

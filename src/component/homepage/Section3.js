@@ -1,7 +1,7 @@
 import React from "react";
-import demoaccount from "../../static/video/account.mp4";
-import demosearch from "../../static/video/searchandask.mp4";
-import demochatroom from "../../static/video/chatroom.mp4";
+import demoaccount from "../../../static/video/account.mp4";
+import demosearch from "../../../static/video/searchandask.mp4";
+import demochatroom from "../../../static/video/chatroom.mp4";
 import {
   Section3section,
   DescriptionBox,

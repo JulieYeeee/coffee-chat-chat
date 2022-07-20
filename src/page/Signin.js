@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../static/picture/logo2.png";
+import logo from "../../static/picture/logo2.png";
 import { GetGlobalContext } from "../component/context/GlobalContext";
 import {
   Main,
@@ -14,7 +14,7 @@ import {
 import { Button } from "../component/style/Button.styled";
 
 //firebase modules
-import firebase from "../src/Firebase";
+import firebase from "../../src/Firebase";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import {
   getAuth,

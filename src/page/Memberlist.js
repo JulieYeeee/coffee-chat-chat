@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import loading from "../static/picture/loading.gif";
+import loading from "../../static/picture/loading.gif";
 import {
   SearchBanner,
   MemberlistBox,
@@ -12,7 +12,7 @@ import {
 } from "../component/style/Memberlist.styled";
 import { Loading } from "../component/style/Loading.styled";
 
-import firebase from "../src/Firebase"; //initializtion
+import firebase from "../../src/Firebase"; //initializtion
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const Memberlist = () => {

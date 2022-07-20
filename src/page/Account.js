@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import fb from "../static/picture/fb.png";
-import linkedin from "../static/picture/linkedin.png";
-import blog from "../static/picture/blog.png";
-import defaultHeadshot from "../static/picture/headshot.png";
-import loading from "../static/picture/loading.gif";
+import fb from "../../static/picture/fb.png";
+import linkedin from "../../static/picture/linkedin.png";
+import blog from "../../static/picture/blog.png";
+import defaultHeadshot from "../../static/picture/headshot.png";
+import loading from "../../static/picture/loading.gif";
 import Tags from "../component/Personal/PersonalTags";
 import PersonalShare from "../component/Personal/PersonalShare";
 import PersonalProject from "../component/Personal/PersonalProject";
 
-import firebase from "../src/Firebase"; //initializtion
+import firebase from "../Firebase"; //initializtion
 import { getAuth, onAuthStateChanged } from "firebase/auth"; //check login status
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; //upload or dowload images
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";

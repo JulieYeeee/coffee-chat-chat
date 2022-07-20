@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Section1 from "../component/homepage/Section1";
 import Section2 from "../component/homepage/Section2";
 import Section3 from "../component/homepage/Section3";
-import downarrow from "../static/picture/downarrow.png";
+import downarrow from "../../static/picture/downarrow.png";
 import { Bar, Footer } from "../component/style/Homepage.styled";
 import { Main } from "../component/style/Homepage.styled";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import dragicon from "../../static/picture/dragicon.png";
+import dragicon from "../../../static/picture/dragicon.png";
 
 import { SingleTheme, DragOverlayout } from "../style/Account.styled";
 
