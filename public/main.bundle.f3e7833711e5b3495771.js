@@ -50053,10 +50053,247 @@ var unitlessKeys = {
 
 /***/ }),
 
-/***/ "./component/DownNav.js":
-/*!******************************!*\
-  !*** ./component/DownNav.js ***!
-  \******************************/
+/***/ "./src/App.js":
+/*!********************!*\
+  !*** ./src/App.js ***!
+  \********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var _src_component_Nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src/component/Nav */ "./src/component/Nav.js");
+/* harmony import */ var _src_component_DownNav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../src/component/DownNav */ "./src/component/DownNav.js");
+/* harmony import */ var _src_page_Homepage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../src/page/Homepage */ "./src/page/Homepage.js");
+/* harmony import */ var _src_page_Account__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../src/page/Account */ "./src/page/Account.js");
+/* harmony import */ var _src_page_Memberlist__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/page/Memberlist */ "./src/page/Memberlist.js");
+/* harmony import */ var _src_page_Membership__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../src/page/Membership */ "./src/page/Membership.js");
+/* harmony import */ var _src_page_Signin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../src/page/Signin */ "./src/page/Signin.js");
+/* harmony import */ var _src_page_Inbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../src/page/Inbox */ "./src/page/Inbox.js");
+/* harmony import */ var _src_page_Ask__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../src/page/Ask */ "./src/page/Ask.js");
+/* harmony import */ var _src_page_Thankyou__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../src/page/Thankyou */ "./src/page/Thankyou.js");
+/* harmony import */ var _Firebase__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Firebase */ "./src/Firebase.js");
+/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
+/* harmony import */ var firebase_database__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! firebase/database */ "../../../../../node_modules/firebase/database/dist/index.esm.js");
+/* harmony import */ var _src_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../src/component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _src_component_style_GlobalStyle__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../src/component/style/GlobalStyle */ "./src/component/style/GlobalStyle.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var App = function App() {
+  //styled-component 的 theme，全站共用主題色調
+  var theme = {
+    fontColor: {
+      lightBGfont: "rgb(70, 70, 70)",
+      yellowBGfont: "#ffffff"
+    },
+    bgColor: {
+      mainBGColor: "#F2F2F0",
+      yellowBGColor: "#F2B544"
+    },
+    decoColor: {
+      decoGreen: "#6FBFB1",
+      decoOrange: "#F27E63",
+      decoYellow: "#f6d393",
+      opacityWhite: "rgba(255, 255, 255, 0.75)"
+    }
+  }; //useContext 取得共用 state 或 ref
+
+  var _GetGlobalContext = (0,_src_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_14__.GetGlobalContext)(),
+      account = _GetGlobalContext.account,
+      setAccount = _GetGlobalContext.setAccount,
+      orderNum = _GetGlobalContext.orderNum,
+      unreadCount = _GetGlobalContext.unreadCount,
+      setunreadCount = _GetGlobalContext.setunreadCount,
+      askUnreadRef = _GetGlobalContext.askUnreadRef,
+      replyUnreadRef = _GetGlobalContext.replyUnreadRef,
+      setnotificationCSS = _GetGlobalContext.setnotificationCSS; //初始抓取 DOM 的 ref,inbox會使用此 ref 來完成聊天視窗維持最底部功能
+
+
+  var DOMref = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createRef(); //確認使用者的登入狀態
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_12__.getAuth)(_Firebase__WEBPACK_IMPORTED_MODULE_11__["default"]);
+    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_12__.onAuthStateChanged)(auth, function (user) {
+      if (user) {
+        setAccount(user.uid);
+        setnotificationCSS("menu-notification");
+      } else {
+        console.log("nobody");
+      }
+    });
+  }, []); //全站監聽新訂單，若有新訂單，另起聊天室資料表
+
+  var database = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.getDatabase)(_Firebase__WEBPACK_IMPORTED_MODULE_11__["default"]);
+  var orderRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "order/"), (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.orderByChild)("orderNum"), (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.equalTo)(orderNum));
+  (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.onValue)(orderRef, function (snapshot) {
+    var data = snapshot.val();
+
+    if (data) {
+      (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "inbox/" + orderNum), {
+        askAccount: data[orderNum]["askAccount"],
+        askName: data[orderNum]["askName"],
+        consultantAccount: data[orderNum]["consultantAccount"],
+        consultantName: data[orderNum]["consultantName"],
+        message: null,
+        askUnread: 2,
+        replyUnread: 0,
+        time: Date.now()
+      });
+      var msgListRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "inbox/".concat(orderNum, "/message"));
+      var newMsgRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.push)(msgListRef);
+      (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)(newMsgRef, {
+        from: "ask",
+        content: data[orderNum]["askInfo"],
+        time: Date.now(),
+        read: false
+      });
+      var newMsgRef2 = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.push)(msgListRef);
+      (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)(newMsgRef2, {
+        from: "ask",
+        content: data[orderNum]["askQuestion"],
+        time: Date.now(),
+        read: false
+      });
+    }
+  }); //全站監聽新訊息更新，更新資料庫的未讀資料，並且確認是否與使用者有關，若是，更新資料庫中使用者的總未讀訊息
+
+  var inboxRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "inbox/"));
+  (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.onValue)(inboxRef, function (snapshot) {
+    askUnreadRef.current = 0;
+    replyUnreadRef.current = 0;
+    var data = snapshot.val();
+    var keys = Object.keys(data);
+    keys.forEach(function (item) {
+      if (data[item]["consultantAccount"] && data[item]["consultantAccount"] === account) {
+        var msgKeys = Object.keys(data[item]["message"]);
+        msgKeys.forEach(function (single) {
+          if (data[item]["message"][single]["from"] === "ask" && data[item]["message"][single]["read"] === false) {
+            askUnreadRef.current = askUnreadRef.current + 1;
+          }
+        });
+      }
+
+      if (data[item]["askAccount"] && data[item]["askAccount"] === account) {
+        var _msgKeys = Object.keys(data[item]["message"]);
+
+        _msgKeys.forEach(function (single) {
+          if (data[item]["message"][single]["from"] === "reply" && data[item]["message"][single]["read"] === false) {
+            replyUnreadRef.current = replyUnreadRef.current + 1;
+          }
+        });
+      }
+    });
+    (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "user/" + account), {
+      unread: askUnreadRef.current + replyUnreadRef.current
+    });
+  }); //資料庫中的總未讀數更新後，更新至網站右上角的訊息通知
+
+  var checkUnreadRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "user/".concat(account)));
+  (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.onValue)(checkUnreadRef, function (snapshot) {
+    var data = snapshot.val();
+
+    if (data) {
+      if (unreadCount !== data["unread"]) {
+        setunreadCount(data["unread"]);
+      }
+    }
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(styled_components__WEBPACK_IMPORTED_MODULE_16__.ThemeProvider, {
+    theme: theme
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_component_style_GlobalStyle__WEBPACK_IMPORTED_MODULE_15__.GlobalStyle, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_component_Nav__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Homepage__WEBPACK_IMPORTED_MODULE_3__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/account",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Account__WEBPACK_IMPORTED_MODULE_4__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/memberlist",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Memberlist__WEBPACK_IMPORTED_MODULE_5__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/membership/:id",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Membership__WEBPACK_IMPORTED_MODULE_6__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/ask",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Ask__WEBPACK_IMPORTED_MODULE_9__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/thankyou",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Thankyou__WEBPACK_IMPORTED_MODULE_10__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/inbox/:id",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Inbox__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      DOMref: DOMref
+    })
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+    path: "/signin",
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_page_Signin__WEBPACK_IMPORTED_MODULE_7__["default"], null)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_component_DownNav__WEBPACK_IMPORTED_MODULE_2__["default"], null))));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./src/Firebase.js":
+/*!*************************!*\
+  !*** ./src/Firebase.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "../../../../../node_modules/firebase/app/dist/index.esm.js");
+// Import the functions you need from the SDKs you need
+ // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+var firebaseConfig = {
+  apiKey: "AIzaSyDEaCmZAeEA0MptAaW1WMIHcupyDR-N5hI",
+  authDomain: "coffee-chat-together.firebaseapp.com",
+  databaseURL: "https://coffee-chat-together-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "coffee-chat-together",
+  storageBucket: "coffee-chat-together.appspot.com",
+  messagingSenderId: "925098527252",
+  appId: "1:925098527252:web:efbf5bf2103dc397b73501",
+  measurementId: "G-7ZS37857FM"
+}; // Initialize Firebase
+
+var firebase = (0,firebase_app__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(firebaseConfig);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (firebase);
+
+/***/ }),
+
+/***/ "./src/component/DownNav.js":
+/*!**********************************!*\
+  !*** ./src/component/DownNav.js ***!
+  \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50067,29 +50304,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var _static_picture_inbox_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../static/picture/inbox.png */ "./static/picture/inbox.png");
-/* harmony import */ var _static_picture_account_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../static/picture/account.png */ "./static/picture/account.png");
-/* harmony import */ var _static_picture_signout_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../static/picture/signout.png */ "./static/picture/signout.png");
-/* harmony import */ var _style_Nav_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style/Nav.styled */ "./component/style/Nav.styled.js");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
-/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
-/* harmony import */ var _context_GlobalContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context/GlobalContext */ "./component/context/GlobalContext.js");
+/* harmony import */ var _static_picture_inbox_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/inbox.png */ "./static/picture/inbox.png");
+/* harmony import */ var _static_picture_account_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/picture/account.png */ "./static/picture/account.png");
+/* harmony import */ var _static_picture_signout_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../static/picture/signout.png */ "./static/picture/signout.png");
+/* harmony import */ var _style_Nav_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style/Nav.styled */ "./src/component/style/Nav.styled.js");
+/* harmony import */ var _context_GlobalContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
 
 
 
 
 
- //firebase modules
 
 
 
- //useContext
 
 
 
 var DownNav = function DownNav() {
   //useContext 取得共用 state
-  var _GetGlobalContext = (0,_context_GlobalContext__WEBPACK_IMPORTED_MODULE_7__.GetGlobalContext)(),
+  var _GetGlobalContext = (0,_context_GlobalContext__WEBPACK_IMPORTED_MODULE_5__.GetGlobalContext)(),
       account = _GetGlobalContext.account,
       setAccount = _GetGlobalContext.setAccount,
       unreadCount = _GetGlobalContext.unreadCount,
@@ -50097,8 +50332,8 @@ var DownNav = function DownNav() {
       setnotificationCSS = _GetGlobalContext.setnotificationCSS;
 
   var signoutHandler = function signoutHandler() {
-    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
-    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.signOut)(auth).then(function () {
+    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_7__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_6__["default"]);
+    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_7__.signOut)(auth).then(function () {
       setAccount(false);
       setnotificationCSS(null); // Sign-out successful.
     })["catch"](function (error) {
@@ -50127,10 +50362,10 @@ var DownNav = function DownNav() {
 
 /***/ }),
 
-/***/ "./component/Nav.js":
-/*!**************************!*\
-  !*** ./component/Nav.js ***!
-  \**************************/
+/***/ "./src/component/Nav.js":
+/*!******************************!*\
+  !*** ./src/component/Nav.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50140,27 +50375,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _static_picture_inbox_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../static/picture/inbox.png */ "./static/picture/inbox.png");
-/* harmony import */ var _static_picture_account_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../static/picture/account.png */ "./static/picture/account.png");
-/* harmony import */ var _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../static/picture/logo2.png */ "./static/picture/logo2.png");
-/* harmony import */ var _static_picture_signout_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../static/picture/signout.png */ "./static/picture/signout.png");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var _static_picture_inbox_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/inbox.png */ "./static/picture/inbox.png");
+/* harmony import */ var _static_picture_account_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/picture/account.png */ "./static/picture/account.png");
+/* harmony import */ var _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../static/picture/logo2.png */ "./static/picture/logo2.png");
+/* harmony import */ var _static_picture_signout_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/picture/signout.png */ "./static/picture/signout.png");
+/* harmony import */ var _Firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Firebase */ "./src/Firebase.js");
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
-/* harmony import */ var _context_GlobalContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _style_Nav_styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./style/Nav.styled */ "./component/style/Nav.styled.js");
-
- //圖片
+/* harmony import */ var _context_GlobalContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _style_Nav_styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./style/Nav.styled */ "./src/component/style/Nav.styled.js");
 
 
 
 
- //firebase modules
 
 
 
- //useContext
 
- //styled component
 
 
 
@@ -50174,7 +50404,7 @@ var Nav = function Nav() {
       setnotificationCSS = _GetGlobalContext.setnotificationCSS;
 
   var signoutHandler = function signoutHandler() {
-    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
+    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.getAuth)(_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
     (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.signOut)(auth).then(function () {
       setAccount(false);
       setnotificationCSS(null); // Sign-out successful.
@@ -50210,10 +50440,10 @@ var Nav = function Nav() {
 
 /***/ }),
 
-/***/ "./component/Personal/PersonalProject.js":
-/*!***********************************************!*\
-  !*** ./component/Personal/PersonalProject.js ***!
-  \***********************************************/
+/***/ "./src/component/Personal/PersonalProject.js":
+/*!***************************************************!*\
+  !*** ./src/component/Personal/PersonalProject.js ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50224,12 +50454,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _static_picture_coverdefault_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/picture/coverdefault.png */ "./static/picture/coverdefault.png");
-/* harmony import */ var _style_Account_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style/Account.styled */ "./component/style/Account.styled.js");
+/* harmony import */ var _static_picture_coverdefault_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../static/picture/coverdefault.png */ "./static/picture/coverdefault.png");
+/* harmony import */ var _style_Account_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style/Account.styled */ "./src/component/style/Account.styled.js");
 
- //圖片
 
- //styled-component
 
 
 
@@ -50301,10 +50529,10 @@ var PersonalProject = function PersonalProject(_ref) {
 
 /***/ }),
 
-/***/ "./component/Personal/PersonalShare.js":
-/*!*********************************************!*\
-  !*** ./component/Personal/PersonalShare.js ***!
-  \*********************************************/
+/***/ "./src/component/Personal/PersonalShare.js":
+/*!*************************************************!*\
+  !*** ./src/component/Personal/PersonalShare.js ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50314,10 +50542,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _static_picture_dragicon_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/dragicon.png */ "./static/picture/dragicon.png");
-/* harmony import */ var _style_Account_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../style/Account.styled */ "./component/style/Account.styled.js");
+/* harmony import */ var _static_picture_dragicon_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../static/picture/dragicon.png */ "./static/picture/dragicon.png");
+/* harmony import */ var _style_Account_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../style/Account.styled */ "./src/component/style/Account.styled.js");
 
- //styled-component
 
 
 
@@ -50331,9 +50558,8 @@ var PersonalShare = function PersonalShare(_ref) {
       exchange = _ref.exchange,
       setExchange = _ref.setExchange;
 
-  //當物件被drag 
+  //當物件被drag
   var dragStartHandler2 = function dragStartHandler2(e) {
-    // e.stopPropagation();
     e.target.classList.add("dragging");
     var newShareList = shareList.map(function (item, order) {
       if (order == index) {
@@ -50378,61 +50604,7 @@ var PersonalShare = function PersonalShare(_ref) {
 
     var newShareList = JSON.parse(JSON.stringify(shareList));
     setShareList(newShareList);
-  }; // //Drag and Drop-抓取
-  // const dragStartHandler = (e) => {
-  //     setDragIndex(index);
-  //     let dragNum = index + 1;
-  //     let dragTitle = e.target.children[1].children[1].value;
-  //     let dragContent = e.target.children[2].value;
-  //     exchange["drag"]["num"] = dragNum;
-  //     exchange["drag"]["title"] = dragTitle;
-  //     exchange["drag"]["content"] = dragContent;
-  //     let newExchang = JSON.parse(JSON.stringify(exchange));
-  //     setExchange(newExchang)
-  // }
-  // //Drag and Drop-進入
-  // const dragEnterHandler = (e) => {
-  //     // e.dataTransfer.setData('text/plain', e.target.id)
-  //     if (index !== dragIndex) {
-  //         let parent;
-  //         if (e.target.tagName === "INPUT") {
-  //             parent = e.target.parentElement.parentElement;
-  //         } else if (e.target.tagName === "TEXTAREA") {
-  //             parent = e.target.parentElement;
-  //         } else {
-  //             parent = e.target;
-  //         }
-  //         parent.classList.add("borderPlus");
-  //         exchange["drop"]["num"] = index + 1;
-  //         exchange["drop"]["title"] = parent.children[1].children[1].value;
-  //         exchange["drop"]["content"] = parent.children[2].value;
-  //     }
-  // }
-  // //Drag and Drop-經過
-  // const dragOverHandler = (e) => {
-  //     e.preventDefault();
-  //     let parent;
-  //     if (e.target.tagName === "INPUT") {
-  //         parent = e.target.parentElement.parentElement;
-  //     } else if (e.target.tagName === "TEXTAREA") {
-  //         parent = e.target.parentElement;
-  //     } else {
-  //         parent = e.target;
-  //     }
-  //     parent.classList.add("borderPlus");
-  // }
-  // //Drag and Drop-放下
-  // const dropHandler = (e) => {
-  //     let dragNewNum = exchange["drop"]["num"];
-  //     let dropNewNum = exchange["drag"]["num"];
-  //     shareList[dragNewNum - 1]["title"] = exchange["drag"]["title"];
-  //     shareList[dragNewNum - 1]["content"] = exchange["drag"]["content"];
-  //     shareList[dropNewNum - 1]["title"] = exchange["drop"]["title"];
-  //     shareList[dropNewNum - 1]["content"] = exchange["drop"]["content"];
-  //     let newShareList = JSON.parse(JSON.stringify(shareList));
-  //     setShareList(newShareList);
-  // }
-
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_style_Account_styled__WEBPACK_IMPORTED_MODULE_2__.DragOverlayout, {
     onDragOver: addStyle,
@@ -50462,10 +50634,10 @@ var PersonalShare = function PersonalShare(_ref) {
 
 /***/ }),
 
-/***/ "./component/Personal/PersonalTags.js":
-/*!********************************************!*\
-  !*** ./component/Personal/PersonalTags.js ***!
-  \********************************************/
+/***/ "./src/component/Personal/PersonalTags.js":
+/*!************************************************!*\
+  !*** ./src/component/Personal/PersonalTags.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50475,8 +50647,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_Account_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style/Account.styled */ "./component/style/Account.styled.js");
- //styled-componet
+/* harmony import */ var _style_Account_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../style/Account.styled */ "./src/component/style/Account.styled.js");
 
 
 
@@ -50506,10 +50677,10 @@ var Tags = function Tags(_ref) {
 
 /***/ }),
 
-/***/ "./component/context/GlobalContext.js":
-/*!********************************************!*\
-  !*** ./component/context/GlobalContext.js ***!
-  \********************************************/
+/***/ "./src/component/context/GlobalContext.js":
+/*!************************************************!*\
+  !*** ./src/component/context/GlobalContext.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50580,10 +50751,10 @@ var GlobalContextProvider = function GlobalContextProvider(_ref) {
 
 /***/ }),
 
-/***/ "./component/homepage/Section1.js":
-/*!****************************************!*\
-  !*** ./component/homepage/Section1.js ***!
-  \****************************************/
+/***/ "./src/component/homepage/Section1.js":
+/*!********************************************!*\
+  !*** ./src/component/homepage/Section1.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50594,22 +50765,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var _static_picture_people1_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/people1.png */ "./static/picture/people1.png");
-/* harmony import */ var _static_picture_people2_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/picture/people2.png */ "./static/picture/people2.png");
-/* harmony import */ var _static_picture_people3_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../static/picture/people3.png */ "./static/picture/people3.png");
-/* harmony import */ var _static_picture_people4_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/picture/people4.png */ "./static/picture/people4.png");
-/* harmony import */ var _static_picture_people5_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../static/picture/people5.png */ "./static/picture/people5.png");
-/* harmony import */ var _static_picture_people6_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../static/picture/people6.png */ "./static/picture/people6.png");
-/* harmony import */ var _style_Homepage_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../style/Homepage.styled */ "./component/style/Homepage.styled.js");
-
- //圖片
+/* harmony import */ var _static_picture_people1_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../static/picture/people1.png */ "./static/picture/people1.png");
+/* harmony import */ var _static_picture_people2_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../static/picture/people2.png */ "./static/picture/people2.png");
+/* harmony import */ var _static_picture_people3_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../static/picture/people3.png */ "./static/picture/people3.png");
+/* harmony import */ var _static_picture_people4_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../static/picture/people4.png */ "./static/picture/people4.png");
+/* harmony import */ var _static_picture_people5_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../static/picture/people5.png */ "./static/picture/people5.png");
+/* harmony import */ var _static_picture_people6_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../static/picture/people6.png */ "./static/picture/people6.png");
+/* harmony import */ var _style_Homepage_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../style/Homepage.styled */ "./src/component/style/Homepage.styled.js");
 
 
 
 
 
 
- //styled-component
+
 
 
 
@@ -50640,10 +50809,10 @@ var Section1 = function Section1(_ref) {
 
 /***/ }),
 
-/***/ "./component/homepage/Section2.js":
-/*!****************************************!*\
-  !*** ./component/homepage/Section2.js ***!
-  \****************************************/
+/***/ "./src/component/homepage/Section2.js":
+/*!********************************************!*\
+  !*** ./src/component/homepage/Section2.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50653,13 +50822,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _static_picture_asker_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/asker.png */ "./static/picture/asker.png");
-/* harmony import */ var _static_picture_answer_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/picture/answer.png */ "./static/picture/answer.png");
-/* harmony import */ var _style_Homepage_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style/Homepage.styled */ "./component/style/Homepage.styled.js");
- //圖片
+/* harmony import */ var _static_picture_asker_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../static/picture/asker.png */ "./static/picture/asker.png");
+/* harmony import */ var _static_picture_answer_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../static/picture/answer.png */ "./static/picture/answer.png");
+/* harmony import */ var _style_Homepage_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style/Homepage.styled */ "./src/component/style/Homepage.styled.js");
 
 
- //styled-component
 
 
 
@@ -50684,10 +50851,10 @@ var Section2 = function Section2(_ref) {
 
 /***/ }),
 
-/***/ "./component/homepage/Section3.js":
-/*!****************************************!*\
-  !*** ./component/homepage/Section3.js ***!
-  \****************************************/
+/***/ "./src/component/homepage/Section3.js":
+/*!********************************************!*\
+  !*** ./src/component/homepage/Section3.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50697,15 +50864,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _static_video_account_mp4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/video/account.mp4 */ "./static/video/account.mp4");
-/* harmony import */ var _static_video_searchandask_mp4__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/video/searchandask.mp4 */ "./static/video/searchandask.mp4");
-/* harmony import */ var _static_video_chatroom_mp4__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../static/video/chatroom.mp4 */ "./static/video/chatroom.mp4");
-/* harmony import */ var _style_Homepage_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../style/Homepage.styled */ "./component/style/Homepage.styled.js");
- ///影片
+/* harmony import */ var _static_video_account_mp4__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../static/video/account.mp4 */ "./static/video/account.mp4");
+/* harmony import */ var _static_video_searchandask_mp4__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../static/video/searchandask.mp4 */ "./static/video/searchandask.mp4");
+/* harmony import */ var _static_video_chatroom_mp4__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../static/video/chatroom.mp4 */ "./static/video/chatroom.mp4");
+/* harmony import */ var _style_Homepage_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../style/Homepage.styled */ "./src/component/style/Homepage.styled.js");
 
 
 
- //styled-component
 
 
 var features = [{
@@ -50742,10 +50907,10 @@ var Section3 = function Section3() {
 
 /***/ }),
 
-/***/ "./component/membership/MembershipProjects.js":
-/*!****************************************************!*\
-  !*** ./component/membership/MembershipProjects.js ***!
-  \****************************************************/
+/***/ "./src/component/membership/MembershipProjects.js":
+/*!********************************************************!*\
+  !*** ./src/component/membership/MembershipProjects.js ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50755,11 +50920,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _static_picture_coverwarn_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/coverwarn.png */ "./static/picture/coverwarn.png");
-/* harmony import */ var _style_Membership_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../style/Membership.styled */ "./component/style/Membership.styled.js");
- //圖片
+/* harmony import */ var _static_picture_coverwarn_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../static/picture/coverwarn.png */ "./static/picture/coverwarn.png");
+/* harmony import */ var _style_Membership_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../style/Membership.styled */ "./src/component/style/Membership.styled.js");
 
- //styled-component
 
 
 
@@ -50778,10 +50941,10 @@ var MembershipProjects = function MembershipProjects(_ref) {
 
 /***/ }),
 
-/***/ "./component/style/Account.styled.js":
-/*!*******************************************!*\
-  !*** ./component/style/Account.styled.js ***!
-  \*******************************************/
+/***/ "./src/component/style/Account.styled.js":
+/*!***********************************************!*\
+  !*** ./src/component/style/Account.styled.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50818,7 +50981,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _Button_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button.styled */ "./component/style/Button.styled.js");
+/* harmony import */ var _Button_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button.styled */ "./src/component/style/Button.styled.js");
 
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject25, _templateObject26, _templateObject27, _templateObject28;
@@ -50861,7 +51024,7 @@ var BasicInfoBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div
   var theme = _ref10.theme;
   return theme.bgColor.yellowBGColor;
 });
-var AccountLinkBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    width: 80%;\n    padding:30px 0;\n    background: ", ";\n    margin: 15px 0 ;\n    border-radius: 20px;\n    -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));\n    filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));\n\n    @media (max-width: 1199px){\n        width: 90%;\n    }\n    @media (max-width: 700px){\n        width: 95%;\n    }\n\n"])), function (_ref11) {
+var AccountLinkBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    width: 80%;\n    padding:30px 0;\n    background: ", ";\n    margin: 15px 0 ;\n    border-radius: 20px;\n    -webkit-filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));\n    filter: drop-shadow(1px 1px 1px rgba(193, 193, 193, 0.53));\n\n    @media (max-width: 1199px){\n        width: 90%;\n    }\n    @media (max-width: 700px){\n        width: 95%;\n\n    }\n\n"])), function (_ref11) {
   var theme = _ref11.theme;
   return theme.decoColor.opacityWhite;
 });
@@ -50957,7 +51120,7 @@ var SingleProject = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].di
   var theme = _ref38.theme;
   return theme.decoColor.opacityWhite;
 });
-var ProjectCover = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject19 || (_templateObject19 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    width: 40%;\n    background: ", ";\n    aspect-ratio: 3/2;\n    position: relative;\n    div{\n        width: 100%;\n        background: ", ";\n        aspect-ratio: 3/2;\n        position: relative;\n        overflow: hidden;\n\n    }\n    label{\n        position: absolute;\n        top: -5px;\n        left: -5px;\n        cursor: pointer;\n        border-radius: 50%;\n        width: 15%;\n        aspect-ratio: 1/1;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        background: ", ";\n        p{\n            color: var(--standardWhite);\n        }\n        input{\n            display: none;\n\n        }\n    }\n\n    @media (max-width: 700px){\n        width: 40%;\n    }\n   @media (max-width:600px){\n        width: 100%;\n        margin-bottom: 10px;\n        label{\n            width: 10%;\n        }\n   }\n    \n\n\n"])), function (_ref39) {
+var ProjectCover = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject19 || (_templateObject19 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    width: 40%;\n    background: ", ";\n    aspect-ratio: 3/2;\n    position: relative;\n    div{\n        width: 100%;\n        background: ", ";\n        aspect-ratio: 3/2;\n        position: relative;\n        overflow: hidden;\n\n    }\n    label{\n        position: absolute;\n        top: -5px;\n        left: -5px;\n        cursor: pointer;\n        border-radius: 50%;\n        width: 15%;\n        aspect-ratio: 1/1;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        background: ", ";\n        p{\n            color: var(--standardWhite);\n        }\n        input{\n            display: none;\n\n        }\n    }\n\n    @media (max-width: 700px){\n        width: 40%;\n    }\n   @media (max-width:600px){\n        width: 100%;\n        margin-bottom: 10px;\n        label{\n            width: 10%;\n        }\n\n   }\n    \n\n\n"])), function (_ref39) {
   var theme = _ref39.theme;
   return theme.fontColor.yellowBGfont;
 }, function (_ref40) {
@@ -51033,10 +51196,10 @@ var StoreNotification = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"
 
 /***/ }),
 
-/***/ "./component/style/Ask.styled.js":
-/*!***************************************!*\
-  !*** ./component/style/Ask.styled.js ***!
-  \***************************************/
+/***/ "./src/component/style/Ask.styled.js":
+/*!*******************************************!*\
+  !*** ./src/component/style/Ask.styled.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51095,10 +51258,10 @@ var TestNumCopy = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(
 
 /***/ }),
 
-/***/ "./component/style/Button.styled.js":
-/*!******************************************!*\
-  !*** ./component/style/Button.styled.js ***!
-  \******************************************/
+/***/ "./src/component/style/Button.styled.js":
+/*!**********************************************!*\
+  !*** ./src/component/style/Button.styled.js ***!
+  \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51117,10 +51280,10 @@ var Button = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].button(_t
 
 /***/ }),
 
-/***/ "./component/style/GlobalStyle.js":
-/*!****************************************!*\
-  !*** ./component/style/GlobalStyle.js ***!
-  \****************************************/
+/***/ "./src/component/style/GlobalStyle.js":
+/*!********************************************!*\
+  !*** ./src/component/style/GlobalStyle.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51142,10 +51305,10 @@ var GlobalStyle = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__.createGlobal
 
 /***/ }),
 
-/***/ "./component/style/Homepage.styled.js":
-/*!********************************************!*\
-  !*** ./component/style/Homepage.styled.js ***!
-  \********************************************/
+/***/ "./src/component/style/Homepage.styled.js":
+/*!************************************************!*\
+  !*** ./src/component/style/Homepage.styled.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51224,10 +51387,10 @@ var DemoBox = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_tem
 
 /***/ }),
 
-/***/ "./component/style/Inbox.styled.js":
-/*!*****************************************!*\
-  !*** ./component/style/Inbox.styled.js ***!
-  \*****************************************/
+/***/ "./src/component/style/Inbox.styled.js":
+/*!*********************************************!*\
+  !*** ./src/component/style/Inbox.styled.js ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51282,11 +51445,11 @@ var InboxLeftController = styled_components__WEBPACK_IMPORTED_MODULE_1__["defaul
 });
 var InboxLeftTitle = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    font-size: 3vmin;\n    font-weight: 700;\n    text-align: center;\n    padding: 5px;\n\n\n"])));
 var InboxLeftList = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n    height: 75vh;\n    overflow:auto;\n    box-shadow:\n    inset 0px 10px 10px -15px rgba(135, 135, 135, 0.764);\n    display: flex;\n    flex-direction: column;\n    \n\n"])));
-var SingleMsg = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link)(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n                    \n   \n    .msgUnread{\n        font-weight: 700;\n    }\n    .msgSelect{\n        background: #f6d393;\n        border-left: 4px solid ", ";\n\n    }\n\n"])), function (_ref6) {
+var SingleMsg = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link)(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n                  \n    .msgUnread{\n        font-weight: 700;\n    }\n    .msgSelect{\n        background: #f6d393;\n        border-left: 4px solid ", ";\n\n    }\n\n\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.bgColor.yellowBGColor;
 });
-var SingleMsgP = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].p(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    padding: 30px 10px;\n    background: ", ";\n    -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));\n    filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));\n    background: ", ";\n\n\n"])), function (_ref7) {
+var SingleMsgP = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].p(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    padding: 30px 10px;\n    background: ", ";\n    -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));\n    filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));\n    background: ", ";\n\n"])), function (_ref7) {
   var theme = _ref7.theme;
   return theme.bgColor.mainBGColor;
 }, function (_ref8) {
@@ -51302,7 +51465,7 @@ var InboxRightContent = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"
 });
 var DefaultContent = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject12 || (_templateObject12 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    height: 100%;\n    justify-content: center;\n    img{\n        width: 15%;\n        aspect-ratio: 1/1;\n        opacity:0.5;\n    }\n    p{\n        font-size: 2.5vmin;\n        font-weight: 700;\n        color: rgba(60, 59, 59, 0.6);\n    }\n\n\n\n"])));
 var ReceiveMsgBox = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject13 || (_templateObject13 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    display: flex;\n    padding: 5px;\n\n"])));
-var ReceiveMsg = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject14 || (_templateObject14 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n        font-size: 2vmin;\n        background: rgba(255, 255, 255, 0.9);\n        padding: 10px;\n        border-radius: 10px 10px 10px 0;\n        max-width: 70%;\n        word-break: break-all;\n\n\n"])));
+var ReceiveMsg = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject14 || (_templateObject14 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n        font-size: 2vmin;\n        background: rgba(255, 255, 255, 0.9);\n        padding: 10px;\n        border-radius: 10px 10px 10px 0;\n        max-width: 70%;\n        word-break: break-all;\n\n\n\n"])));
 var ReceiveMsgBlank = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject15 || (_templateObject15 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    flex-grow: 1;\n"])));
 var SendMsgBox = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(ReceiveMsgBox)(_templateObject16 || (_templateObject16 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])([""])));
 var SendMsg = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(ReceiveMsg)(_templateObject17 || (_templateObject17 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    background: ", ";\n    border-radius: 10px 10px 0 10px;\n\n"])), function (_ref10) {
@@ -51320,10 +51483,10 @@ var ReplyBox = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_te
 
 /***/ }),
 
-/***/ "./component/style/Loading.styled.js":
-/*!*******************************************!*\
-  !*** ./component/style/Loading.styled.js ***!
-  \*******************************************/
+/***/ "./src/component/style/Loading.styled.js":
+/*!***********************************************!*\
+  !*** ./src/component/style/Loading.styled.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51345,10 +51508,10 @@ var Loading = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].img(_tem
 
 /***/ }),
 
-/***/ "./component/style/Memberlist.styled.js":
-/*!**********************************************!*\
-  !*** ./component/style/Memberlist.styled.js ***!
-  \**********************************************/
+/***/ "./src/component/style/Memberlist.styled.js":
+/*!**************************************************!*\
+  !*** ./src/component/style/Memberlist.styled.js ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51365,7 +51528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _static_picture_searchbanner_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/searchbanner.png */ "./static/picture/searchbanner.png");
+/* harmony import */ var _static_picture_searchbanner_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../static/picture/searchbanner.png */ "./static/picture/searchbanner.png");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 
 
@@ -51374,33 +51537,33 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4, _temp
 
 
 
-var SearchBanner = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n        display: ", ";\n        width: 100%;\n        padding: 150px 0;\n        background: url(", ") ", ";\n        background-size: 20%;\n        background-repeat: no-repeat;\n        background-position: 80% ;\n        -webkit-filter: drop-shadow(1px 3px 3px rgba(187, 187, 187, 0.51));\n        filter: drop-shadow(1px 3px 3px rgba(174, 174, 174, 0.508));\n        p{\n            font-size: 5vmin;\n            font-weight: 700;\n            text-align: center;\n        }\n        @media screen and (max-width:1199px){\n            background-size: 30%;\n            background-position: right;\n        }\n        @media screen and (max-width:850px){\n \n            padding: 130px 0;\n            background-size: 40%;\n    \n        }\n        @media screen and (max-width:550px){\n\n            background-size: 40%;\n        }\n\n"])), function (_ref) {
+var SearchBanner = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: ", ";\n  width: 100%;\n  padding: 150px 0;\n  background: url(", ") ", ";\n  background-size: 20%;\n  background-repeat: no-repeat;\n  background-position: 80%;\n  -webkit-filter: drop-shadow(1px 3px 3px rgba(187, 187, 187, 0.51));\n  filter: drop-shadow(1px 3px 3px rgba(174, 174, 174, 0.508));\n  p {\n    font-size: 5vmin;\n    font-weight: 700;\n    text-align: center;\n  }\n  @media screen and (max-width: 1199px) {\n    background-size: 30%;\n    background-position: right;\n  }\n  @media screen and (max-width: 850px) {\n    padding: 130px 0;\n    background-size: 40%;\n  }\n  @media screen and (max-width: 550px) {\n    background-size: 40%;\n  }\n"])), function (_ref) {
   var closeCheck = _ref.closeCheck;
   return closeCheck ? "block" : "none";
 }, _static_picture_searchbanner_png__WEBPACK_IMPORTED_MODULE_1__, function (_ref2) {
   var theme = _ref2.theme;
   return theme.bgColor.mainBGColor;
 });
-var MemberlistBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    display: ", ";\n    width: 1200px;\n    flex-wrap: wrap;\n    margin: 50px 0 ;\n    @media screen and (max-width:1199px){\n            width: 100%;\n        \n    }\n    @media screen and (max-width: 550px){\n    \n        flex-direction: column;\n        align-items: center;\n        flex-wrap: nowrap;\n        \n    }\n\n"])), function (_ref3) {
+var MemberlistBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: ", ";\n  width: 1200px;\n  flex-wrap: wrap;\n  margin: 50px 0;\n  @media screen and (max-width: 1199px) {\n    width: 100%;\n  }\n  @media screen and (max-width: 550px) {\n    flex-direction: column;\n    align-items: center;\n    flex-wrap: nowrap;\n  }\n"])), function (_ref3) {
   var closeCheck = _ref3.closeCheck;
   return closeCheck ? "flex" : "none";
 });
-var MemberCard = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n   \n        width: 47%;\n        margin:20px 1.5%;\n        padding: 20px 10px;\n        display: flex;\n        justify-content: center;\n        background: ", ";\n        border-radius: 20px;\n        box-shadow:-3px -5px 8px rgb(255, 255, 255),\n        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); \n        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));\n        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));\n        border-style: none;\n        @media screen and (max-width:1199px){\n            margin:20px 1.5%;\n                \n        }\n\n        @media screen and (max-width:850px){\n            width: 45%;\n            margin:20px 2.5% 25px 2.5%;\n            flex-direction: column;\n            justify-content:flex-start;\n            align-items: center;\n        }\n        @media screen and (max-width: 550px){\n            width: 90%;\n            display: flex;\n            flex-direction: row;\n            justify-content: center;\n            \n        }\n\n"])), function (_ref4) {
+var MemberCard = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 47%;\n  margin: 20px 1.5%;\n  padding: 20px 10px;\n  display: flex;\n  justify-content: center;\n  background: ", ";\n  border-radius: 20px;\n  box-shadow: -3px -5px 8px rgb(255, 255, 255),\n    inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764);\n  -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));\n  filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));\n  border-style: none;\n  @media screen and (max-width: 1199px) {\n    margin: 20px 1.5%;\n  }\n\n  @media screen and (max-width: 850px) {\n    width: 45%;\n    margin: 20px 2.5% 25px 2.5%;\n    flex-direction: column;\n    justify-content: flex-start;\n    align-items: center;\n  }\n  @media screen and (max-width: 550px) {\n    width: 90%;\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n  }\n"])), function (_ref4) {
   var theme = _ref4.theme;
   return theme.bgColor.mainBGColor;
 });
-var Headshot = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n    width:35%;\n    aspect-ratio: 1/1;\n    border-radius: 50%;\n    margin: auto;\n    overflow: hidden;\n\n    img{\n        width: 100%;\n        height: 100%;\n        object-fit: cover;\n    }\n\n    @media screen and (max-width:850px){\n        width:40%;\n    \n    }\n\n    @media screen and (max-width: 550px){\n        width:37%;\n        \n    }\n"])));
-var MemberCardContent = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    width: 60%;\n    @media screen and (max-width: 850px){\n        width: 85%;\n        margin: 10px 0;\n        border-left: 2px solid ", ";\n        padding-left: 30px;\n        \n    }\n    @media screen and (max-width: 550px){\n        width: 60%;\n        margin: 10px 0;\n        border-style: none;\n        padding-left: 10px;\n        \n    }\n\n"])), function (_ref5) {
+var Headshot = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 35%;\n  aspect-ratio: 1/1;\n  border-radius: 50%;\n  margin: auto;\n  overflow: hidden;\n\n  img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n  }\n\n  @media screen and (max-width: 850px) {\n    width: 40%;\n  }\n\n  @media screen and (max-width: 550px) {\n    width: 37%;\n  }\n"])));
+var MemberCardContent = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 60%;\n  @media screen and (max-width: 850px) {\n    width: 85%;\n    margin: 10px 0;\n    border-left: 2px solid ", ";\n    padding-left: 30px;\n  }\n  @media screen and (max-width: 550px) {\n    width: 60%;\n    margin: 10px 0;\n    border-style: none;\n    padding-left: 10px;\n  }\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.bgColor.yellowBGColor;
 });
-var CardContentTextParent = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].p(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n    padding:  5px;\n    display: -webkit-box;\n    -webkit-box-orient: vertical;\n    -webkit-line-clamp: 3;\n    overflow: hidden;\n    width: 100%;\n    text-overflow:ellipsis;\n    word-wrap:break-word;\n    font-weight: 700;\n    color:", ";\n\n"])), function (_ref6) {
+var CardContentTextParent = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].p(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: 5px;\n  display: -webkit-box;\n  -webkit-box-orient: vertical;\n  -webkit-line-clamp: 3;\n  overflow: hidden;\n  width: 100%;\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  font-weight: 700;\n  color: ", ";\n"])), function (_ref6) {
   var theme = _ref6.theme;
   return theme.fontColor.lightBGfont;
 });
-var CardContentName = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(CardContentTextParent)(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    font-size: 2.5vmin;\n    @media screen and (max-width: 550px){\n        font-size: 3vmin;\n    }\n\n"])));
-var CardContentOther = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(CardContentTextParent)(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n    font-size: 2vmin;\n    @media screen and (max-width: 550px){\n        font-size:2.5vmin;\n        \n    }\n\n"])));
-var CardTagsBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n\n    display: flex;\n    flex-wrap: wrap;\n    align-items: center;\n    div{\n        background: ", ";\n        border-radius: 15px;\n        margin: 0 5px 5px 0;\n        p{\n            color: ", ";\n            font-size: 2vmin;\n            padding: 0 5px;\n        }\n    }\n\n"])), function (_ref7) {
+var CardContentName = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(CardContentTextParent)(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  font-size: 2.5vmin;\n  @media screen and (max-width: 550px) {\n    font-size: 3vmin;\n  }\n"])));
+var CardContentOther = (0,styled_components__WEBPACK_IMPORTED_MODULE_2__["default"])(CardContentTextParent)(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  font-size: 2vmin;\n  @media screen and (max-width: 550px) {\n    font-size: 2.5vmin;\n  }\n"])));
+var CardTagsBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  div {\n    background: ", ";\n    border-radius: 15px;\n    margin: 0 5px 5px 0;\n    p {\n      color: ", ";\n      font-size: 2vmin;\n      padding: 0 5px;\n    }\n  }\n"])), function (_ref7) {
   var theme = _ref7.theme;
   return theme.bgColor.yellowBGColor;
 }, function (_ref8) {
@@ -51410,10 +51573,10 @@ var CardTagsBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(
 
 /***/ }),
 
-/***/ "./component/style/Membership.styled.js":
-/*!**********************************************!*\
-  !*** ./component/style/Membership.styled.js ***!
-  \**********************************************/
+/***/ "./src/component/style/Membership.styled.js":
+/*!**************************************************!*\
+  !*** ./src/component/style/Membership.styled.js ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51451,7 +51614,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _Button_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button.styled */ "./component/style/Button.styled.js");
+/* harmony import */ var _Button_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button.styled */ "./src/component/style/Button.styled.js");
 
 
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11, _templateObject12, _templateObject13, _templateObject14, _templateObject15, _templateObject16, _templateObject17, _templateObject18, _templateObject19, _templateObject20, _templateObject21, _templateObject22, _templateObject23, _templateObject24, _templateObject25, _templateObject26, _templateObject27, _templateObject28, _templateObject29;
@@ -51559,10 +51722,10 @@ var Outlink = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].a(_templ
 
 /***/ }),
 
-/***/ "./component/style/Nav.styled.js":
-/*!***************************************!*\
-  !*** ./component/style/Nav.styled.js ***!
-  \***************************************/
+/***/ "./src/component/style/Nav.styled.js":
+/*!*******************************************!*\
+  !*** ./src/component/style/Nav.styled.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51597,15 +51760,15 @@ var NavContainer = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div
 });
 var NavSelf = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].nav(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    width: 1200px;\n    display: flex;\n    align-items: center;\n    @media (max-width: 1199px){\n        width:95%;\n    }\n\n\n"])));
 var LogoLink = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    text-decoration: none;\n    width: 50%;\n    \n\n    @media (max-width: 1199px){\n        width: 40%;\n    }\n    @media (max-width: 819px){\n        img{\n\n            width: 90%;\n        \n        }\n    }\n\n"])));
-var RightMenu = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].ul(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n        display: flex;\n        list-style: none;\n        width:50%;\n        justify-content: flex-end;\n        align-items: center;\n        padding:10px;\n        text-decoration: none;\n\n        @media (max-width: 1199px){\n            width: 60%;\n        }\n        @media (max-width: 600px){\n            flex-direction: row-reverse;\n            justify-content: flex-start;\n        }\n\n\n"])));
-var Item = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].li(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    margin:0 10px;\n    position: relative;\n    color: ", ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    img{\n        box-shadow:-3px -5px 8px rgb(255, 255, 255),\n        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); \n        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));\n        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));\n        width: 40px;\n        border-radius: 10px;\n        background: ", ";\n        cursor: pointer;\n        &:hover{\n            box-shadow:-3px -5px 8px rgb(255, 255, 255),\n            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);\n        }\n        \n    }\n    @media (max-width: 600px){\n        img{\n            display: none;\n        }\n        \n    }\n\n"])), function (_ref3) {
+var RightMenu = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].ul(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n        display: flex;\n        list-style: none;\n        width:50%;\n        justify-content: flex-end;\n        align-items: center;\n        padding:10px;\n        text-decoration: none;\n\n        @media (max-width: 1199px){\n            width: 60%;\n        }\n\n        @media (max-width: 600px){\n            flex-direction: row-reverse;\n            justify-content: flex-start;\n        }\n\n\n\n"])));
+var Item = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].li(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    margin:0 10px;\n    position: relative;\n    color: ", ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n\n    img{\n        box-shadow:-3px -5px 8px rgb(255, 255, 255),\n        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); \n        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));\n        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));\n        width: 40px;\n        border-radius: 10px;\n        background: ", ";\n        cursor: pointer;\n        &:hover{\n            box-shadow:-3px -5px 8px rgb(255, 255, 255),\n            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);\n        }\n        \n    }\n    @media (max-width: 600px){\n        img{\n            display: none;\n        }\n        \n    }\n\n"])), function (_ref3) {
   var theme = _ref3.theme;
   return theme.decoColor.decoOrange;
 }, function (_ref4) {
   var theme = _ref4.theme;
   return theme.bgColor.mainBGColor;
 });
-var FunctionBox = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link)(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    color: ", ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  \n    \n    img{\n        box-shadow:-3px -5px 8px rgb(255, 255, 255),\n        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); \n        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));\n        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));\n        width: 40px;\n        border-radius: 10px;\n        background: ", ";\n        cursor: pointer;\n        &:hover{\n            box-shadow:-3px -5px 8px rgb(255, 255, 255),\n            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);\n        }\n        \n    }\n    @media (max-width: 600px){\n        display: none;\n        \n    }\n\n"])), function (_ref5) {
+var FunctionBox = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["default"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link)(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n    color: ", ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n  \n\n    \n    img{\n        box-shadow:-3px -5px 8px rgb(255, 255, 255),\n        inset 10px 8px 8px -15px rgba(255, 255, 255, 0.764); \n        -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.3));\n        filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.3));\n        width: 40px;\n        border-radius: 10px;\n        background: ", ";\n        cursor: pointer;\n        &:hover{\n            box-shadow:-3px -5px 8px rgb(255, 255, 255),\n            inset 10px 10px 10px -15px rgba(135, 135, 135, 0.764);\n        }\n        \n    }\n\n    @media (max-width: 600px){\n        display: none;\n        \n    }\n\n\n"])), function (_ref5) {
   var theme = _ref5.theme;
   return theme.decoColor.decoOrange;
 }, function (_ref6) {
@@ -51643,10 +51806,10 @@ var DownNotification = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__["defaul
 
 /***/ }),
 
-/***/ "./component/style/Signin.styled.js":
-/*!******************************************!*\
-  !*** ./component/style/Signin.styled.js ***!
-  \******************************************/
+/***/ "./src/component/style/Signin.styled.js":
+/*!**********************************************!*\
+  !*** ./src/component/style/Signin.styled.js ***!
+  \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51683,10 +51846,10 @@ var SinginForm = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].form(
 
 /***/ }),
 
-/***/ "./component/style/Thankyou.styled.js":
-/*!********************************************!*\
-  !*** ./component/style/Thankyou.styled.js ***!
-  \********************************************/
+/***/ "./src/component/style/Thankyou.styled.js":
+/*!************************************************!*\
+  !*** ./src/component/style/Thankyou.styled.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51712,10 +51875,10 @@ var ButtonBox = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_t
 
 /***/ }),
 
-/***/ "./page/Account.js":
-/*!*************************!*\
-  !*** ./page/Account.js ***!
-  \*************************/
+/***/ "./src/page/Account.js":
+/*!*****************************!*\
+  !*** ./src/page/Account.js ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51733,48 +51896,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v4.js");
-/* harmony import */ var _static_picture_fb_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../static/picture/fb.png */ "./static/picture/fb.png");
-/* harmony import */ var _static_picture_linkedin_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../static/picture/linkedin.png */ "./static/picture/linkedin.png");
-/* harmony import */ var _static_picture_blog_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../static/picture/blog.png */ "./static/picture/blog.png");
-/* harmony import */ var _static_picture_headshot_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../static/picture/headshot.png */ "./static/picture/headshot.png");
-/* harmony import */ var _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../static/picture/loading.gif */ "./static/picture/loading.gif");
-/* harmony import */ var _component_Personal_PersonalTags__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/Personal/PersonalTags */ "./component/Personal/PersonalTags.js");
-/* harmony import */ var _component_Personal_PersonalShare__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../component/Personal/PersonalShare */ "./component/Personal/PersonalShare.js");
-/* harmony import */ var _component_Personal_PersonalProject__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../component/Personal/PersonalProject */ "./component/Personal/PersonalProject.js");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var _static_picture_fb_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../static/picture/fb.png */ "./static/picture/fb.png");
+/* harmony import */ var _static_picture_linkedin_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../static/picture/linkedin.png */ "./static/picture/linkedin.png");
+/* harmony import */ var _static_picture_blog_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../static/picture/blog.png */ "./static/picture/blog.png");
+/* harmony import */ var _static_picture_headshot_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../static/picture/headshot.png */ "./static/picture/headshot.png");
+/* harmony import */ var _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../static/picture/loading.gif */ "./static/picture/loading.gif");
+/* harmony import */ var _component_Personal_PersonalTags__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/Personal/PersonalTags */ "./src/component/Personal/PersonalTags.js");
+/* harmony import */ var _component_Personal_PersonalShare__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../component/Personal/PersonalShare */ "./src/component/Personal/PersonalShare.js");
+/* harmony import */ var _component_Personal_PersonalProject__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../component/Personal/PersonalProject */ "./src/component/Personal/PersonalProject.js");
+/* harmony import */ var _Firebase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../Firebase */ "./src/Firebase.js");
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
 /* harmony import */ var firebase_storage__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! firebase/storage */ "../../../../../node_modules/firebase/storage/dist/index.esm.js");
 /* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../component/style/Loading.styled */ "./component/style/Loading.styled.js");
-/* harmony import */ var _component_style_Account_styled__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../component/style/Account.styled */ "./component/style/Account.styled.js");
+/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../component/style/Loading.styled */ "./src/component/style/Loading.styled.js");
+/* harmony import */ var _component_style_Account_styled__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../component/style/Account.styled */ "./src/component/style/Account.styled.js");
 
 
 
 
 
 
- //圖片
 
 
 
 
 
- //components
 
 
 
- //Firebase modules
 
  //initializtion
 
  //check login status
 
- //upload or dowload images 
+ //upload or dowload images
 
- //useContext
 
- //styled-component
 
 
 
@@ -51808,7 +51966,7 @@ var Account = function Account() {
   (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     getInitialData();
   }, [account]);
-  var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_16__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_13__["default"]);
+  var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_16__.getFirestore)(_Firebase__WEBPACK_IMPORTED_MODULE_13__["default"]);
 
   var getInitialData = /*#__PURE__*/function () {
     var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
@@ -51924,7 +52082,7 @@ var Account = function Account() {
     setlinkNotificationClose(null);
     var content = e.target.parentElement.parentElement.children[2];
     content.select();
-    document.execCommand('copy', false, content.select());
+    document.execCommand("copy", false, content.select());
   }; //使用者輸入關鍵字區並enter後資料處理
 
 
@@ -52105,7 +52263,7 @@ var Account = function Account() {
 
               case 7:
                 //上傳至 firebase storage 並取得圖片名稱
-                storage = (0,firebase_storage__WEBPACK_IMPORTED_MODULE_15__.getStorage)(_src_Firebase__WEBPACK_IMPORTED_MODULE_13__["default"]);
+                storage = (0,firebase_storage__WEBPACK_IMPORTED_MODULE_15__.getStorage)(_Firebase__WEBPACK_IMPORTED_MODULE_13__["default"]);
                 fileRef = (0,firebase_storage__WEBPACK_IMPORTED_MODULE_15__.ref)(storage, file.name + (0,uuid__WEBPACK_IMPORTED_MODULE_21__["default"])());
                 _context3.next = 11;
                 return (0,firebase_storage__WEBPACK_IMPORTED_MODULE_15__.uploadBytes)(fileRef, file);
@@ -52150,7 +52308,6 @@ var Account = function Account() {
   };
 
   var dragOverHandler2 = function dragOverHandler2(e) {
-    // e.stopPropagation();
     e.preventDefault();
     var childrenNodeArray = Array.from(e.currentTarget.children);
     var afterElement = getAfterElement(childrenNodeArray, e.clientX);
@@ -52186,17 +52343,6 @@ var Account = function Account() {
   };
 
   var getAfterElement = function getAfterElement(childrenNodeArray, cursorX) {
-    // const newDraggableElements=childrenNodeArray.filter(child=>child.className.indexOf("dragging")==-1);
-    // return newDraggableElements.reduce((initValue,afterElement)=>{
-    // const afterElementInfo=afterElement.getBoundingClientRect();
-    // const offset = cursorX - afterElementInfo.left - afterElementInfo.width/2;
-    // console.log("cursor:",cursorX,"left:",afterElementInfo.left,"width:",afterElementInfo.width,"offset:",offset)
-    //     if(offset<0 && offset> initValue.offset){
-    //         return afterElement;
-    //     }else{
-    //         return null;
-    //     }
-    // }, { offset: Number.NEGATIVE_INFINITY })
     var newDraggableElements = childrenNodeArray.filter(function (child) {
       return child.children[0].className.indexOf("dragging") == -1;
     });
@@ -52346,10 +52492,10 @@ var Account = function Account() {
 
 /***/ }),
 
-/***/ "./page/Ask.js":
-/*!*********************!*\
-  !*** ./page/Ask.js ***!
-  \*********************/
+/***/ "./src/page/Ask.js":
+/*!*************************!*\
+  !*** ./src/page/Ask.js ***!
+  \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -52364,28 +52510,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var _static_picture_ask_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../static/picture/ask.png */ "./static/picture/ask.png");
-/* harmony import */ var _static_picture_info_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../static/picture/info.png */ "./static/picture/info.png");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var _static_picture_ask_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/picture/ask.png */ "./static/picture/ask.png");
+/* harmony import */ var _static_picture_info_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../static/picture/info.png */ "./static/picture/info.png");
+/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../src/Firebase */ "./src/Firebase.js");
 /* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
 /* harmony import */ var firebase_database__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! firebase/database */ "../../../../../node_modules/firebase/database/dist/index.esm.js");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/style/Ask.styled */ "./component/style/Ask.styled.js");
-/* harmony import */ var _component_style_Button_styled__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../component/style/Button.styled */ "./component/style/Button.styled.js");
+/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/style/Ask.styled */ "./src/component/style/Ask.styled.js");
+/* harmony import */ var _component_style_Button_styled__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../component/style/Button.styled */ "./src/component/style/Button.styled.js");
 
 
 
 
- //圖片
-
-
- //Firebase modules
 
 
 
- //useContext
 
- //styled-component
+
+
 
 
 
@@ -52472,42 +52614,42 @@ var Ask = function Ask() {
       tapStatusss = false;
       var appKey = "app_xyfjgLvgneQFUa5boIt6pIBxdg6OgsenEvmxIK7Q3gKVFVBRjd8nyQ4Qtxqi";
       var appId = 123999;
-      TPDirect.setupSDK(appId, appKey, 'sandbox');
+      TPDirect.setupSDK(appId, appKey, "sandbox");
       var fields = {
         number: {
-          element: '#card-number',
-          placeholder: '**** **** **** ****'
+          element: "#card-number",
+          placeholder: "**** **** **** ****"
         },
         expirationDate: {
-          element: '#card-expiration-date',
-          placeholder: 'MM / YY'
+          element: "#card-expiration-date",
+          placeholder: "MM / YY"
         },
         ccv: {
-          element: '#card-ccv',
-          placeholder: 'ccv'
+          element: "#card-ccv",
+          placeholder: "ccv"
         }
       };
       TPDirect.card.setup({
         fields: fields,
         styles: {
           // Style all elements
-          'input': {
-            'color': 'gray',
-            'font-size': '24px'
+          input: {
+            color: "gray",
+            "font-size": "24px"
           },
           // style valid state
-          '.valid': {
-            'color': 'green'
+          ".valid": {
+            color: "green"
           },
           // style invalid state
-          '.invalid': {
-            'color': 'red'
+          ".invalid": {
+            color: "red"
           },
           // Media queries
           // Note that these apply to the iframe, not the root window.
-          '@media screen and (max-width: 400px)': {
-            'input': {
-              'color': 'orange'
+          "@media screen and (max-width: 400px)": {
+            input: {
+              color: "orange"
             }
           }
         }
@@ -52542,12 +52684,12 @@ var Ask = function Ask() {
 
       var prime = result.card.prime;
       fetch("https://us-central1-coffee-chat-together.cloudfunctions.net/getPay", {
-        method: 'POST',
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          "primenum": prime
+          primenum: prime
         })
       }).then(function (response) {
         var result = response.json();
@@ -52589,7 +52731,7 @@ var Ask = function Ask() {
 
             case 3:
               database = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_6__["default"]);
-              (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.set)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, 'order/' + orderNum), {
+              (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.set)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "order/" + orderNum), {
                 orderNum: orderNum,
                 payment: true,
                 askAccount: account,
@@ -52618,12 +52760,12 @@ var Ask = function Ask() {
   var copyNum = function copyNum(e) {
     var content = e.target.parentElement.children[0];
     content.select();
-    document.execCommand('copy', false, content.select());
+    document.execCommand("copy", false, content.select());
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.AskForm, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.AskConsultantBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
     src: headshot
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "Hi, \u6211\u662F ", consultantName, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u5F88\u9AD8\u8208\u8207\u4F60\u5206\u4EAB\u6211\u7684\u7D93\u9A57!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.Bar, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.QuestionBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.Notification, null, "\u63D0\u554F\u524D\u53EF\u4EE5\u63D0\u4F9B\u60A8\u8A8D\u70BA\u6709\u52A9\u5206\u4EAB\u8005\u56DE\u8986\u60A8\u554F\u984C\u7684\u76F8\u95DC\u500B\u4EBA\u8CC7\u8A0A\u3002\u8B93 ", consultantName, " \u80FD\u66F4\u6E96\u78BA\u5730\u56DE\u8986\u60A8\u7684\u63D0\u554F\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.SingleQuestion, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "Hi, \u6211\u662F ", consultantName, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u5F88\u9AD8\u8208\u8207\u4F60\u5206\u4EAB\u6211\u7684\u7D93\u9A57!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.Bar, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.QuestionBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.Notification, null, "\u63D0\u554F\u524D\u53EF\u4EE5\u63D0\u4F9B\u60A8\u8A8D\u70BA\u6709\u52A9\u5206\u4EAB\u8005\u56DE\u8986\u60A8\u554F\u984C\u7684\u76F8\u95DC\u500B\u4EBA\u8CC7\u8A0A\u3002\u8B93", " ", consultantName, " \u80FD\u66F4\u6E96\u78BA\u5730\u56DE\u8986\u60A8\u7684\u63D0\u554F\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Ask_styled__WEBPACK_IMPORTED_MODULE_10__.SingleQuestion, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
     className: "ask-icon",
     src: _static_picture_info_png__WEBPACK_IMPORTED_MODULE_5__
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "\u4F60\u7684\u8CC7\u8A0A\uFF1A")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("textarea", {
@@ -52678,10 +52820,10 @@ var Ask = function Ask() {
 
 /***/ }),
 
-/***/ "./page/Homepage.js":
-/*!**************************!*\
-  !*** ./page/Homepage.js ***!
-  \**************************/
+/***/ "./src/page/Homepage.js":
+/*!******************************!*\
+  !*** ./src/page/Homepage.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -52693,20 +52835,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var _component_homepage_Section1__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../component/homepage/Section1 */ "./component/homepage/Section1.js");
-/* harmony import */ var _component_homepage_Section2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../component/homepage/Section2 */ "./component/homepage/Section2.js");
-/* harmony import */ var _component_homepage_Section3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/homepage/Section3 */ "./component/homepage/Section3.js");
-/* harmony import */ var _static_picture_downarrow_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../static/picture/downarrow.png */ "./static/picture/downarrow.png");
-/* harmony import */ var _component_style_Homepage_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../component/style/Homepage.styled */ "./component/style/Homepage.styled.js");
-
-
- //component
+/* harmony import */ var _component_homepage_Section1__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../component/homepage/Section1 */ "./src/component/homepage/Section1.js");
+/* harmony import */ var _component_homepage_Section2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../component/homepage/Section2 */ "./src/component/homepage/Section2.js");
+/* harmony import */ var _component_homepage_Section3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/homepage/Section3 */ "./src/component/homepage/Section3.js");
+/* harmony import */ var _static_picture_downarrow_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../static/picture/downarrow.png */ "./static/picture/downarrow.png");
+/* harmony import */ var _component_style_Homepage_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../component/style/Homepage.styled */ "./src/component/style/Homepage.styled.js");
 
 
 
- //圖片
 
- //styled-component
+
+
 
 
 
@@ -52768,10 +52907,10 @@ var Homepage = function Homepage() {
 
 /***/ }),
 
-/***/ "./page/Inbox.js":
-/*!***********************!*\
-  !*** ./page/Inbox.js ***!
-  \***********************/
+/***/ "./src/page/Inbox.js":
+/*!***************************!*\
+  !*** ./src/page/Inbox.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -52783,26 +52922,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
-/* harmony import */ var firebase_database__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! firebase/database */ "../../../../../node_modules/firebase/database/dist/index.esm.js");
-/* harmony import */ var _static_picture_defaultmessage_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../static/picture/defaultmessage.png */ "./static/picture/defaultmessage.png");
-/* harmony import */ var _static_picture_talk_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../static/picture/talk.png */ "./static/picture/talk.png");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../component/style/Inbox.styled */ "./component/style/Inbox.styled.js");
+/* harmony import */ var _static_picture_defaultmessage_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../static/picture/defaultmessage.png */ "./static/picture/defaultmessage.png");
+/* harmony import */ var _static_picture_talk_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../static/picture/talk.png */ "./static/picture/talk.png");
+/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../component/style/Inbox.styled */ "./src/component/style/Inbox.styled.js");
+/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
+/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var firebase_database__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! firebase/database */ "../../../../../node_modules/firebase/database/dist/index.esm.js");
 
 
- //Firebase modules
 
 
- // import Firebase from "../src/Firebase";
-
- //圖片
 
 
- //useContext
 
- //styled-component
+
 
 
 
@@ -52811,7 +52945,7 @@ var Inbox = function Inbox(_ref) {
   var DOMref = _ref.DOMref;
 
   //useContext取得共用state
-  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_7__.GetGlobalContext)(),
+  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_4__.GetGlobalContext)(),
       account = _GetGlobalContext.account,
       setAccount = _GetGlobalContext.setAccount,
       askUnreadRef = _GetGlobalContext.askUnreadRef,
@@ -52820,8 +52954,8 @@ var Inbox = function Inbox(_ref) {
 
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useNavigate)();
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.getAuth)();
-    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.onAuthStateChanged)(auth, function (user) {
+    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.getAuth)();
+    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_6__.onAuthStateChanged)(auth, function (user) {
       if (user) {
         setAccount(user.uid);
       } else {
@@ -52847,8 +52981,8 @@ var Inbox = function Inbox(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     if (id !== "default") {
       msgContentRef.current = [];
-      var dbRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_3__["default"]));
-      (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.get)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.child)(dbRef, "inbox/".concat(id))).then(function (snapshot) {
+      var dbRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_7__["default"]));
+      (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.get)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.child)(dbRef, "inbox/".concat(id))).then(function (snapshot) {
         if (snapshot.exists()) {
           var data = snapshot.val();
 
@@ -52871,11 +53005,11 @@ var Inbox = function Inbox(_ref) {
       msgList = _useState6[0],
       setMsgList = _useState6[1];
 
-  var database = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_3__["default"]);
-  var inboxRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, 'inbox/'));
+  var database = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_7__["default"]);
+  var inboxRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/"));
   var msgRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(); //儲存 state 前，先使用 Ref 保存避免過度渲染
 
-  (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.onValue)(inboxRef, function (snapshot) {
+  (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.onValue)(inboxRef, function (snapshot) {
     var data = snapshot.val();
     var keys = Object.keys(data);
     msgRef.current = [];
@@ -52929,46 +53063,12 @@ var Inbox = function Inbox(_ref) {
     e.preventDefault();
 
     if (e.target.parentElement.children[0].value != "") {
-      //     const dbRef=getDatabase(firebase);
-      //     let msgdata={};
-      //     // A post entry.
-      //     if(msgRole === "ask"){
-      //         msgdata = {
-      //             from: "ask",
-      //             content: preMsgRef.current,
-      //             time: Date.now(),
-      //             read: false
-      //         };
-      //     }
-      //     if(msgRole === "consultant"){
-      //         msgdata = {
-      //             from: "reply",
-      //             content: preMsgRef.current,
-      //             time: Date.now(),
-      //             read: false
-      //         }
-      //     }
-      // // Get a key for a new Post.
-      // const newMsgtKey = push(child(ref(dbRef), `inbox/${id}/message`)).key;
-      // console.log(newMsgtKey);
-      // // Write the new post's data simultaneously in the posts list and the user's post list.
-      // const updates = {};
-      // updates[`inbox/${id}/message/` + newMsgtKey] = msgdata;
-      // return update(ref(dbRef), updates)
-      // .then(()=>{
-      //     console.log("成功")
-      //     preMsgRef.current = "";
-      // 	e.target.parentElement.children[0].value = "";
-      // })
-      // .catch(error=>{
-      //     console.log(error)
-      // });
-      var msgListRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, "inbox/".concat(id, "/message"));
-      var newMsgRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.push)(msgListRef);
+      var msgListRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/".concat(id, "/message"));
+      var newMsgRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.push)(msgListRef);
 
       if (msgRole === "ask") {
         console.log("ask set");
-        (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.set)(newMsgRef, {
+        (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.set)(newMsgRef, {
           from: "ask",
           content: preMsgRef.current,
           time: Date.now(),
@@ -52980,11 +53080,9 @@ var Inbox = function Inbox(_ref) {
         });
       }
 
-      ;
-
       if (msgRole === "consultant") {
         console.log("consult set");
-        (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.set)(newMsgRef, {
+        (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.set)(newMsgRef, {
           from: "reply",
           content: preMsgRef.current,
           time: Date.now(),
@@ -53008,13 +53106,13 @@ var Inbox = function Inbox(_ref) {
     }
   }, [msgContent]);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var singleMsgRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, "inbox/".concat(id, "/message")));
+    var singleMsgRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/".concat(id, "/message")));
 
     if (id === "default" || account === null || msgRole === null) {
       return;
     }
 
-    (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.onValue)(singleMsgRef, function (snapshot) {
+    (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.onValue)(singleMsgRef, function (snapshot) {
       var data = snapshot.val();
       var keys = Object.keys(data);
       msgContentRef.current = [];
@@ -53071,8 +53169,8 @@ var Inbox = function Inbox(_ref) {
 
 
   var readMsg = function readMsg() {
-    var dbRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_3__["default"]));
-    (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.get)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.child)(dbRef, "inbox/".concat(id, "/message"))).then(function (snapshot) {
+    var dbRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.getDatabase)(_src_Firebase__WEBPACK_IMPORTED_MODULE_7__["default"]));
+    (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.get)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.child)(dbRef, "inbox/".concat(id, "/message"))).then(function (snapshot) {
       if (snapshot.exists()) {
         var keys = Object.keys(snapshot.val());
         var allMsg = snapshot.val(); //當帳號角色在此訊息中為提問者，將執行以下程式碼
@@ -53081,10 +53179,10 @@ var Inbox = function Inbox(_ref) {
           keys.forEach(function (key) {
             if (allMsg[key]["from"] === "reply" && allMsg[key]["read"] === false) {
               replyUnreadRef.current = replyUnreadRef.current - 1;
-              (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, "inbox/".concat(id, "/")), {
+              (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/".concat(id, "/")), {
                 replyUnread: replyUnreadRef.current
               });
-              (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, "inbox/".concat(id, "/message/").concat(key)), {
+              (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/".concat(id, "/message/").concat(key)), {
                 read: true
               });
             }
@@ -53096,10 +53194,10 @@ var Inbox = function Inbox(_ref) {
           keys.forEach(function (key) {
             if (allMsg[key]["from"] === "ask" && allMsg[key]["read"] === false) {
               askUnreadRef.current = askUnreadRef.current - 1;
-              (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, "inbox/".concat(id, "/")), {
+              (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/".concat(id, "/")), {
                 askUnread: askUnreadRef.current
               });
-              (0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_4__.ref)(database, "inbox/".concat(id, "/message/").concat(key)), {
+              (0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.update)((0,firebase_database__WEBPACK_IMPORTED_MODULE_8__.ref)(database, "inbox/".concat(id, "/message/").concat(key)), {
                 read: true
               });
             }
@@ -53113,40 +53211,40 @@ var Inbox = function Inbox(_ref) {
     });
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxLeft, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxLeft, {
     closeCheck: closeCheck
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxLeftController, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxLeftController, {
     onClick: showMsgList,
     closeCheck: closeCheck
-  }, "\u3009"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxLeftTitle, null, "\u8A0A\u606F\u5217\u8868"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxLeftList, null, msgList.length !== 0 && msgList.map(function (msg) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SingleMsg, {
+  }, "\u3009"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxLeftTitle, null, "\u8A0A\u606F\u5217\u8868"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxLeftList, null, msgList.length !== 0 && msgList.map(function (msg) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SingleMsg, {
       to: "/inbox/".concat(msg["msgId"]),
       onClick: readMsg
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SingleMsgP, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SingleMsgP, {
       onClick: selectCss,
       select: select
     }, msg["content"]));
-  }), msgList.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.DefaultMsg, {
+  }), msgList.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.DefaultMsg, {
     className: "msgList-default"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("img", {
-    src: _static_picture_talk_png__WEBPACK_IMPORTED_MODULE_6__
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "\u9084\u6C92\u6709\u8A0A\u606F\uFF0C\u958B\u59CB\u767C\u554F\u804A\u5929\u5427!")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxRight, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxRightTitle, null, "\u8A0A\u606F\u5167\u5BB9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.InboxRightContent, {
+    src: _static_picture_talk_png__WEBPACK_IMPORTED_MODULE_3__
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "\u9084\u6C92\u6709\u8A0A\u606F\uFF0C\u958B\u59CB\u767C\u554F\u804A\u5929\u5427!")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxRight, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxRightTitle, null, "\u8A0A\u606F\u5167\u5BB9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.InboxRightContent, {
     ref: DOMref
-  }, id === "default" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.DefaultContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("img", {
-    src: _static_picture_defaultmessage_png__WEBPACK_IMPORTED_MODULE_5__
+  }, id === "default" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.DefaultContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("img", {
+    src: _static_picture_defaultmessage_png__WEBPACK_IMPORTED_MODULE_2__
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "\u9EDE\u64CA\u5DE6\u65B9\u8A0A\u606F\u67E5\u770B\u5167\u5BB9")), msgContent ? msgContent.map(function (msg) {
     if (msgRole === "consultant" && msg["from"] === "ask") {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReceiveMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReceiveMsg, null, msg["content"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReceiveMsgBlank, null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReceiveMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReceiveMsg, null, msg["content"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReceiveMsgBlank, null));
     } else if (msgRole === "consultant" && msg["from"] === "reply") {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SendMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SendMsgBlank, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SendMsg, null, msg["content"]));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SendMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SendMsgBlank, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SendMsg, null, msg["content"]));
     }
 
     if (msgRole === "ask" && msg["from"] === "ask") {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SendMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SendMsgBlank, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.SendMsg, null, msg["content"]));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SendMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SendMsgBlank, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.SendMsg, null, msg["content"]));
     } else if (msgRole === "ask" && msg["from"] === "reply") {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReceiveMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReceiveMsg, null, msg["content"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReceiveMsgBlank, null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReceiveMsgBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReceiveMsg, null, msg["content"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReceiveMsgBlank, null));
     }
-  }) : undefined), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_8__.ReplyBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("textarea", {
+  }) : undefined), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_component_style_Inbox_styled__WEBPACK_IMPORTED_MODULE_5__.ReplyBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("textarea", {
     placeholder: "\u8F38\u5165\u8A0A\u606F",
     rows: "1",
     onChange: getReplyContent,
@@ -53161,10 +53259,10 @@ var Inbox = function Inbox(_ref) {
 
 /***/ }),
 
-/***/ "./page/Memberlist.js":
-/*!****************************!*\
-  !*** ./page/Memberlist.js ***!
-  \****************************/
+/***/ "./src/page/Memberlist.js":
+/*!********************************!*\
+  !*** ./src/page/Memberlist.js ***!
+  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -53178,22 +53276,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../static/picture/loading.gif */ "./static/picture/loading.gif");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
-/* harmony import */ var _component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../component/style/Memberlist.styled */ "./component/style/Memberlist.styled.js");
-/* harmony import */ var _component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../component/style/Loading.styled */ "./component/style/Loading.styled.js");
+/* harmony import */ var _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/picture/loading.gif */ "./static/picture/loading.gif");
+/* harmony import */ var _component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../component/style/Memberlist.styled */ "./src/component/style/Memberlist.styled.js");
+/* harmony import */ var _component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../component/style/Loading.styled */ "./src/component/style/Loading.styled.js");
+/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
 
 
 
- //圖片
 
- //Firebase modules
+
+
 
  //initializtion
-
- //styled-component
-
 
 
 
@@ -53204,9 +53299,8 @@ var Memberlist = function Memberlist() {
       memberlist = _useState2[0],
       setMemberlist = _useState2[1];
 
-  var memberlistRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)([]); //搭配useRef避免過度渲染
-
-  var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]); //一載入頁面就抓取會員資料
+  var memberlistRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)([]);
+  var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_7__["default"]); //一載入頁面就抓取會員資料
 
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     function getMemberlist() {
@@ -53221,7 +53315,7 @@ var Memberlist = function Memberlist() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.getDocs)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.collection)(db, "user"));
+                return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.getDocs)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_8__.collection)(db, "user"));
 
               case 2:
                 querySnapshot = _context.sent;
@@ -53245,22 +53339,22 @@ var Memberlist = function Memberlist() {
 
     getMemberlist();
   }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_8__.Loading, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_6__.Loading, {
     src: _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_4__,
     closeCheck: memberlist
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.SearchBanner, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.SearchBanner, {
     closeCheck: memberlist
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "Ask Me Anything!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.MemberlistBox, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "Ask Me Anything!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.MemberlistBox, {
     closeCheck: memberlist
   }, memberlist ? memberlist.map(function (data) {
     if (data["info"]["basic"]["username"] && data["info"]["basic"]["title"] && data["info"]["basic"]["username"] && data["info"]["basic"]["welcome"]) {
       var id = data["id"];
       var tags = data["info"]["detail"]["keyword"];
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.MemberCard, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.MemberCard, {
         to: "/membership/".concat(id)
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.Headshot, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.Headshot, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
         src: data["info"]["basic"]["headshot"]
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.MemberCardContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.CardContentName, null, data["info"]["basic"]["username"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.CardContentOther, null, data["info"]["basic"]["title"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.CardContentOther, null, data["info"]["basic"]["welcome"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_7__.CardTagsBox, null, tags.map(function (tag, index) {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.MemberCardContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.CardContentName, null, data["info"]["basic"]["username"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.CardContentOther, null, data["info"]["basic"]["title"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.CardContentOther, null, data["info"]["basic"]["welcome"]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Memberlist_styled__WEBPACK_IMPORTED_MODULE_5__.CardTagsBox, null, tags.map(function (tag, index) {
         if (index < 5) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", {
             className: "memberlist-card-tag"
@@ -53275,424 +53369,10 @@ var Memberlist = function Memberlist() {
 
 /***/ }),
 
-/***/ "./page/Signin.js":
-/*!************************!*\
-  !*** ./page/Signin.js ***!
-  \************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../static/picture/logo2.png */ "./static/picture/logo2.png");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
-/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../component/style/Signin.styled */ "./component/style/Signin.styled.js");
-/* harmony import */ var _component_style_Button_styled__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/style/Button.styled */ "./component/style/Button.styled.js");
-
-
-
-
-
- //firebase modules
-
-
-
- //useContext
-
- //styled-component
-
-
-
-
-var Signin = function Signin() {
-  //useContext取得共用state
-  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_8__.GetGlobalContext)(),
-      account = _GetGlobalContext.account,
-      setAccount = _GetGlobalContext.setAccount,
-      username = _GetGlobalContext.username,
-      setUsername = _GetGlobalContext.setUsername; //觸發styled-component css的state,用來控制顯示或隱藏表單
-
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("signup signup-hide"),
-      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
-      signupCSS = _useState2[0],
-      setSignupCSS = _useState2[1];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("signin"),
-      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
-      signinCSS = _useState4[0],
-      setSigninCSS = _useState4[1]; //放置註冊或登入的信箱及密碼的state
-
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("test@gmail.com"),
-      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
-      email = _useState6[0],
-      setEmail = _useState6[1];
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("testtest"),
-      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
-      password = _useState8[0],
-      setPassword = _useState8[1]; //偵測註冊表單的輸入資料
-
-
-  var passwordCheck;
-
-  var register = function register(e) {
-    if (e.target.id === "signup-username") {
-      var value = e.target.value;
-      setUsername(value);
-    } else if (e.target.id === "signup-email") {
-      var _value = e.target.value;
-      setEmail(_value);
-    } else if (e.target.id === "signup-password") {
-      var _value2 = e.target.value;
-      setPassword(_value2);
-    } else {
-      if (password.length < 6) {
-        alert("密碼少於六字，請確認");
-        return;
-      }
-
-      if (e.target.value === password) {
-        passwordCheck = true;
-      } else {
-        passwordCheck = false;
-      }
-    }
-  }; //偵測會員登入表單偵測
-
-
-  var signin = function signin(e) {
-    if (e.target.id === "signin-email") {
-      setEmail(e.target.value);
-    } else {
-      setPassword(e.target.value);
-    }
-  }; //當會員註冊成功，觸發以下 useEffect 建立個人資料
-
-
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-      _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
-      trigger = _useState10[0],
-      setTrigger = _useState10[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    if (trigger === "true") {
-      initialData();
-    } else {
-      return;
-    }
-  }, [account]);
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
-
-  var initialData = /*#__PURE__*/function () {
-    var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
-      var db;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
-              _context.next = 3;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.setDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.doc)(db, "user", account), {
-                basic: {
-                  username: username,
-                  title: null,
-                  welcome: null,
-                  headshot: null
-                },
-                link: {
-                  fb: null,
-                  linkedin: null,
-                  blog: null
-                },
-                detail: {
-                  intro: null,
-                  keyword: [],
-                  share: [{
-                    num: 1,
-                    title: "",
-                    content: ""
-                  }, {
-                    num: 2,
-                    title: "",
-                    content: ""
-                  }, {
-                    num: 3,
-                    title: "",
-                    content: ""
-                  }],
-                  project: [{
-                    cover: null,
-                    type: null,
-                    content: null,
-                    link: null
-                  }, {
-                    cover: null,
-                    type: null,
-                    content: null,
-                    link: null
-                  }, {
-                    cover: null,
-                    type: null,
-                    content: null,
-                    link: null
-                  }]
-                },
-                user: {
-                  email: email,
-                  password: password
-                }
-              });
-
-            case 3:
-              navigate("/account");
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function initialData() {
-      return _ref.apply(this, arguments);
-    };
-  }(); //依照使用者按下的按鈕，觸發登入或註冊會員功能
-
-
-  var submit = function submit(e) {
-    e.preventDefault();
-
-    if (e.target.innerText === "註冊會員") {
-      if (passwordCheck === false) {
-        alert("密碼二次確認錯誤");
-        return;
-      } else {
-        if (!username || !email || !password) {
-          alert("註冊資料缺漏，請確認");
-          return;
-        }
-
-        if (email) {
-          var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-
-          if (email.search(emailRule) == -1) {
-            alert("非有效Email");
-            return;
-          }
-        }
-      }
-
-      createAccount();
-    } else {
-      getSignin(email, password);
-    }
-  };
-
-  var createAccount = function createAccount() {
-    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_7__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
-    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_7__.createUserWithEmailAndPassword)(auth, email, password).then(function (userCredential) {
-      var user = userCredential.user;
-      setTrigger("true");
-      setAccount(user.uid);
-    })["catch"](function (error) {
-      var errorMessage = error.message;
-      alert(errorMessage);
-    });
-  };
-
-  var getSignin = function getSignin(email, password) {
-    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_7__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
-    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_7__.signInWithEmailAndPassword)(auth, email, password).then(function (userCredential) {
-      var user = userCredential.user;
-
-      if (user) {
-        var newId = JSON.parse(JSON.stringify(user.uid));
-        setAccount(newId);
-      }
-    })["catch"](function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    });
-  };
-
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    getUserdata();
-  }, [account]);
-
-  var getUserdata = /*#__PURE__*/function () {
-    var _ref2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2() {
-      var db, docRef, docSnap, userData;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_5__["default"]);
-              docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.doc)(db, "user", account);
-              _context2.next = 4;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_6__.getDoc)(docRef);
-
-            case 4:
-              docSnap = _context2.sent;
-
-              if (docSnap.exists()) {
-                userData = docSnap.data();
-                setUsername(userData["basic"]["username"]);
-                navigate("/account");
-              } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-              }
-
-            case 6:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function getUserdata() {
-      return _ref2.apply(this, arguments);
-    };
-  }(); //改變會員表單
-
-
-  var changeForm = function changeForm(e) {
-    if (e.target.innerText === "已經是會員? 點我登入") {
-      setSignupCSS("signup signup-hide");
-      setSigninCSS("signin");
-    } else {
-      setSignupCSS("signup");
-      setSigninCSS("signin signin-hide");
-    }
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.Main, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.SingupForm, {
-    hideControl: signupCSS
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.Logo, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
-    src: _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_4__
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.CTAtitle, null, " \u52A0\u5165\u5496\u5561\u5708\u5708 \u958B\u59CB\u8CC7\u8A0A\u4EA4\u6D41 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.InputLabel, {
-    htmlFor: "signup-username"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u4F7F\u7528\u8005\u540D\u7A31"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
-    id: "signup-username",
-    required: true,
-    onChange: register
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.InputLabel, {
-    htmlFor: "signup-email"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8A3B\u518A\u4FE1\u7BB1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
-    id: "signup-email",
-    required: true,
-    onChange: register
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.InputLabel, {
-    htmlFor: "signup-password"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8A3B\u518A\u5BC6\u78BC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
-    id: "signup-password",
-    required: true,
-    onChange: register
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.InputLabel, {
-    htmlFor: "signup-checkpsw"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u518D\u6B21\u78BA\u8A8D"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
-    id: "signup-checkpsw",
-    required: true,
-    onChange: register
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Button_styled__WEBPACK_IMPORTED_MODULE_10__.Button, {
-    type: "submit",
-    onClick: submit
-  }, "\u8A3B\u518A\u6703\u54E1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.SignupChangeTrigger, {
-    onClick: changeForm
-  }, "\u5DF2\u7D93\u662F\u6703\u54E1? \u9EDE\u6211\u767B\u5165")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.SinginForm, {
-    hideControl: signinCSS
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.Logo, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
-    src: _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_4__
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.CTAtitle, null, " \u52A0\u5165\u5496\u5561\u5708\u5708 \u958B\u59CB\u8CC7\u8A0A\u4EA4\u6D41 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.InputLabel, {
-    htmlFor: "signin-email"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8F38\u5165\u4FE1\u7BB1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
-    type: "email",
-    id: "signin-email",
-    required: true,
-    onChange: signin,
-    value: email
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.InputLabel, {
-    htmlFor: "signin-password"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8F38\u5165\u5BC6\u78BC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
-    type: "password",
-    id: "signin-password",
-    required: true,
-    onChange: signin,
-    value: password
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Button_styled__WEBPACK_IMPORTED_MODULE_10__.Button, {
-    type: "submit",
-    onClick: submit
-  }, "\u767B\u5165\u6703\u54E1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_9__.SignupChangeTrigger, {
-    onClick: changeForm
-  }, "\u9084\u4E0D\u662F\u6703\u54E1? \u9EDE\u6211\u8A3B\u518A")));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Signin);
-
-/***/ }),
-
-/***/ "./page/Thankyou.js":
-/*!**************************!*\
-  !*** ./page/Thankyou.js ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var _static_picture_coffee2_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../static/picture/coffee2.png */ "./static/picture/coffee2.png");
-/* harmony import */ var _component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../component/style/Thankyou.styled */ "./component/style/Thankyou.styled.js");
-
- //圖片
-
-
-
-
-var Thankyou = function Thankyou() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", {
-    className: "thankyou-main"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__.ThankyouBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
-    src: _static_picture_coffee2_png__WEBPACK_IMPORTED_MODULE_1__
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__.ThankyouRight, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
-    className: "thankyou-content"
-  }, "\u611F\u8B1D\u4F60\u7684\u5496\u5561!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "\u8ACB\u7559\u610F\u8A0A\u606F\u5323\u7684\u56DE\u8986\u901A\u77E5"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__.ButtonBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-    to: "/inbox/default",
-    className: "thankyou-inbox"
-  }, "\u524D\u5F80\u8A0A\u606F\u5323"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-    to: "/memberlist",
-    className: "thankyou-memberlist"
-  }, "\u7E7C\u7E8C\u627E\u804A\u5929\u5C0D\u8C61")))));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Thankyou);
-
-/***/ }),
-
-/***/ "./page/membership.js":
-/*!****************************!*\
-  !*** ./page/membership.js ***!
-  \****************************/
+/***/ "./src/page/Membership.js":
+/*!********************************!*\
+  !*** ./src/page/Membership.js ***!
+  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -53706,25 +53386,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var _static_picture_fb_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../static/picture/fb.png */ "./static/picture/fb.png");
-/* harmony import */ var _static_picture_linkedin_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../static/picture/linkedin.png */ "./static/picture/linkedin.png");
-/* harmony import */ var _static_picture_blog_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../static/picture/blog.png */ "./static/picture/blog.png");
-/* harmony import */ var _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../static/picture/loading.gif */ "./static/picture/loading.gif");
-/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../src/Firebase */ "./src/Firebase.js");
-/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
-/* harmony import */ var _component_membership_MembershipProjects__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/membership/MembershipProjects */ "./component/membership/MembershipProjects.js");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../component/style/Membership.styled */ "./component/style/Membership.styled.js");
-/* harmony import */ var _component_style_Button_styled__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../component/style/Button.styled */ "./component/style/Button.styled.js");
-/* harmony import */ var _component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../component/style/Loading.styled */ "./component/style/Loading.styled.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _static_picture_fb_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/picture/fb.png */ "./static/picture/fb.png");
+/* harmony import */ var _static_picture_linkedin_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../static/picture/linkedin.png */ "./static/picture/linkedin.png");
+/* harmony import */ var _static_picture_blog_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../static/picture/blog.png */ "./static/picture/blog.png");
+/* harmony import */ var _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../static/picture/loading.gif */ "./static/picture/loading.gif");
+/* harmony import */ var _component_membership_MembershipProjects__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../component/membership/MembershipProjects */ "./src/component/membership/MembershipProjects.js");
+/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../component/style/Membership.styled */ "./src/component/style/Membership.styled.js");
+/* harmony import */ var _component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../component/style/Loading.styled */ "./src/component/style/Loading.styled.js");
+/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
 
 
 
-//React modules
 
- //png pictures
+
+
+
+
+
+
 
 
 
@@ -53733,32 +53416,22 @@ __webpack_require__.r(__webpack_exports__);
 
  //initializtion
 
- //components
-
- //useContext
-
- //styled-component
-
-
-
-
-
 
 
 var Membership = function Membership() {
   //useContext取得共用state
-  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_11__.GetGlobalContext)(),
+  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_9__.GetGlobalContext)(),
       account = _GetGlobalContext.account,
       username = _GetGlobalContext.username,
       setUsername = _GetGlobalContext.setUsername,
       setOrderNum = _GetGlobalContext.setOrderNum; //取得 URL parameter,對應資料庫編號取得會員資料
 
 
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useParams)(),
       id = _useParams.id; //取得會員資料
 
 
-  var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_8__["default"]);
+  var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_12__["default"]);
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     closeRef.current = 0;
 
@@ -53769,9 +53442,9 @@ var Membership = function Membership() {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.doc)(db, "user", id);
+                docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.doc)(db, "user", id);
                 _context.next = 3;
-                return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getDoc)(docRef);
+                return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.getDoc)(docRef);
 
               case 3:
                 docSnap = _context.sent;
@@ -53909,10 +53582,10 @@ var Membership = function Membership() {
               setProjects(userData["detail"]["project"]);
               setEmail(userData["user"]["email"]);
               closeRef.current = 0;
-              db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_8__["default"]);
-              getConsultAccountQuery = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.query)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.collection)(db, "user"), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.where)("user.email", "==", userData["user"]["email"]));
+              db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_12__["default"]);
+              getConsultAccountQuery = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.collection)(db, "user"), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.where)("user.email", "==", userData["user"]["email"]));
               _context2.next = 16;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getDocs)(getConsultAccountQuery);
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.getDocs)(getConsultAccountQuery);
 
             case 16:
               docs = _context2.sent;
@@ -53937,7 +53610,7 @@ var Membership = function Membership() {
   }(); //使用者按下提問後建立事前訂單資料,若未登入將阻止使用者提問
 
 
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
 
   var buildAsk = /*#__PURE__*/function () {
     var _ref3 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee4(e) {
@@ -53954,7 +53627,7 @@ var Membership = function Membership() {
                       switch (_context3.prev = _context3.next) {
                         case 0:
                           _context3.next = 2;
-                          return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.deleteDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.doc)(db, "pre-order", docitem.id));
+                          return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.deleteDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.doc)(db, "pre-order", docitem.id));
 
                         case 2:
                         case "end":
@@ -53977,9 +53650,9 @@ var Membership = function Membership() {
                 break;
               }
 
-              checkQuery = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.query)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.collection)(db, "pre-order"), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.where)("account", "==", account), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.where)("consultantEmail", "==", memberEmail), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.where)("payment", "==", null));
+              checkQuery = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.collection)(db, "pre-order"), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.where)("account", "==", account), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.where)("consultantEmail", "==", memberEmail), (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.where)("payment", "==", null));
               _context4.next = 7;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getDocs)(checkQuery);
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.getDocs)(checkQuery);
 
             case 7:
               docs = _context4.sent;
@@ -53998,9 +53671,9 @@ var Membership = function Membership() {
               return _context4.abrupt("return");
 
             case 13:
-              userDocRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.doc)(db, "user", account);
+              userDocRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.doc)(db, "user", account);
               _context4.next = 16;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getDoc)(userDocRef);
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.getDoc)(userDocRef);
 
             case 16:
               userDocSnap = _context4.sent;
@@ -54014,7 +53687,7 @@ var Membership = function Membership() {
               }
 
               _context4.next = 20;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.addDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.collection)(db, "pre-order"), {
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.addDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.collection)(db, "pre-order"), {
                 number: null,
                 account: account,
                 askInfo: null,
@@ -54039,7 +53712,7 @@ var Membership = function Membership() {
               console.log(docRef.id);
               console.log("check username:", username);
               _context4.next = 26;
-              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.updateDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.doc)(db, "pre-order", docRef.id), {
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.updateDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_13__.doc)(db, "pre-order", docRef.id), {
                 number: docRef.id
               });
 
@@ -54060,18 +53733,17 @@ var Membership = function Membership() {
     };
   }();
 
-  var shareNumRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(0);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_14__.Loading, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("main", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Loading_styled__WEBPACK_IMPORTED_MODULE_11__.Loading, {
     src: _static_picture_loading_gif__WEBPACK_IMPORTED_MODULE_7__,
     closeCheck: memberEmail
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.MembershipBox, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.MembershipBox, {
     closeCheck: memberEmail
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.Navigation, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.Navigation, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Link, {
     to: "/memberlist"
-  }, "\u91CD\u8FD4\u5217\u8868")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.MemberdataBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.MemberDataLeft, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.MemberHeadshot, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
+  }, "\u91CD\u8FD4\u5217\u8868")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.MemberdataBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.MemberDataLeft, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.MemberHeadshot, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
     className: "headshot",
     src: headshot ? headshot : null
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.BasicInfoBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.BasicInfoText, null, memberName ? memberName : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.BasicInfoText, null, title ? title : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.LinkBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("a", {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.BasicInfoBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.BasicInfoText, null, memberName ? memberName : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.BasicInfoText, null, title ? title : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.LinkBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("a", {
     href: fbLink ? fbLink : "",
     className: "link fb",
     target: "_blank"
@@ -54092,17 +53764,17 @@ var Membership = function Membership() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
     className: "icon blog",
     src: _static_picture_blog_png__WEBPACK_IMPORTED_MODULE_6__
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.IntroBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.Title, null, "\u95DC\u65BC\u5206\u4EAB\u8005"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.IntroBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.Title, null, "\u95DC\u65BC\u5206\u4EAB\u8005"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", {
     className: "intro-content-box"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", {
     className: "intro"
-  }, intro ? intro : ""))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.TagBox, null, tags.map(function (tag) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.Tag, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, tag["tag"]));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.ShareThemeBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.Title, null, "\u4F60\u53EF\u4EE5\u554F\u6211"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.ShareThemeInsideBox, null, shareList.map(function (share, index) {
+  }, intro ? intro : ""))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.TagBox, null, tags.map(function (tag) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.Tag, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, tag["tag"]));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.ShareThemeBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.Title, null, "\u4F60\u53EF\u4EE5\u554F\u6211"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.ShareThemeInsideBox, null, shareList.map(function (share, index) {
     if (share["title"] && share["content"]) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.SingleShare, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.ShareTitle, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("span", null, index + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, share["title"])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.ShareContent, null, share["content"]));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.SingleShare, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.ShareTitle, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("span", null, index + 1), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, share["title"])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.ShareContent, null, share["content"]));
     }
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.MemberDataRight, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.Askform, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.AskButton, {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.MemberDataRight, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.Askform, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.AskButton, {
     onClick: buildAsk
   }, "Ask me!\u7ACB\u5373\u63D0\u554F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", {
     className: "ask-rule-box"
@@ -54110,11 +53782,11 @@ var Membership = function Membership() {
     className: "ask-rule-title"
   }, "\u63D0\u554F\u524D\u8ACB\u9075\u5B88\uFF1A"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", {
     className: "ask-rule"
-  }, "\u4E0D\u5F97\u8A62\u554F\u500B\u4EBA\u96B1\u79C1\u4E4B\u554F\u984C\uFF0C\u82E5\u56E0\u63D0\u554F\u4E0D\u7576\u5206\u4EAB\u8005\u6709\u6B0A\u5A49\u8F49\u56DE\u8986\u3002\u8ACB\u76E1\u91CF\u8A62\u554F\u5206\u4EAB\u8005\u53EF\u5206\u4EAB\u9818\u57DF\uFF0C\u82E5\u56E0\u63D0\u554F\u8D85\u51FA\u5206\u4EAB\u7BC4\u570D\uFF0C\u53EF\u80FD\u5C0E\u81F4\u60A8\u6536\u4E0D\u5230\u826F\u597D\u56DE\u8986\u3002")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.ProjectBox, {
+  }, "\u4E0D\u5F97\u8A62\u554F\u500B\u4EBA\u96B1\u79C1\u4E4B\u554F\u984C\uFF0C\u82E5\u56E0\u63D0\u554F\u4E0D\u7576\u5206\u4EAB\u8005\u6709\u6B0A\u5A49\u8F49\u56DE\u8986\u3002\u8ACB\u76E1\u91CF\u8A62\u554F\u5206\u4EAB\u8005\u53EF\u5206\u4EAB\u9818\u57DF\uFF0C\u82E5\u56E0\u63D0\u554F\u8D85\u51FA\u5206\u4EAB\u7BC4\u570D\uFF0C\u53EF\u80FD\u5C0E\u81F4\u60A8\u6536\u4E0D\u5230\u826F\u597D\u56DE\u8986\u3002")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.ProjectBox, {
     closeCheck: closeRef.current
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.Title, null, "\u4E86\u89E3\u66F4\u591A"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_12__.ProjectInsideBox, null, projects.map(function (project) {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.Title, null, "\u4E86\u89E3\u66F4\u591A"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Membership_styled__WEBPACK_IMPORTED_MODULE_10__.ProjectInsideBox, null, projects.map(function (project) {
     if (project["type"] && project["link"] && project["content"]) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_membership_MembershipProjects__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_membership_MembershipProjects__WEBPACK_IMPORTED_MODULE_8__["default"], {
         project: project
       });
     } else {
@@ -54127,10 +53799,380 @@ var Membership = function Membership() {
 
 /***/ }),
 
-/***/ "./src/App.js":
-/*!********************!*\
-  !*** ./src/App.js ***!
-  \********************/
+/***/ "./src/page/Signin.js":
+/*!****************************!*\
+  !*** ./src/page/Signin.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../static/picture/logo2.png */ "./static/picture/logo2.png");
+/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
+/* harmony import */ var _component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../component/style/Signin.styled */ "./src/component/style/Signin.styled.js");
+/* harmony import */ var _component_style_Button_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../component/style/Button.styled */ "./src/component/style/Button.styled.js");
+/* harmony import */ var _src_Firebase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../src/Firebase */ "./src/Firebase.js");
+/* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! firebase/firestore */ "../../../../../node_modules/firebase/firestore/dist/index.esm.js");
+/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
+
+
+
+
+
+
+
+
+ //firebase modules
+
+
+
+
+
+var Signin = function Signin() {
+  //useContext取得共用state
+  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_5__.GetGlobalContext)(),
+      account = _GetGlobalContext.account,
+      setAccount = _GetGlobalContext.setAccount,
+      username = _GetGlobalContext.username,
+      setUsername = _GetGlobalContext.setUsername; //觸發styled-component css的state,用來控制顯示或隱藏表單
+
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("signup signup-hide"),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+      signupCSS = _useState2[0],
+      setSignupCSS = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("signin"),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
+      signinCSS = _useState4[0],
+      setSigninCSS = _useState4[1]; //放置註冊或登入的信箱及密碼的state
+
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("test@gmail.com"),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
+      email = _useState6[0],
+      setEmail = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)("testtest"),
+      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
+      password = _useState8[0],
+      setPassword = _useState8[1]; //偵測註冊表單的輸入資料
+
+
+  var passwordCheck;
+
+  var register = function register(e) {
+    if (e.target.id === "signup-username") {
+      var value = e.target.value;
+      setUsername(value);
+    } else if (e.target.id === "signup-email") {
+      var _value = e.target.value;
+      setEmail(_value);
+    } else if (e.target.id === "signup-password") {
+      var _value2 = e.target.value;
+      setPassword(_value2);
+    } else {
+      if (password.length < 6) {
+        alert("密碼少於六字，請確認");
+        return;
+      }
+
+      if (e.target.value === password) {
+        passwordCheck = true;
+      } else {
+        passwordCheck = false;
+      }
+    }
+  }; //偵測會員登入表單偵測
+
+
+  var signin = function signin(e) {
+    if (e.target.id === "signin-email") {
+      setEmail(e.target.value);
+    } else {
+      setPassword(e.target.value);
+    }
+  }; //當會員註冊成功，觸發以下 useEffect 建立個人資料
+
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+      _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
+      trigger = _useState10[0],
+      setTrigger = _useState10[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    if (trigger === "true") {
+      initialData();
+    } else {
+      return;
+    }
+  }, [account]);
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
+
+  var initialData = /*#__PURE__*/function () {
+    var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
+      var db;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_8__["default"]);
+              _context.next = 3;
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.setDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.doc)(db, "user", account), {
+                basic: {
+                  username: username,
+                  title: null,
+                  welcome: null,
+                  headshot: null
+                },
+                link: {
+                  fb: null,
+                  linkedin: null,
+                  blog: null
+                },
+                detail: {
+                  intro: null,
+                  keyword: [],
+                  share: [{
+                    num: 1,
+                    title: "",
+                    content: ""
+                  }, {
+                    num: 2,
+                    title: "",
+                    content: ""
+                  }, {
+                    num: 3,
+                    title: "",
+                    content: ""
+                  }],
+                  project: [{
+                    cover: null,
+                    type: null,
+                    content: null,
+                    link: null
+                  }, {
+                    cover: null,
+                    type: null,
+                    content: null,
+                    link: null
+                  }, {
+                    cover: null,
+                    type: null,
+                    content: null,
+                    link: null
+                  }]
+                },
+                user: {
+                  email: email,
+                  password: password
+                }
+              });
+
+            case 3:
+              navigate("/account");
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function initialData() {
+      return _ref.apply(this, arguments);
+    };
+  }(); //依照使用者按下的按鈕，觸發登入或註冊會員功能
+
+
+  var submit = function submit(e) {
+    e.preventDefault();
+
+    if (e.target.innerText === "註冊會員") {
+      if (passwordCheck === false) {
+        alert("密碼二次確認錯誤");
+        return;
+      } else {
+        if (!username || !email || !password) {
+          alert("註冊資料缺漏，請確認");
+          return;
+        }
+
+        if (email) {
+          var emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+          if (email.search(emailRule) == -1) {
+            alert("非有效Email");
+            return;
+          }
+        }
+      }
+
+      createAccount();
+    } else {
+      getSignin(email, password);
+    }
+  };
+
+  var createAccount = function createAccount() {
+    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_10__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_8__["default"]);
+    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_10__.createUserWithEmailAndPassword)(auth, email, password).then(function (userCredential) {
+      var user = userCredential.user;
+      setTrigger("true");
+      setAccount(user.uid);
+    })["catch"](function (error) {
+      var errorMessage = error.message;
+      alert(errorMessage);
+    });
+  };
+
+  var getSignin = function getSignin(email, password) {
+    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_10__.getAuth)(_src_Firebase__WEBPACK_IMPORTED_MODULE_8__["default"]);
+    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_10__.signInWithEmailAndPassword)(auth, email, password).then(function (userCredential) {
+      var user = userCredential.user;
+
+      if (user) {
+        var newId = JSON.parse(JSON.stringify(user.uid));
+        setAccount(newId);
+      }
+    })["catch"](function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    getUserdata();
+  }, [account]);
+
+  var getUserdata = /*#__PURE__*/function () {
+    var _ref2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2() {
+      var db, docRef, docSnap, userData;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getFirestore)(_src_Firebase__WEBPACK_IMPORTED_MODULE_8__["default"]);
+              docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.doc)(db, "user", account);
+              _context2.next = 4;
+              return (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_9__.getDoc)(docRef);
+
+            case 4:
+              docSnap = _context2.sent;
+
+              if (docSnap.exists()) {
+                userData = docSnap.data();
+                setUsername(userData["basic"]["username"]);
+                navigate("/account");
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function getUserdata() {
+      return _ref2.apply(this, arguments);
+    };
+  }(); //改變會員表單
+
+
+  var changeForm = function changeForm(e) {
+    if (e.target.innerText === "已經是會員? 點我登入") {
+      setSignupCSS("signup signup-hide");
+      setSigninCSS("signin");
+    } else {
+      setSignupCSS("signup");
+      setSigninCSS("signin signin-hide");
+    }
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.Main, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.SingupForm, {
+    hideControl: signupCSS
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.Logo, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
+    src: _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_4__
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.CTAtitle, null, " \u52A0\u5165\u5496\u5561\u5708\u5708 \u958B\u59CB\u8CC7\u8A0A\u4EA4\u6D41 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.InputLabel, {
+    htmlFor: "signup-username"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u4F7F\u7528\u8005\u540D\u7A31"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "signup-username",
+    required: true,
+    onChange: register
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.InputLabel, {
+    htmlFor: "signup-email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8A3B\u518A\u4FE1\u7BB1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "signup-email",
+    required: true,
+    onChange: register
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.InputLabel, {
+    htmlFor: "signup-password"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8A3B\u518A\u5BC6\u78BC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "signup-password",
+    required: true,
+    onChange: register
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.InputLabel, {
+    htmlFor: "signup-checkpsw"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u518D\u6B21\u78BA\u8A8D"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "signup-checkpsw",
+    required: true,
+    onChange: register
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Button_styled__WEBPACK_IMPORTED_MODULE_7__.Button, {
+    type: "submit",
+    onClick: submit
+  }, "\u8A3B\u518A\u6703\u54E1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.SignupChangeTrigger, {
+    onClick: changeForm
+  }, "\u5DF2\u7D93\u662F\u6703\u54E1? \u9EDE\u6211\u767B\u5165")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.SinginForm, {
+    hideControl: signinCSS
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.Logo, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("img", {
+    src: _static_picture_logo2_png__WEBPACK_IMPORTED_MODULE_4__
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.CTAtitle, null, " \u52A0\u5165\u5496\u5561\u5708\u5708 \u958B\u59CB\u8CC7\u8A0A\u4EA4\u6D41 "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.InputLabel, {
+    htmlFor: "signin-email"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8F38\u5165\u4FE1\u7BB1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "email",
+    id: "signin-email",
+    required: true,
+    onChange: signin,
+    value: email
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.InputLabel, {
+    htmlFor: "signin-password"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, " \u8F38\u5165\u5BC6\u78BC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "password",
+    id: "signin-password",
+    required: true,
+    onChange: signin,
+    value: password
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Button_styled__WEBPACK_IMPORTED_MODULE_7__.Button, {
+    type: "submit",
+    onClick: submit
+  }, "\u767B\u5165\u6703\u54E1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_component_style_Signin_styled__WEBPACK_IMPORTED_MODULE_6__.SignupChangeTrigger, {
+    onClick: changeForm
+  }, "\u9084\u4E0D\u662F\u6703\u54E1? \u9EDE\u6211\u8A3B\u518A")));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Signin);
+
+/***/ }),
+
+/***/ "./src/page/Thankyou.js":
+/*!******************************!*\
+  !*** ./src/page/Thankyou.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -54140,242 +54182,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
-/* harmony import */ var _component_Nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../component/Nav */ "./component/Nav.js");
-/* harmony import */ var _component_DownNav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../component/DownNav */ "./component/DownNav.js");
-/* harmony import */ var _page_Homepage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../page/Homepage */ "./page/Homepage.js");
-/* harmony import */ var _page_Account__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../page/Account */ "./page/Account.js");
-/* harmony import */ var _page_Memberlist__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../page/Memberlist */ "./page/Memberlist.js");
-/* harmony import */ var _page_membership__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../page/membership */ "./page/membership.js");
-/* harmony import */ var _page_Signin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../page/Signin */ "./page/Signin.js");
-/* harmony import */ var _page_Inbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../page/Inbox */ "./page/Inbox.js");
-/* harmony import */ var _page_Ask__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../page/Ask */ "./page/Ask.js");
-/* harmony import */ var _page_Thankyou__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../page/Thankyou */ "./page/Thankyou.js");
-/* harmony import */ var _Firebase__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Firebase */ "./src/Firebase.js");
-/* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! firebase/auth */ "../../../../../node_modules/firebase/auth/dist/index.esm.js");
-/* harmony import */ var firebase_database__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! firebase/database */ "../../../../../node_modules/firebase/database/dist/index.esm.js");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
-/* harmony import */ var _component_style_GlobalStyle__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../component/style/GlobalStyle */ "./component/style/GlobalStyle.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-// React module
-
- //components
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* harmony import */ var _static_picture_coffee2_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../static/picture/coffee2.png */ "./static/picture/coffee2.png");
+/* harmony import */ var _component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../component/style/Thankyou.styled */ "./src/component/style/Thankyou.styled.js");
 
 
 
 
 
-
-
-
-
-
-
- // import Firebase from "./Firebase";
-
-
-
- //usecontext
-
- //styled-component - Global style & Theme
-
-
-
-
-var App = function App() {
-  //styled-component 的 theme，全站共用主題色調
-  var theme = {
-    fontColor: {
-      lightBGfont: "rgb(70, 70, 70)",
-      yellowBGfont: "#ffffff"
-    },
-    bgColor: {
-      mainBGColor: "#F2F2F0",
-      yellowBGColor: "#F2B544"
-    },
-    decoColor: {
-      decoGreen: "#6FBFB1",
-      decoOrange: "#F27E63",
-      decoYellow: "#f6d393",
-      opacityWhite: "rgba(255, 255, 255, 0.75)"
-    }
-  }; //useContext 取得共用 state 或 ref
-
-  var _GetGlobalContext = (0,_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_14__.GetGlobalContext)(),
-      account = _GetGlobalContext.account,
-      setAccount = _GetGlobalContext.setAccount,
-      orderNum = _GetGlobalContext.orderNum,
-      unreadCount = _GetGlobalContext.unreadCount,
-      setunreadCount = _GetGlobalContext.setunreadCount,
-      askUnreadRef = _GetGlobalContext.askUnreadRef,
-      replyUnreadRef = _GetGlobalContext.replyUnreadRef,
-      setnotificationCSS = _GetGlobalContext.setnotificationCSS; //初始抓取 DOM 的 ref,inbox會使用此 ref 來完成聊天視窗維持最底部功能
-
-
-  var DOMref = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createRef(); //確認使用者的登入狀態
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_12__.getAuth)(_Firebase__WEBPACK_IMPORTED_MODULE_11__["default"]);
-    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_12__.onAuthStateChanged)(auth, function (user) {
-      if (user) {
-        setAccount(user.uid);
-        setnotificationCSS("menu-notification");
-      } else {
-        console.log("nobody");
-      }
-    });
-  }, []); //全站監聽新訂單，若有新訂單，另起聊天室資料表
-
-  var database = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.getDatabase)(_Firebase__WEBPACK_IMPORTED_MODULE_11__["default"]);
-  var orderRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, 'order/'), (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.orderByChild)("orderNum"), (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.equalTo)(orderNum));
-  (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.onValue)(orderRef, function (snapshot) {
-    var data = snapshot.val();
-
-    if (data) {
-      (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, 'inbox/' + orderNum), {
-        askAccount: data[orderNum]["askAccount"],
-        askName: data[orderNum]["askName"],
-        consultantAccount: data[orderNum]["consultantAccount"],
-        consultantName: data[orderNum]["consultantName"],
-        message: null,
-        askUnread: 2,
-        replyUnread: 0,
-        time: Date.now()
-      });
-      var msgListRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "inbox/".concat(orderNum, "/message"));
-      var newMsgRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.push)(msgListRef);
-      (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)(newMsgRef, {
-        from: "ask",
-        content: data[orderNum]["askInfo"],
-        time: Date.now(),
-        read: false
-      });
-      var newMsgRef2 = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.push)(msgListRef);
-      (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)(newMsgRef2, {
-        from: "ask",
-        content: data[orderNum]["askQuestion"],
-        time: Date.now(),
-        read: false
-      });
-    }
-  }); //全站監聽新訊息更新，更新資料庫的未讀資料，並且確認是否與使用者有關，若是，更新資料庫中使用者的總未讀訊息
-
-  var inboxRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, 'inbox/'));
-  (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.onValue)(inboxRef, function (snapshot) {
-    askUnreadRef.current = 0;
-    replyUnreadRef.current = 0;
-    var data = snapshot.val();
-    var keys = Object.keys(data);
-    keys.forEach(function (item) {
-      if (data[item]["consultantAccount"] && data[item]["consultantAccount"] === account) {
-        var msgKeys = Object.keys(data[item]["message"]);
-        msgKeys.forEach(function (single) {
-          if (data[item]["message"][single]["from"] === "ask" && data[item]["message"][single]["read"] === false) {
-            askUnreadRef.current = askUnreadRef.current + 1;
-          }
-        });
-      }
-
-      if (data[item]["askAccount"] && data[item]["askAccount"] === account) {
-        var _msgKeys = Object.keys(data[item]["message"]);
-
-        _msgKeys.forEach(function (single) {
-          if (data[item]["message"][single]["from"] === "reply" && data[item]["message"][single]["read"] === false) {
-            replyUnreadRef.current = replyUnreadRef.current + 1;
-          }
-        });
-      }
-    });
-    (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.set)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, 'user/' + account), {
-      unread: askUnreadRef.current + replyUnreadRef.current
-    });
-  }); //資料庫中的總未讀數更新後，更新至網站右上角的訊息通知
-
-  var checkUnreadRef = (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.query)((0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.ref)(database, "user/".concat(account)));
-  (0,firebase_database__WEBPACK_IMPORTED_MODULE_13__.onValue)(checkUnreadRef, function (snapshot) {
-    var data = snapshot.val();
-
-    if (data) {
-      if (unreadCount !== data["unread"]) {
-        setunreadCount(data["unread"]);
-      }
-    }
-
-    ;
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(styled_components__WEBPACK_IMPORTED_MODULE_16__.ThemeProvider, {
-    theme: theme
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_GlobalStyle__WEBPACK_IMPORTED_MODULE_15__.GlobalStyle, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.BrowserRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_Nav__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Homepage__WEBPACK_IMPORTED_MODULE_3__["default"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/account",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Account__WEBPACK_IMPORTED_MODULE_4__["default"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/memberlist",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Memberlist__WEBPACK_IMPORTED_MODULE_5__["default"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/membership/:id",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_membership__WEBPACK_IMPORTED_MODULE_6__["default"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/ask",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Ask__WEBPACK_IMPORTED_MODULE_9__["default"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/thankyou",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Thankyou__WEBPACK_IMPORTED_MODULE_10__["default"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/inbox/:id",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Inbox__WEBPACK_IMPORTED_MODULE_8__["default"], {
-      DOMref: DOMref
-    })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
-    path: "/signin",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_page_Signin__WEBPACK_IMPORTED_MODULE_7__["default"], null)
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_DownNav__WEBPACK_IMPORTED_MODULE_2__["default"], null))));
+var Thankyou = function Thankyou() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("main", {
+    className: "thankyou-main"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__.ThankyouBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: _static_picture_coffee2_png__WEBPACK_IMPORTED_MODULE_1__
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__.ThankyouRight, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "thankyou-content"
+  }, "\u611F\u8B1D\u4F60\u7684\u5496\u5561!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "\u8ACB\u7559\u610F\u8A0A\u606F\u5323\u7684\u56DE\u8986\u901A\u77E5"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_style_Thankyou_styled__WEBPACK_IMPORTED_MODULE_2__.ButtonBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    to: "/inbox/default",
+    className: "thankyou-inbox"
+  }, "\u524D\u5F80\u8A0A\u606F\u5323"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+    to: "/memberlist",
+    className: "thankyou-memberlist"
+  }, "\u7E7C\u7E8C\u627E\u804A\u5929\u5C0D\u8C61")))));
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
-
-/***/ }),
-
-/***/ "./src/Firebase.js":
-/*!*************************!*\
-  !*** ./src/Firebase.js ***!
-  \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "../../../../../node_modules/firebase/app/dist/index.esm.js");
-// Import the functions you need from the SDKs you need
- // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-var firebaseConfig = {
-  // apiKey: "AIzaSyDEaCmZAeEA0MptAaW1WMIHcupyDR-N5hI",
-  // authDomain: "coffee-chat-together.firebaseapp.com",
-  // projectId: "coffee-chat-together",
-  // storageBucket: "coffee-chat-together.appspot.com",
-  // messagingSenderId: "925098527252",
-  // appId: "1:925098527252:web:efbf5bf2103dc397b73501",
-  // measurementId: "G-7ZS37857FM",
-  // databaseURL:"https://coffee-chat-together-default-rtdb.asia-southeast1.firebasedatabase.app"
-  apiKey: "AIzaSyDEaCmZAeEA0MptAaW1WMIHcupyDR-N5hI",
-  authDomain: "coffee-chat-together.firebaseapp.com",
-  databaseURL: "https://coffee-chat-together-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "coffee-chat-together",
-  storageBucket: "coffee-chat-together.appspot.com",
-  messagingSenderId: "925098527252",
-  appId: "1:925098527252:web:efbf5bf2103dc397b73501",
-  measurementId: "G-7ZS37857FM"
-}; // Initialize Firebase
-
-var firebase = (0,firebase_app__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(firebaseConfig);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (firebase);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Thankyou);
 
 /***/ }),
 
@@ -55513,19 +55344,6 @@ exports.typeOf = typeOf;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js");
 }
-
-
-/***/ }),
-
-/***/ "./static/css/index.css":
-/*!******************************!*\
-  !*** ./static/css/index.css ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
 
 
 /***/ }),
@@ -93878,15 +93696,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./src/App.js");
-/* harmony import */ var _static_css_index_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../static/css/index.css */ "./static/css/index.css");
-/* harmony import */ var _component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../component/context/GlobalContext */ "./component/context/GlobalContext.js");
+/* harmony import */ var _src_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../src/component/context/GlobalContext */ "./src/component/context/GlobalContext.js");
 
 
+ // import "../static/css/index.css";
 
- //context
 
-
-var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(document.getElementById('root'));
+var root = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(document.getElementById("root"));
 root.render(
 /*#__PURE__*/
 // <React.StrictMode>
@@ -93895,9 +93711,9 @@ root.render(
 //     </div>
 //     <App />
 // </React.StrictMode>
-react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_4__.GlobalContextProvider, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_src_component_context_GlobalContext__WEBPACK_IMPORTED_MODULE_3__.GlobalContextProvider, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.bundle.745c099ebfdd0a80783b.js.map
+//# sourceMappingURL=main.bundle.f3e7833711e5b3495771.js.map
