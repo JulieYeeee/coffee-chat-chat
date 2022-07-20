@@ -87,8 +87,7 @@ export const InboxLeftList=styled.div`
 `
 
 export const SingleMsg=styled(Link)`
-                    
-   
+                  
     .msgUnread{
         font-weight: 700;
     }
@@ -98,6 +97,7 @@ export const SingleMsg=styled(Link)`
 
     }
 
+
 `
 
 export const SingleMsgP=styled.p`
@@ -106,7 +106,6 @@ export const SingleMsgP=styled.p`
     -webkit-filter: drop-shadow(1px 3px 3px rgba(145, 145, 145, 0.51));
     filter: drop-shadow(1px 3px 3px rgba(135, 135, 135, 0.508));
     background: ${({className})=>className && "#f6d393"};
-
 
 `
 
@@ -191,6 +190,7 @@ export const ReceiveMsg=styled.div`
         border-radius: 10px 10px 10px 0;
         max-width: 70%;
         word-break: break-all;
+
 
 
 `
